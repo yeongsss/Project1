@@ -33,6 +33,10 @@ public interface Select {
 	int CHECK_PRODUCT = 6;
 	int EXIT_PROGRAM = 0;
 	
+	static Scanner SCANNER() {
+        return SCANNER;
+        
+	}
 	
 	
 
