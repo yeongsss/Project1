@@ -1,5 +1,7 @@
 package project;
 
+import selectMenu.SelectMenu;
+
 public class MainTest {
 
 	public static void main(String[] args) throws Exception {
