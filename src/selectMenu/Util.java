@@ -39,7 +39,7 @@ public class Util {
 	
 	
 	static void jdbConnect() throws Exception {
-		//JDBC 공통 접속 메소드 실행
+		//JDBC 공통 접속 메소드 실행 (JDBC 템플릿은 spring 프레임워크에서 구현하는 기능이라 대체함)
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection connection = DriverManager.getConnection(""); // 접속할 DB주소, 아이디, 비밀번호 입력
 		Statement statement = connection.createStatement();
