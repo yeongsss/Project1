@@ -10,14 +10,16 @@ public class SelectMenu {
 			System.out.println(Select.MANAGER_MENU + " :관리자 메뉴");
 			System.out.println(Select.EXIT_PROGRAM + " :프로그램종료");
 			int choice = Select.SCANNER.nextInt();
-
+			//메인 메뉴선택 분기
 			switch (choice) {
 			case Select.MEMBER_MENU:
+				//회원 메뉴
 				new Menu().member();
 				
 
 				break;
 			case Select.MANAGER_MENU:
+				//관리자 메뉴
 				new Menu().manager();
 
 				break;
