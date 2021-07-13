@@ -37,7 +37,9 @@ public class Util {
 	
 	static Scanner scanner = new Scanner(System.in);
 	
+	
 	static void jdbConnect() throws Exception {
+		//JDBC 공통 접속 메소드 실행
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection connection = DriverManager.getConnection(""); // 접속할 DB주소, 아이디, 비밀번호 입력
 		Statement statement = connection.createStatement();
