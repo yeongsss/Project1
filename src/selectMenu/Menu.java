@@ -1,4 +1,4 @@
-package project;
+package selectMenu;
 
 public class Menu {
 
