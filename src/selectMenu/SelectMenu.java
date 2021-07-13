@@ -6,24 +6,24 @@ public class SelectMenu {
 
 	public void Start() throws Exception {
 		menu: while (true) {
-			System.out.println(Select.MEMBER_MENU + " :회원 메뉴");
-			System.out.println(Select.MANAGER_MENU + " :관리자 메뉴");
-			System.out.println(Select.EXIT_PROGRAM + " :프로그램종료");
-			int choice = Select.SCANNER.nextInt();
+			System.out.println(Util.MEMBER_MENU + " :회원 메뉴");
+			System.out.println(Util.MANAGER_MENU + " :관리자 메뉴");
+			System.out.println(Util.EXIT_PROGRAM + " :프로그램종료");
+			int choice = Util.scanner.nextInt();
 			//메인 메뉴선택 분기
 			switch (choice) {
-			case Select.MEMBER_MENU:
+			case Util.MEMBER_MENU:
 				//회원 메뉴
 				new Menu().member();
 				
 
 				break;
-			case Select.MANAGER_MENU:
+			case Util.MANAGER_MENU:
 				//관리자 메뉴
 				new Menu().manager();
 
 				break;
-			case Select.EXIT_PROGRAM:
+			case Util.EXIT_PROGRAM:
 				System.out.println("프로그램이 종료되었습니다.");
 
 				break menu;
