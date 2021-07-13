@@ -1,13 +1,13 @@
 package project;
 
 
+
 public class SelectMenu {
 
 	public void Start() throws Exception {
 		menu: while (true) {
 			System.out.println(Select.MEMBER_MENU + " :회원 메뉴");
 			System.out.println(Select.MANAGER_MENU + " :관리자 메뉴");
-			
 			System.out.println(Select.EXIT_PROGRAM + " :프로그램종료");
 			int choice = Select.SCANNER.nextInt();
 
