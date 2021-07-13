@@ -8,7 +8,7 @@ public interface Select {
 	int MANAGER_MENU = 2;
 	int LOGIN = 1;
 	int JOIN_MEMBERSHIP = 2;
-	int PAYMENT = 3;
+	int PAYMENT = 1;
 	int REGISTER_PRODUCT = 1;
 	int PRODUCT_MANAGEMENT = 1;
 	int PRODUCT_MODIFICATION = 2;
