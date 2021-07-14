@@ -40,4 +40,11 @@ public class MemberDAO {
 		return jdbc.update(sql, param);
 
 	}
+	
+	public static List<Map<String,Object>> memberSearch() {
+		String sql = "SELECT * FROM MEMBER";
+		
+		return jdbc.selectList(sql);
+		
+	}
 }

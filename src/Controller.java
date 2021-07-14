@@ -41,7 +41,7 @@ public class Controller {
 
 	private int home() {
 		System.out.println("--------------------------------");
-		System.out.println("1.회원가입\t2.로그인\t0.프로그램 종료");
+		System.out.println("1.회원가입\t2.조회\t0.프로그램 종료");
 		System.out.println("--------------------------------");
 		System.out.print("번호 입력>");
 
@@ -50,7 +50,7 @@ public class Controller {
 		switch (input) {
 		case 1: return View.JOIN;
 		case 2:
-			return View.purchase;
+			return View.Search;
 		case 0:
 			System.out.println("프로그램이 종료되었습니다.");
 			System.exit(0);

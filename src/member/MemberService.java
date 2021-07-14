@@ -1,8 +1,8 @@
 package member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import selectMenu.Util;
 import selectMenu.View;
 
@@ -57,12 +57,21 @@ public class MemberService {
 		int result = MemberDAO.insertMember(param);
 
 		if (0 < result) {
-			System.out.println("회원가입 성공");
+			System.out.println("회원가입에 성공했습니다.");
 		} else {
-			System.out.println("회원가입 실패");
+			System.out.println("회원가입에 실패했습니다.");
 		}
 
 		return View.HOME;
 	}
-
+	
+	public int search() {
+		System.out.println("=========== 회원정보 조회 =============");
+		
+		List<Map<String,Object>> result = MemberDAO.memberSearch();
+		
+		
+		return View.HOME;
+		
+	}
 }
