@@ -1,6 +1,6 @@
 import java.util.Map;
 
-import purchase.PurchaseService;
+import member.MemberService;
 import selectMenu.Util;
 import selectMenu.View;
 
@@ -18,7 +18,7 @@ public class Controller {
 
 	public static Map<String, Object> loginUser;
 	
-	private PurchaseService purchaseService = PurchaseService.getInstance();
+	private MemberService memberService = MemberService.getInstance();
 
 	private void start() {
 		int view = View.HOME;
@@ -28,8 +28,8 @@ public class Controller {
 			case View.HOME:
 				view = home();
 				break;
-//					case View.LOGIN: view = userService.login(); break;
-					case View.purchase: view = purchaseService.purchase(); break;
+					case View.JOIN: view = memberService.join(); break;
+//					case View.purchase: view = purchaseService.purchase(); break;
 //					case View.BOARD_LIST: view = boardService.boardList(); break;
 					
 					//조회, 등록, 수정, 삭제를 구현해주세요.
@@ -41,14 +41,14 @@ public class Controller {
 
 	private int home() {
 		System.out.println("--------------------------------");
-		System.out.println("1.로그인\t2.상품등록\t0.프로그램 종료");
+		System.out.println("1.회원가입\t2.로그인\t0.프로그램 종료");
 		System.out.println("--------------------------------");
 		System.out.print("번호 입력>");
 
 		int input = Util.nextInt();
 
 		switch (input) {
-//				case 1: return View.LOGIN;
+		case 1: return View.JOIN;
 		case 2:
 			return View.purchase;
 		case 0:
