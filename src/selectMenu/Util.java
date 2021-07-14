@@ -1,8 +1,5 @@
 package selectMenu;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.Scanner;
 
 public class Util {
@@ -34,18 +31,15 @@ public class Util {
 	final static int PERIOD_YEAR = 6;
 	final static int CHECK_PRODUCT = 6;
 	final static int EXIT_PROGRAM = 0;
-	
-	static Scanner scanner = new Scanner(System.in);
-	
-	
-	public void jdbConnect() throws Exception {
-		//JDBC 공통 접속 메소드 실행 (JDBC 템플릿은 spring 프레임워크에서 구현하는 기능이라 대체함)
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection connection = DriverManager.getConnection(""); // 접속할 DB주소, 아이디, 비밀번호 입력
-		Statement statement = connection.createStatement();
+
+	private static Scanner sc = new Scanner(System.in);
+
+	public static String nextLine() {
+		return sc.nextLine();
 	}
-	
-	
-	
+
+	public static int nextInt() {
+		return Integer.parseInt(sc.nextLine());
+	}
 
 }

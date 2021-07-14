@@ -9,7 +9,7 @@ public class SelectMenu {
 			System.out.println(Util.MEMBER_MENU + " :회원 메뉴");
 			System.out.println(Util.MANAGER_MENU + " :관리자 메뉴");
 			System.out.println(Util.EXIT_PROGRAM + " :프로그램종료");
-			int choice = Util.scanner.nextInt();
+			int choice = Util.nextInt();
 			//메인 메뉴선택 분기
 			switch (choice) {
 			case Util.MEMBER_MENU:
