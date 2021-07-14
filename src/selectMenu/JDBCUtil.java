@@ -31,8 +31,8 @@ public class JDBCUtil {
 	}
 
 	// 데이터베이스 접속 정보
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String user = "projectTest";
+	String url = "jdbc:oracle:thin:@192.168.46.46:1521:xe";
+	String user = "PJ01";
 	String password = "java";
 
 	Connection con = null;
