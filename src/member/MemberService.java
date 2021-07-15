@@ -1,8 +1,11 @@
 package member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import controller.Controller;
 import selectMenu.Util;
 import selectMenu.View;
 
@@ -64,14 +67,57 @@ public class MemberService {
 
 		return View.HOME;
 	}
-	
-	public int search() {
-		System.out.println("=========== 회원정보 조회 =============");
+
+	public int login() {
+		System.out.println("============== 로그인 ===============");
+		System.out.print("아이디>");
+		String userId = Util.nextLine();
+		System.out.print("비밀번호>");
+		String password = Util.nextLine();
 		
-		List<Map<String,Object>> result = MemberDAO.memberSearch();
+		Map<String, Object> user = MemberDAO.memberselect(userId, password);
+		
+		if(user == null){
+			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+		}else{
+			System.out.println("로그인 성공");
+			Controller.loginUser = user; //접속한 유저를 확인하기 위한 변수
+			
+			
+			
 		
 		
-		return View.HOME;
+		return myPage(); //로그인 성공하면, 마이페이지로 이동.
 		
 	}
+		return View.HOME; //로그인 실패시, 다시 메인화면으로 이동함
+}
+	//로그인 성공 후, 마이페이지 접속 뷰
+	private int myPage() {
+		System.out.println("--------------------------------------------");
+		System.out.println("1.내정보 조회\t2.내정보 수정\t3.주문내역\t0.로그아웃");
+		System.out.println("---------------------------------------------");
+		System.out.print("번호 입력>");
+		
+		int input = Util.nextInt();
+
+		switch (input) {
+		case 1: return myPage();
+		case 2: return myPage();
+		case 3: return myPage();
+		case 0:
+			System.out.println("프로그램이 종료되었습니다.");
+			System.exit(0);
+			break;
+			
+		
+			
+	
+		
+		
+		
+		
+	}
+		return myPage(); //잘못된 명령 입력시, 다시 마이페이지로 돌아옴
+}
 }

@@ -40,11 +40,29 @@ public class MemberDAO {
 		return jdbc.update(sql, param);
 
 	}
-	
-	public static List<Map<String,Object>> memberSearch() {
-		String sql = "SELECT * FROM MEMBER";
+	// 로그인 메소드
+	public static Map<String, Object> memberselect(String memberId, String memberPassword) {
+		String sql = "SELECT MEM_ID, MEM_PW, MEM_NAME"
+				+ " FROM MEMBER"
+				+ " WHERE MEM_ID = ?"
+				+ " AND MEM_PW = ?";
+		List<Object> param = new ArrayList<>();
+		param.add(memberId);
+		param.add(memberPassword);
 		
-		return jdbc.selectList(sql);
+		return jdbc.selectOne(sql, param);
 		
 	}
+	//회원정보 조회 메소드
+	
+	public static List<Map<String,Object>> memberInformation(String user) {
+		String sql = "SELECT * FROM MEMBER"
+				+ "WHERE MEM_ID = ?";
+		List<Object> param = new ArrayList<>();
+		param.add(user);
+		
+		
+		return jdbc.selectList(sql);
+	}
+	
 }
