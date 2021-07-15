@@ -39,7 +39,7 @@ public class MemberService {
 		System.out.print("상세주소>");
 		String memberAdd2 = Util.nextLine();
 		String author = "0";
-
+		
 		// 아이디 중복 확인 생략
 		// 비밀번호 확인 생략
 		// 정규표현식(유효성 검사) 생략
