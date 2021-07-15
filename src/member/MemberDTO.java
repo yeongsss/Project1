@@ -3,15 +3,15 @@ package member;
 import java.util.Objects;
 
 public class MemberDTO {
-	private String memberId; //아이디
-	private String memberPassword; //비밀번호
-	private String memberName; //이름
-	private String memberBirth; //생년월일
-	private String memberHp; //전화번호
-	private String memberAdd1; //기본주소
-	private String memberAdd2; //상세주소
-	private String AUTHOR; //일반회원, 권리자권한 여부
-	
+	private String memberId; // 아이디
+	private String memberPassword; // 비밀번호
+	private String memberName; // 이름
+	private String memberBirth; // 생년월일
+	private String memberHp; // 전화번호
+	private String memberAdd1; // 기본주소
+	private String memberAdd2; // 상세주소
+	private String AUTHOR; // 일반회원, 권리자권한 여부
+
 	public MemberDTO(String memberId, String memberPassword, String memberName, String memberBirth, String memberHp,
 			String memberAdd1, String memberAdd2, String author) {
 		this.memberId = memberId;
@@ -22,6 +22,9 @@ public class MemberDTO {
 		this.memberAdd1 = memberAdd1;
 		this.memberAdd2 = memberAdd2;
 		AUTHOR = author;
+	}
+	
+	public MemberDTO() {
 	}
 
 	public String getMemberId() {
@@ -111,10 +114,9 @@ public class MemberDTO {
 
 	@Override
 	public String toString() {
-		return "MemberDTO [memberId=" + memberId + ", memberPassword=" + memberPassword + ", memberName=" + memberName
-				+ ", memberBirth=" + memberBirth + ", memberHp=" + memberHp + ", memberAdd1=" + memberAdd1
-				+ ", memberAdd2=" + memberAdd2 + ", AUTHOR=" + AUTHOR + "]";
+		return "MemberDTO [회원 아이디=" + memberId + ", memberPassword=" + memberPassword + ", 회원 이름=" + memberName
+				+ ", 생년월일=" + memberBirth + ", 전화번호=" + memberHp + ", 기본주소=" + memberAdd1
+				+ ", 상세주소=" + memberAdd2 + ", 회원등급=" + AUTHOR + "]";
 	}
-	
 
 }

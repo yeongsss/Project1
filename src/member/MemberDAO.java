@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import selectMenu.JDBCUtil;
+import selectMenu.Util;
 
 public class MemberDAO {
 	// 싱글톤 패턴
@@ -21,7 +22,7 @@ public class MemberDAO {
 		return instance;
 	}
 
-	private static JDBCUtil jdbc = JDBCUtil.getInstance();
+	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 
 	// 회원가입 메소드
 	public static int insertMember(Map<String, Object> p) {
@@ -37,32 +38,38 @@ public class MemberDAO {
 		param.add(p.get("MEM_ADD2"));
 		param.add(p.get("AUTHOR"));
 
-		return jdbc.update(sql, param);
+		return jdbcUtil.update(sql, param);
 
 	}
+
 	// 로그인 메소드
 	public static Map<String, Object> memberselect(String memberId, String memberPassword) {
-		String sql = "SELECT MEM_ID, MEM_PW, MEM_NAME"
-				+ " FROM MEMBER"
-				+ " WHERE MEM_ID = ?"
-				+ " AND MEM_PW = ?";
+		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(memberId);
 		param.add(memberPassword);
-		
-		return jdbc.selectOne(sql, param);
-		
+
+		return jdbcUtil.selectOne(sql, param);
+
 	}
-	//회원정보 조회 메소드
-	
-	public static List<Map<String,Object>> memberInformation(String user) {
-		String sql = "SELECT * FROM MEMBER"
-				+ "WHERE MEM_ID = ?";
+	// 회원정보 조회 메소드
+
+	public static MemberDTO getMemberInfo(Object object) {
+		MemberDTO memberInfo = new MemberDTO();
+		String sql = "SELECT * FROM MEMBER" + " WHERE" + " MEM_ID= ?";
 		List<Object> param = new ArrayList<>();
-		param.add(user);
-		
-		
-		return jdbc.selectList(sql);
+		param.add(object);
+		Map<String, Object> resMap = jdbcUtil.selectOne(sql, param);
+		memberInfo.setMemberId((String) resMap.get("MEM_ID"));
+		memberInfo.setMemberName((String) resMap.get("MEM_NAME"));
+		memberInfo.setMemberBirth((String) resMap.get("MEM_BIRTH"));
+		memberInfo.setMemberHp((String) resMap.get("MEM_HP"));
+
+		return memberInfo;
 	}
 	
+	
+	
+	
+
 }
