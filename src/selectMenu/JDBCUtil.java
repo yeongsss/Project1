@@ -172,7 +172,7 @@ public class JDBCUtil {
 				} catch (Exception e) {
 				}
 			if (con != null)
-				try {
+				try { 
 					con.close();
 				} catch (Exception e) {
 				}
