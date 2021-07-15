@@ -1,8 +1,11 @@
 package member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import controller.Controller;
 import selectMenu.Util;
 import selectMenu.View;
 
@@ -57,12 +60,80 @@ public class MemberService {
 		int result = MemberDAO.insertMember(param);
 
 		if (0 < result) {
-			System.out.println("회원가입 성공");
+			System.out.println("회원가입에 성공했습니다.");
 		} else {
-			System.out.println("회원가입 실패");
+			System.out.println("회원가입에 실패했습니다.");
 		}
 
 		return View.HOME;
 	}
 
+	public int login() {
+		System.out.println("============== 로그인 ===============");
+		System.out.print("아이디>");
+		String userId = Util.nextLine();
+		System.out.print("비밀번호>");
+		String password = Util.nextLine();
+
+		Map<String, Object> user = MemberDAO.memberselect(userId, password);
+
+		if (user == null) {
+			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+		} else {
+			System.out.println("로그인 성공");
+			Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
+
+			return myPage(); // 로그인 성공하면, 마이페이지로 이동.
+
+		}
+		return View.HOME; // 로그인 실패시, 다시 메인화면으로 이동함
+	}
+
+	// 로그인 성공 후, 마이페이지 접속 뷰
+	private int myPage() {
+		System.out.println("--------------------------------------------");
+		System.out.println("1.내정보 조회\t2.내정보 수정\t3.주문내역\t0.로그아웃");
+		System.out.println("---------------------------------------------");
+		System.out.print("번호 입력>");
+		int input = Util.nextInt();
+		switch (input) {
+		case 1:
+			System.out.print("정보를 조회 합니다.");
+			System.out.println(MemberDAO.getMemberInfo(Controller.loginUser.get("MEM_ID")));
+			return myPage(); //로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
+		case 2:
+			System.out.println("수정할 정보를 선택하세요.");
+			return editInfo();
+		case 3:
+			return myPage();
+		case 0:
+			System.out.println("프로그램이 종료되었습니다.");
+			System.exit(0);
+			break;
+
+		}
+		return myPage(); // 잘못된 명령 입력시, 다시 마이페이지로 돌아옴
+	}
+
+	private int editInfo() {
+		System.out.println("--------------변경할 내용을 선택해 주세요------------");
+		System.out.println("1.비밀번호\t2.전화번호\t3.일반주소\t4.상세주소\t0.이전메뉴");
+		System.out.println("---------------------------------------------");
+		System.out.print("번호 입력>");
+		int input = Util.nextInt();
+		switch (input) {
+		case 1:
+			return myPage();
+		case 2:
+			return editInfo();
+		case 3:
+			return myPage();
+		case 0:
+			System.out.println("프로그램이 종료되었습니다.");
+			System.exit(0);
+			break;
+
+		}
+		return myPage();
+	}
 }
