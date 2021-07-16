@@ -3,21 +3,21 @@ package qnaBoard;
 public class QnABoardDTO {
 		private int boardNo;
 		private String memberId;
-		private String qnaDate;
+		private int qnaDate;
 		private String qnaTitle;
 		private String qnaContent;
 		
 		public QnABoardDTO() {
 		}
 
-		public QnABoardDTO( String memberId, String qnaDate, String qnaTitle, String qnaContent) {
+		public QnABoardDTO( String memberId, int qnaDate, String qnaTitle, String qnaContent) {
 			super();
 			this.memberId = memberId;
 			this.qnaDate = qnaDate;
 			this.qnaTitle = qnaTitle;
 			this.qnaContent = qnaContent;
 		}
-		public QnABoardDTO(int boardNo, String memberId, String qnaDate, String qnaTitle, String qnaContent) {
+		public QnABoardDTO(int boardNo, String memberId, int qnaDate, String qnaTitle, String qnaContent) {
 			super();
 			this.boardNo = boardNo;
 			this.memberId = memberId;
@@ -42,11 +42,11 @@ public class QnABoardDTO {
 			this.memberId = memberId;
 		}
 
-		public String getQnaDate() {
+		public int getQnaDate() {
 			return qnaDate;
 		}
 
-		public void setQnaDate(String qnaDate) {
+		public void setQnaDate(int qnaDate) {
 			this.qnaDate = qnaDate;
 		}
 
@@ -79,7 +79,7 @@ public class QnABoardDTO {
 			result = prime * result + boardNo;
 			result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 			result = prime * result + ((qnaContent == null) ? 0 : qnaContent.hashCode());
-			result = prime * result + ((qnaDate == null) ? 0 : qnaDate.hashCode());
+			result = prime * result + qnaDate;
 			result = prime * result + ((qnaTitle == null) ? 0 : qnaTitle.hashCode());
 			return result;
 		}
@@ -105,10 +105,7 @@ public class QnABoardDTO {
 					return false;
 			} else if (!qnaContent.equals(other.qnaContent))
 				return false;
-			if (qnaDate == null) {
-				if (other.qnaDate != null)
-					return false;
-			} else if (!qnaDate.equals(other.qnaDate))
+			if (qnaDate != other.qnaDate)
 				return false;
 			if (qnaTitle == null) {
 				if (other.qnaTitle != null)
@@ -117,6 +114,7 @@ public class QnABoardDTO {
 				return false;
 			return true;
 		}
+
 		
 		
 }
