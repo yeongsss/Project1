@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import product.ProductDAO;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 import selectMenu.View;
@@ -106,6 +107,11 @@ public class MemberService {
 			System.out.println("수정할 정보를 선택하세요.");
 			return editInfo();
 		case 3:
+			List<Map<String, Object>> list = MemberDAO.getOrderList(Controller.loginUser.get("MEM_ID"));
+			for (Map<String, Object> map : list) {
+				System.out.printf("%s\t\t%s\t%s\n", map.get("ORD_NO"), map.get("ORD_DATE").toString().split("")[0], map.get("PAY_PRICE"));
+
+			}
 			return myPage();
 		case 0:
 			System.out.println("로그아웃 되었습니다.");
