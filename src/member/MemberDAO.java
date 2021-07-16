@@ -22,10 +22,10 @@ public class MemberDAO {
 		return instance;
 	}
 
-	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
+	private JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 
 	// 회원가입 메소드
-	public static int insertMember(Map<String, Object> p) {
+	public int insertMember(Map<String, Object> p) {
 		String sql = "INSERT INTO MEMBER VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		List<Object> param = new ArrayList<>();
@@ -43,7 +43,7 @@ public class MemberDAO {
 	}
 
 	// 로그인 메소드
-	public static Map<String, Object> memberselect(String memberId, String memberPassword) {
+	public Map<String, Object> memberselect(String memberId, String memberPassword) {
 		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(memberId);
@@ -54,7 +54,7 @@ public class MemberDAO {
 	}
 	// 회원정보 조회 메소드
 
-	public static MemberDTO getMemberInfo(Object object) {
+	public MemberDTO getMemberInfo(Object object) {
 		MemberDTO memberInfo = new MemberDTO();
 		String sql = "SELECT * FROM MEMBER" + " WHERE" + " MEM_ID= ?";
 		List<Object> param = new ArrayList<>();

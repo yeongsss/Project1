@@ -94,7 +94,6 @@ public class JDBCUtil {
 
 	public Map<String, Object> selectOne(String sql, List<Object> param) {
 		Map<String, Object> row = null;
-
 		try {
 			con = DriverManager.getConnection(url, user, password);
 
@@ -109,7 +108,7 @@ public class JDBCUtil {
 			ResultSetMetaData md = rs.getMetaData(); // 메타데이터 : 데이터에 대한 데이터
 
 			int columnCount = md.getColumnCount(); // 컬럼 수
-
+			
 			while (rs.next()) {
 				row = new HashMap<>();
 				for (int i = 1; i <= columnCount; i++) {

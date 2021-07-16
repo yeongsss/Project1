@@ -1,14 +1,18 @@
 package orderSheet;
 
-import selectMenu.Util;
+import java.util.HashMap;
+import java.util.Map;
+
+import selectMenu.ScanUtil;
 
 public class OrderTest {
-
-		
 	public static void main(String[] args) {
-		System.out.println("아이디 입력");
-
-		System.out.println(OrderSheetService.getOrderSheetinfo(Util.nextLine()));
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("MEM_ID", "onyx01");
+		OrderSheetDAO osDAO = OrderSheetDAO.getInstance();
+		
+		System.out.println(osDAO.deleteOrderSheetInfo(param));
+		
 	}
 
 }
