@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import orderSheet.OrderSheetDAO;
 import orderSheet.OrderSheetService;
-import selectMenu.Util;
+import selectMenu.ScanUtil;
 
 public class OrderSheetService {
 //	public static void main (String[] args) {

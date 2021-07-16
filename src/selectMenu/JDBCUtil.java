@@ -99,7 +99,7 @@ public class JDBCUtil {
 			con = DriverManager.getConnection(url, user, password);
 
 			ps = con.prepareStatement(sql);
-			System.out.println("fetchSize : " + ps.getFetchSize());
+//			System.out.println("fetchSize : " + ps.getFetchSize());
 			for (int i = 0; i < param.size(); i++) {
 				ps.setObject(i + 1, param.get(i));
 			}
@@ -172,7 +172,7 @@ public class JDBCUtil {
 				} catch (Exception e) {
 				}
 			if (con != null)
-				try {
+				try { 
 					con.close();
 				} catch (Exception e) {
 				}

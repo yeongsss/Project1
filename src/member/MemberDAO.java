@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import selectMenu.JDBCUtil;
-import selectMenu.Util;
+import selectMenu.ScanUtil;
 
 public class MemberDAO {
 	// 싱글톤 패턴
