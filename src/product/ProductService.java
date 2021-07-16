@@ -1,5 +1,6 @@
 package product;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import selectMenu.ScanUtil;
 
 public class ProductService {
 	String category = "";
-
+	//싱글톤
 	private static ProductService instance;
 
 	private ProductService() {
@@ -101,4 +102,41 @@ public class ProductService {
 		return productList();
 
 	}
+	
+	//상품 등록
+	public static int addProduct() {
+		System.out.println("=========== 상품등록 =============");
+		System.out.print("상품코드>");
+		String productId = ScanUtil.nextLine();
+		System.out.print("상품명>");
+		String productName = ScanUtil.nextLine();
+		System.out.print("분류코드>");
+		String classificationCode = ScanUtil.nextLine();
+		System.out.print("분류명>");
+		String classificationName = ScanUtil.nextLine();
+		System.out.print("판매가격>");
+		String price = ScanUtil.nextLine();
+		String inventoryQuantity = "0"; // 재고는 0으로 시작함
+		System.out.print("매입가격>");
+		String cost = ScanUtil.nextLine();
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("PROD_ID", productId);
+		param.put("PROD_NAME", productName);
+		param.put("CL_ID", classificationCode);
+		param.put("CL_NAME", classificationName);
+		param.put("PRICE", price);
+		param.put("INVNTRY_QTY", inventoryQuantity);
+		param.put("PU_COST", cost);
+
+		int result = ProductDAO.insertProduct(param);
+
+		if (0 < result) {
+			System.out.println("상품등록에 성공했습니다.");
+		} else {
+			System.out.println("상품등록에 실패했습니다.");
+		}
+		return addProduct();
+	}
+
 }
