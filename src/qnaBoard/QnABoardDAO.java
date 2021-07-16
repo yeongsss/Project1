@@ -44,17 +44,24 @@ public class QnABoardDAO {
 			list.add(memberId);
 			
 			Map<String,Object> map = jdbc.selectOne(sql, list);
-			boardDTO.setMemberId((String)map.get("BOARD_NO"));
 			boardDTO.setMemberId((String)map.get("MEM_ID"));
-			boardDTO.setMemberId((String)map.get("Q_DATE"));
-			boardDTO.setMemberId((String)map.get("Q_TITLE"));
-			boardDTO.setMemberId((String)map.get("Q_CONTENT"));
-			
+
 			return boardDTO;
+			
+			 
+		}
+	
+		public List<Map<String, Object>> allQnaBoard() {
+			QnABoardDTO boardDTO = new QnABoardDTO();
+			String sql = "SELECT * FROM QNA_BOARD";
+			
+			List<Map<String, Object>>  list = jdbc.selectList(sql);
+			
+			return list;
 			
 			
 		}
-	
+		
 
 }
 

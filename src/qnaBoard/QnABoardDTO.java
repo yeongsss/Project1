@@ -68,8 +68,8 @@ public class QnABoardDTO {
 
 		@Override
 		public String toString() {
-			return "QnABoardDTO [boardNo=" + boardNo + ", memberId=" + memberId + ", qnaDate=" + qnaDate + ", qnaTitle="
-					+ qnaTitle + ", qnaContent=" + qnaContent + "]";
+			return "QnA게시판 [ 글번호 : " + boardNo + "\t 아이디 : " + memberId + "\t 작성일 : " + qnaDate + "] \n 제목 : "
+					+ qnaTitle + "\n 내용 : " + qnaContent ;
 		}
 
 		@Override

@@ -3,7 +3,7 @@ package product;
 import java.util.List;
 import java.util.Map;
 
-import selectMenu.Util;
+import selectMenu.ScanUtil;
 
 public class ProductService {
 	
@@ -27,7 +27,7 @@ public class ProductService {
 		System.out.println("=====대분류를 선택해 주세요======");
 		System.out.println("1.TV/t2.냉장고/t3.건조기/t4.컴퓨터/t5.카메라");
 		System.out.println("6.청소기/t7.휴대폰/t8.생활/t주방용품/t9.잡화");
-		int input = Util.nextInt();
+		int input = ScanUtil.nextInt();
 		
 		switch (input) {
 		case 1:  break;
