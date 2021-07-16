@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
-import selectMenu.Util;
+import selectMenu.ScanUtil;
 import selectMenu.View;
 
 public class MemberService {
@@ -28,19 +28,19 @@ public class MemberService {
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
 		System.out.print("아이디>");
-		String memberId = Util.nextLine();
+		String memberId = ScanUtil.nextLine();
 		System.out.print("비밀번호>");
-		String memberPassword = Util.nextLine();
+		String memberPassword = ScanUtil.nextLine();
 		System.out.print("이름>");
-		String memberName = Util.nextLine();
+		String memberName = ScanUtil.nextLine();
 		System.out.print("생년월일>");
-		String memberBirth = Util.nextLine();
+		String memberBirth = ScanUtil.nextLine();
 		System.out.print("전화번호>");
-		String memberHp = Util.nextLine();
+		String memberHp = ScanUtil.nextLine();
 		System.out.print("기본주소>");
-		String memberAdd1 = Util.nextLine();
+		String memberAdd1 = ScanUtil.nextLine();
 		System.out.print("상세주소>");
-		String memberAdd2 = Util.nextLine();
+		String memberAdd2 = ScanUtil.nextLine();
 		String author = "0";
 		
 		// 아이디 중복 확인 생략
@@ -71,9 +71,9 @@ public class MemberService {
 	public int login() {
 		System.out.println("============== 로그인 ===============");
 		System.out.print("아이디>");
-		String userId = Util.nextLine();
+		String userId = ScanUtil.nextLine();
 		System.out.print("비밀번호>");
-		String password = Util.nextLine();
+		String password = ScanUtil.nextLine();
 
 		Map<String, Object> user = MemberDAO.memberselect(userId, password);
 
@@ -95,7 +95,7 @@ public class MemberService {
 		System.out.println("1.내정보 조회\t2.내정보 수정\t3.주문내역\t0.로그아웃");
 		System.out.println("---------------------------------------------");
 		System.out.print("번호 입력>");
-		int input = Util.nextInt();
+		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
 			System.out.print("정보를 조회 합니다.");
@@ -120,7 +120,7 @@ public class MemberService {
 		System.out.println("1.비밀번호\t2.전화번호\t3.일반주소\t4.상세주소\t0.이전메뉴");
 		System.out.println("---------------------------------------------");
 		System.out.print("번호 입력>");
-		int input = Util.nextInt();
+		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
 			return myPage();

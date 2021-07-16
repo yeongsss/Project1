@@ -3,7 +3,7 @@ package controller;
 import java.util.Map;
 
 import member.MemberService;
-import selectMenu.Util;
+import selectMenu.ScanUtil;
 import selectMenu.View;
 
 public class Controller {
@@ -52,7 +52,7 @@ public class Controller {
 		System.out.println("--------------------------------");
 		System.out.print("번호 입력>");
 
-		int input = Util.nextInt();
+		int input = ScanUtil.nextInt();
 
 		switch (input) {
 		case 1:
