@@ -43,10 +43,14 @@ public class QnABoardDAO {
 			List<Object> list = new ArrayList<>();
 			list.add(memberId);
 			
-			List<Map<String,Object>> map = jdbc.selectList(sql, list);
+			Map<String,Object> map = jdbc.selectOne(sql, list);
 			boardDTO.setMemberId((String)map.get("BOARD_NO"));
+			boardDTO.setMemberId((String)map.get("MEM_ID"));
+			boardDTO.setMemberId((String)map.get("Q_DATE"));
+			boardDTO.setMemberId((String)map.get("Q_TITLE"));
+			boardDTO.setMemberId((String)map.get("Q_CONTENT"));
 			
-			
+			return boardDTO;
 			
 			
 		}
