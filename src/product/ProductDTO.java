@@ -22,7 +22,14 @@ public class ProductDTO {
 
 	public ProductDTO() {
 	}
-
+	
+	public ProductDTO(String productId,String productName,int price ) {
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+	}
+	
+	
 	public String getProductId() {
 		return productId;
 	}
@@ -93,9 +100,9 @@ public class ProductDTO {
 
 	@Override
 	public String toString() {
-		return "ProductDTO [productId=" + productId + ", productName=" + productName + ", classificationCode="
-				+ classificationCode + ", classificationName=" + classificationName + ", price=" + price
-				+ ", inventoryQuantity=" + inventoryQuantity + "]";
+		return "[상품목록 상품코드=" + productId + ", 상품명 : " + productName + ", 분류코드 : "
+				+ classificationCode + ", 분류명 : " + classificationName + ", 가격 : " + price
+				+ ", 재고수량 : " + inventoryQuantity + "]";
 	}
 	
 	
