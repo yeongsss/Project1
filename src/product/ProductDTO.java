@@ -20,6 +20,9 @@ public class ProductDTO {
 		this.inventoryQuantity = inventoryQuantity;
 	}
 
+	public ProductDTO() {
+	}
+
 	public String getProductId() {
 		return productId;
 	}
