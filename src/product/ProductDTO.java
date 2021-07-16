@@ -3,30 +3,25 @@ package product;
 import java.util.Objects;
 
 public class ProductDTO {
-	private String productId; //상품코드
-	private String productName; //상품명
-	private String classificationCode; //상품 분류코드
-	private String classificationName; //상품 분류명
-	private int price; //상품 판매 가격
-	private int inventoryQuantity; //상품재고량
-	
+	private String productId; // 상품코드
+	private String productName; // 상품명
+	private String classificationCode; // 상품 분류코드
+	private String classificationName; // 상품 분류명
+	private int price; // 상품 판매 가격
+	private int inventoryQuantity; // 상품재고량
+	private int cost; // 상품 매입가격
+
+	public ProductDTO() {
+	}
 	public ProductDTO(String productId, String productName, String classificationCode, String classificationName,
-			int price, int inventoryQuantity) {
+			int price, int inventoryQuantity, int cost) {
 		this.productId = productId;
 		this.productName = productName;
 		this.classificationCode = classificationCode;
 		this.classificationName = classificationName;
 		this.price = price;
 		this.inventoryQuantity = inventoryQuantity;
-	}
-
-	public ProductDTO() {
-	}
-	
-	public ProductDTO(String productId,String productName,int price ) {
-		this.productId = productId;
-		this.productName = productName;
-		this.price = price;
+		this.cost = cost;
 	}
 	
 	
@@ -78,9 +73,18 @@ public class ProductDTO {
 		this.inventoryQuantity = inventoryQuantity;
 	}
 
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(classificationCode, classificationName, inventoryQuantity, price, productId, productName);
+		return Objects.hash(classificationCode, classificationName, cost, inventoryQuantity, price, productId,
+				productName);
 	}
 
 	@Override
@@ -93,18 +97,16 @@ public class ProductDTO {
 			return false;
 		ProductDTO other = (ProductDTO) obj;
 		return Objects.equals(classificationCode, other.classificationCode)
-				&& Objects.equals(classificationName, other.classificationName)
+				&& Objects.equals(classificationName, other.classificationName) && cost == other.cost
 				&& inventoryQuantity == other.inventoryQuantity && price == other.price
 				&& Objects.equals(productId, other.productId) && Objects.equals(productName, other.productName);
 	}
 
 	@Override
 	public String toString() {
-		return "[상품목록 상품코드=" + productId + ", 상품명 : " + productName + ", 분류코드 : "
-				+ classificationCode + ", 분류명 : " + classificationName + ", 가격 : " + price
-				+ ", 재고수량 : " + inventoryQuantity + "]";
+		return "ProductDTO [productId=" + productId + ", productName=" + productName + ", classificationCode="
+				+ classificationCode + ", classificationName=" + classificationName + ", price=" + price
+				+ ", inventoryQuantity=" + inventoryQuantity + ", cost=" + cost + "]";
 	}
-	
-	
 
 }
