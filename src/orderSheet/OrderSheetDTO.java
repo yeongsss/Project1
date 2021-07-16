@@ -10,6 +10,8 @@ public class OrderSheetDTO {
 	private String payState;	//결제상태
 	private String memberId;	//아이디
 	
+	public OrderSheetDTO() {}
+	
 	public OrderSheetDTO(int orderNumber, int orderDate, String orderAdd1, String orderAdd2, int payPrice,
 			String payState, String memberId) {
 		this.orderNumber = orderNumber;

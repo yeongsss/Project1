@@ -11,9 +11,9 @@ import selectMenu.JDBCUtil;
 
 public class OrderSheetDAO {
 	
-	private OrderSheetDAO() {}
-
 	private static OrderSheetDAO instance;
+
+	private OrderSheetDAO() {}
 
 	public static OrderSheetDAO getInstance() {
 		if (instance == null) {
@@ -64,7 +64,7 @@ public class OrderSheetDAO {
 		
 		List<Object> list = new ArrayList<>();
 		list.add(dto.get("MEM_ID"));
-		return jdbc.update(sql,list);
+		return jdbc.update(sql, list);
 		
 	}
 }
