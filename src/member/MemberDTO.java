@@ -27,6 +27,15 @@ public class MemberDTO {
 	public MemberDTO() {
 	}
 
+	
+	public MemberDTO(String memberId, String memberName, String memberBirth, String memberHp, String author) {
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.memberBirth = memberBirth;
+		this.memberHp = memberHp;
+		AUTHOR = author;
+	}
+
 	public String getMemberId() {
 		return memberId;
 	}

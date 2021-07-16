@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 import selectMenu.View;
 
@@ -22,7 +23,7 @@ public class MemberService {
 		}
 		return instance;
 	}
-
+	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 	private MemberDAO memberDao = MemberDAO.getInstance();
 
 	public int join() {
@@ -41,7 +42,7 @@ public class MemberService {
 		String memberAdd1 = ScanUtil.nextLine();
 		System.out.print("상세주소>");
 		String memberAdd2 = ScanUtil.nextLine();
-		String author = "0";
+		String author = "0"; //기본 회원가입은 모두 일반회원으로 가입 됨
 		
 		// 아이디 중복 확인 생략
 		// 비밀번호 확인 생략
@@ -98,7 +99,7 @@ public class MemberService {
 		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
-			System.out.print("정보를 조회 합니다.");
+			System.out.println("정보를 조회 합니다.");
 			System.out.println(MemberDAO.getMemberInfo(Controller.loginUser.get("MEM_ID")));
 			return myPage(); //로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
 		case 2:
@@ -107,9 +108,8 @@ public class MemberService {
 		case 3:
 			return myPage();
 		case 0:
-			System.out.println("프로그램이 종료되었습니다.");
-			System.exit(0);
-			break;
+			System.out.println("로그아웃 되었습니다.");
+			return View.HOME;
 
 		}
 		return myPage(); // 잘못된 명령 입력시, 다시 마이페이지로 돌아옴
@@ -123,14 +123,31 @@ public class MemberService {
 		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
-			return myPage();
-		case 2:
+			Map<String, Object> param = new HashMap<>();
+			System.out.println("변경할 비밀번호를 입력하세요");
+			String memberPassword = ScanUtil.nextLine();
+			param.put("MEM_PW", memberPassword);
+			param.put("MEM_ID",Controller.loginUser.get("MEM_ID"));
+			int result = MemberDAO.MemberInfoModify(param);
+			if (0 < result) {
+				System.out.println("회원정보 변경에 성공했습니다.");
+			} else {
+				System.out.println("회원정보 변경에 실패했습니다.");
+			}
+			
 			return editInfo();
+		case 2:
+			
+			return editInfo();
+			
 		case 3:
-			return myPage();
+			System.out.println("사용자를 먼저 재확인 합니다.비밀번호를 입력하세요");
+			return editInfo();
+		case 4:
+			System.out.println("사용자를 먼저 재확인 합니다.비밀번호를 입력하세요");
+			return editInfo();
 		case 0:
 			System.out.println("프로그램이 종료되었습니다.");
-			System.exit(0);
 			break;
 
 		}
