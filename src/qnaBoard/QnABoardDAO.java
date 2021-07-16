@@ -31,7 +31,7 @@ public class QnABoardDAO {
 			if (jdbc.update(sql, list)==1) {
 				return true;
 			} return false;
-				
+				 
 			
 		}
 		

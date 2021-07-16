@@ -14,7 +14,7 @@ public class Test {
 		int cnt = 1;
 		qna: while (true) {
 			System.out.println("===========================================================");
-			System.out.println("1.QnA 조회 \t 2.QnA등록 \t 3.QnA글 검색(아이디)\t 4.QnA 수정 0.종료");
+			System.out.println("1.QnA 조회 \t 2.QnA등록 \t 3.QnA글 검색(아이디)\t 4.QnA 수정 \t 0.종료");
 			System.out.print("선택>> ");
 			int input = ScanUtil.nextInt();
 			if (input >= 0 && input < 5) {
