@@ -20,6 +20,22 @@ public class QnABoardDAO {
 	}
 		private JDBCUtil jdbc = JDBCUtil.getInstance();
 		
+		public boolean updateQnABoard(QnABoardDTO update) {
+			String sql = "UPDATE QNA_BOARD "
+									+ "SET Q_CONTENT =?"
+									+ "WHERE BOARD_NO = ? ";
+			List<Object> list =new ArrayList<>();
+			list.add(update.getQnaContent());
+			list.add(update.getBoardNo());
+			
+			if (jdbc.update(sql, list)==1) {
+				return true;
+			} return false;
+				
+			
+		}
+		
+		
 		public boolean insertQnABoard(QnABoardDTO boardInfo) {
 			String sql =  "INSERT INTO "
 									+ "			QNA_BOARD"
@@ -36,17 +52,12 @@ public class QnABoardDAO {
 			return false;
 		}
 		
-		public QnABoardDTO getQnaBoard(String memberId) {
-			QnABoardDTO boardDTO = new QnABoardDTO();
+		public List<Map<String, Object>> getQnaBoard(String memberId) {
 			String sql = "SELECT * FROM QNA_BOARD"
 								+ "        WHERE MEM_ID= ? ";
-			List<Object> list = new ArrayList<>();
-			list.add(memberId);
-			
-			Map<String,Object> map = jdbc.selectOne(sql, list);
-			boardDTO.setMemberId((String)map.get("MEM_ID"));
-
-			return boardDTO;
+			List<Object> param = new ArrayList<>();
+			param.add(memberId);
+			return jdbc.selectList(sql, param);
 			
 			 
 		}

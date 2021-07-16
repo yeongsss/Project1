@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import controller.Controller;
+import orderSheet.OrderSheetDTO;
+import product.ProductDTO;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 
@@ -54,22 +57,59 @@ public class MemberDAO {
 	}
 	// 회원정보 조회 메소드
 
+<<<<<<< HEAD
 	public MemberDTO getMemberInfo(Object object) {
 		MemberDTO memberInfo = new MemberDTO();
+=======
+	public static Object getMemberInfo(Object object) {
+		MemberDTO dto = new MemberDTO();
+		List<Object> memberInfo = new ArrayList<>();
+>>>>>>> branch 'develop' of https://github.com/yeongsss/Project1.git
 		String sql = "SELECT * FROM MEMBER" + " WHERE" + " MEM_ID= ?";
 		List<Object> param = new ArrayList<>();
 		param.add(object);
 		Map<String, Object> resMap = jdbcUtil.selectOne(sql, param);
-		memberInfo.setMemberId((String) resMap.get("MEM_ID"));
-		memberInfo.setMemberName((String) resMap.get("MEM_NAME"));
-		memberInfo.setMemberBirth((String) resMap.get("MEM_BIRTH"));
-		memberInfo.setMemberHp((String) resMap.get("MEM_HP"));
+		memberInfo.add("아이디\t  이름\t   생년월일    전화번호\n");
+		memberInfo.add(resMap.get("MEM_ID"));
+		memberInfo.add(resMap.get("MEM_NAME"));
+		memberInfo.add(resMap.get("MEM_BIRTH"));
+		memberInfo.add(resMap.get("MEM_HP"));
 
 		return memberInfo;
 	}
 	
+	//회원정보 수정 메소드
 	
+	public static int MemberInfoModify(Map<String, Object> p) {
+		String sql = "UPDATE MEMBER SET" + " MEM_PW = ?" 
+				     + " WHERE MEM_ID = ?;";
+				
+		List<Object> param = new ArrayList<>();
+		param.add(p.get("MEM_PW"));
+		param.add(p.get("MEM_ID"));
+		
+		
+		return jdbcUtil.update(sql, param);
+		
+	}	
 	
+	//주문목록,배송현황 조회 메소드
 	
-
+	public static List<Map<String, Object>> getOrderList(Object object) {
+		OrderSheetDTO orderInfo = new OrderSheetDTO();
+		String sql = "SELECT * FROM ORDSHEET" + " WHERE" + " MEM_ID= ?";
+		List<Object> param = new ArrayList<>();
+		param.add(object);
+		return jdbcUtil.selectList(sql, param);
+	}
+	
+	//전체 회원정보 조회 메소드 -관리자만 가능
+	
+	public static List<Map<String, Object>> getMemberAllInfo() {
+		String sql = "SELECT * FROM MEMBER";
+		List<Map<String,Object>> resMap = jdbcUtil.selectList(sql);
+		
+		
+		return resMap;
+	}
 }

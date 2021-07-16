@@ -15,7 +15,7 @@ public class OrderSheetDTO {
 	public OrderSheetDTO() {}
 	
 	public OrderSheetDTO(int orderNumber, String orderDate, String orderAdd1, String orderAdd2, int payPrice,
-			String payState, String memberId, String deliverystate) {
+			String payState, String memberId, String deliveryState) {
 		this.orderNumber = orderNumber;
 		this.orderDate = orderDate;
 		this.orderAdd1 = orderAdd1;
@@ -89,14 +89,14 @@ public class OrderSheetDTO {
 	public void setDeliveryState(String deliveryState) {
 		this.deliveryState = deliveryState;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "OrdsheetDTO [orderNumber=" + orderNumber + ", orderDate=" + orderDate + ", orderAdd1=" + orderAdd1
-				+ ", orderAdd2=" + orderAdd2 + ", payPrice=" + payPrice + ", payState=" + payState + ", memberId="
-				+ memberId + ", deliveryState=" + deliveryState + "]";
+		return orderNumber +  "\t" + memberId + "\t" + orderDate +  "\t" + orderAdd1 +  "\t" + orderAdd2 
+				+  "\t" + payPrice +  "\t" + payState  +  "\t" + deliveryState;
 	}
+	
+
 
 	
 }
