@@ -24,9 +24,10 @@ public class MemberService {
 		}
 		return instance;
 	}
+
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 	private MemberDAO memberDao = MemberDAO.getInstance();
-	
+
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
 		System.out.print("아이디>");
@@ -43,8 +44,8 @@ public class MemberService {
 		String memberAdd1 = ScanUtil.nextLine();
 		System.out.print("상세주소>");
 		String memberAdd2 = ScanUtil.nextLine();
-		String author = "0"; //기본 회원가입은 모두 일반회원으로 가입 됨
-		
+		String author = "0"; // 기본 회원가입은 모두 일반회원으로 가입 됨
+
 		// 아이디 중복 확인 생략
 		// 비밀번호 확인 생략
 		// 정규표현식(유효성 검사) 생략
@@ -76,8 +77,9 @@ public class MemberService {
 		String userId = ScanUtil.nextLine();
 		System.out.print("비밀번호>");
 		String password = ScanUtil.nextLine();
+		String author = new MemberDTO().getAuthor();
 
-		Map<String, Object> user = MemberDAO.memberselect(userId, password);
+		Map<String, Object> user = MemberDAO.memberselect(userId, password, author);
 
 		if (user == null) {
 			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
@@ -85,15 +87,20 @@ public class MemberService {
 			System.out.println("로그인 성공");
 			Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
 
-			return myPage(); // 로그인 성공하면, 마이페이지로 이동.
+			if (Controller.loginUser.get("AUTHOR") == "1") {
+
+				mypageAdmin(); // 권한이 관리자면 관리자 페이지로 이동함.
+
+			}
+			return myPage(); // 일반회원 로그인 성공하면, 마이페이지로 이동.
 
 		}
 		return View.HOME; // 로그인 실패시, 다시 메인화면으로 이동함
 	}
 
-	// 로그인 성공 후, 마이페이지 접속 뷰
+	// 로그인 성공 후, 마이페이지(일반회원) 접속 뷰
 	private int myPage() {
-		System.out.println("--------------------------------------------");
+		System.out.println("------------일반 회원 로그인 되었습니다---------------");
 		System.out.println("1.내정보 조회\t2.내정보 수정\t3.주문내역\t0.로그아웃");
 		System.out.println("---------------------------------------------");
 		System.out.print("번호 입력>");
@@ -102,17 +109,18 @@ public class MemberService {
 		case 1:
 			System.out.println("정보를 조회 합니다.");
 			System.out.println(MemberDAO.getMemberInfo(Controller.loginUser.get("MEM_ID")));
-			return myPage(); //로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
+			return myPage(); // 로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
 		case 2:
-			System.out.println("수정할 정보를 선택하세요."); 
-			return editInfo();//정보 수정 뷰로 이동함
+			System.out.println("수정할 정보를 선택하세요.");
+			return editInfo();// 정보 수정 뷰로 이동함
 		case 3:
 			List<Map<String, Object>> list = MemberDAO.getOrderList(Controller.loginUser.get("MEM_ID"));
 			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("ORD_NO"), map.get("ORD_DATE").toString().split("")[0], map.get("PAY_PRICE"));
+				System.out.printf("%s\t\t%s\t%s\n", map.get("ORD_NO"), map.get("ORD_DATE").toString().split("")[0],
+						map.get("PAY_PRICE"));
 
 			}
-			return myPage(); //주문내역 결과 반환후, 마이페이지로 다시 이동함.
+			return myPage(); // 주문내역 결과 반환후, 마이페이지로 다시 이동함.
 		case 0:
 			System.out.println("로그아웃 되었습니다.");
 			return View.HOME;
@@ -127,58 +135,58 @@ public class MemberService {
 		System.out.println("---------------------------------------------");
 		System.out.print("번호 입력>");
 		int input = ScanUtil.nextInt();
-		
+
 		switch (input) {
 		case 1:
 			MemberDTO memberDTO = new MemberDTO();
 			System.out.print("변경할 비밀번호를 입력하세요");
 			memberDTO.setMemberPassword(ScanUtil.nextLine());
-			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
-			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			memberDTO.setMemberId((String) Controller.loginUser.get("MEM_ID"));
+			// 아이디는 로그인한 아이디의 값을 그대로 적용함.
 			if (MemberDAO.MemberInfoModifyPw(memberDTO)) {
 				System.out.println("변경 성공");
-			}else {
+			} else {
 				System.out.println("변경 실패");
 			}
-			break;	
-			
+			break;
+
 		case 2:
 			memberDTO = new MemberDTO();
 			System.out.print("변경할 전화번호를 입력하세요");
 			memberDTO.setMemberHp(ScanUtil.nextLine());
-			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
-			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			memberDTO.setMemberId((String) Controller.loginUser.get("MEM_ID"));
+			// 아이디는 로그인한 아이디의 값을 그대로 적용함.
 			if (MemberDAO.MemberInfoModifyHp(memberDTO)) {
 				System.out.println("변경 성공");
-			}else {
+			} else {
 				System.out.println("변경 실패");
 			}
-			break;	
-			
+			break;
+
 		case 3:
 			memberDTO = new MemberDTO();
 			System.out.print("변경할 일반주소를 입력하세요");
 			memberDTO.setMemberAdd1(ScanUtil.nextLine());
-			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
-			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			memberDTO.setMemberId((String) Controller.loginUser.get("MEM_ID"));
+			// 아이디는 로그인한 아이디의 값을 그대로 적용함.
 			if (MemberDAO.MemberInfoModifyAdd1(memberDTO)) {
 				System.out.println("변경 성공");
-			}else {
+			} else {
 				System.out.println("변경 실패");
 			}
-			break;	
+			break;
 		case 4:
 			memberDTO = new MemberDTO();
 			System.out.print("변경할 상세주소를 입력하세요");
 			memberDTO.setMemberAdd2(ScanUtil.nextLine());
-			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
-			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			memberDTO.setMemberId((String) Controller.loginUser.get("MEM_ID"));
+			// 아이디는 로그인한 아이디의 값을 그대로 적용함.
 			if (MemberDAO.MemberInfoModifyAdd2(memberDTO)) {
 				System.out.println("변경 성공");
-			}else {
+			} else {
 				System.out.println("변경 실패");
 			}
-			break;	
+			break;
 		case 0:
 			System.out.println("프로그램이 종료되었습니다.");
 			break;
@@ -186,4 +194,47 @@ public class MemberService {
 		}
 		return myPage();
 	}
+
+	// 관리자 로그인 화면
+	private int mypageAdmin() {
+		System.out.println("-------------관리자 회원 로그인 되었습니다------------");
+		System.out.println("1.회원관리\t2.상품관리\t3.매입관리\t4.Q&A관리\t0.로그아웃");
+		System.out.println("--------------------------------------------");
+		System.out.print("번호 입력>");
+
+		int input = ScanUtil.nextInt();
+
+		switch (input) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 0:
+			System.out.println("로그아웃 되었습니다.");
+			return View.HOME;
+			
+		}
+		return mypageAdmin();
+
+	}
+	private int memberManagement() {
+		System.out.println("---------회원관리 페이지 입니다---------");
+		System.out.println("1.회원정보 보기\t2.회원정보 수정t0.이전페이지");
+		System.out.println("---------------------------------");
+		System.out.print("번호 입력>");
+		int input = ScanUtil.nextInt();
+		
+		switch (input) {
+		case 1:
+			
+			break;
+
+		case 0:
+			return mypageAdmin();
+		}
+		return memberManagement();
+
+		
+	}
+	
 }
