@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import member.MemberDAO;
+import member.MemberDTO;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 
@@ -74,8 +75,36 @@ public class ProductDAO {
 		param.add(category);
 		return jdbcUtil.selectList(sql, param);
 	}
-	
-	
 
-	
+	// 전체 상품조회 -관리자
+	public static List<Map<String, Object>> getProductAllInfo() {
+		String sql = "SELECT * FROM PROD";
+		List<Map<String, Object>> resMap = jdbcUtil.selectList(sql);
+
+		return resMap;
+	}
+
+	// 전체 재고조회 -관리자
+	public static List<Map<String, Object>> getStockAllInfo() {
+		String sql = "SELECT * FROM PROD";
+		List<Map<String, Object>> resMap = jdbcUtil.selectList(sql);
+
+		return resMap;
+	}
+
+	// 재고 수정- 관리자
+	public static boolean stockModify(ProductDTO update) {
+		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = ?" + " WHERE PROD_ID = ?;";
+
+		List<Object> list = new ArrayList<>();
+		list.add(update.getInventoryQuantity());
+		list.add(update.getProductId());
+
+		if (jdbcUtil.update(sql, list) == 1) {
+			return true;
+		}
+		return false;
+
+	}
+
 }

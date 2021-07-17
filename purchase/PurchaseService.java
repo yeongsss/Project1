@@ -3,7 +3,9 @@ package purchase;
 import java.util.HashMap;
 import java.util.Map;
 
+import member.MemberService;
 import product.ProductDTO;
+import product.ProductService;
 import selectMenu.ScanUtil;
 
 public class PurchaseService {
@@ -23,6 +25,7 @@ public class PurchaseService {
 	}
 
 	private PurchaseDAO purchaseDAO = PurchaseDAO.getInstance();
+	private MemberService memberService = MemberService.getInstance();
 
 	// 매입 (재고도 조정할 것)
 
@@ -56,6 +59,28 @@ public class PurchaseService {
 			System.out.println("상품등록에 실패했습니다.");
 		}
 		return purchase();
+		}
+		
+		//매입 관리 뷰 -관리자
+		
+		private int purchaseManagement() {
+			System.out.println("--------------매입관리 페이지 입니다---------------");
+			System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 수정\t0.이전페이지");
+			System.out.println("------------------------------------------");
+			System.out.print("번호 입력>");
+			int input = ScanUtil.nextInt();
+			
+			switch (input) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 0:
+				return memberService.getInstance().mypageAdmin();
 
 	}
+			return purchaseManagement();
 }
+	}

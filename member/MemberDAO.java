@@ -123,7 +123,7 @@ public class MemberDAO {
 			
 		}	
 		
-		//회원 기본주소 수정 메소드
+		//회원 상세주소 수정 메소드
 				public static boolean MemberInfoModifyAdd2(MemberDTO update) {
 					String sql = "UPDATE MEMBER SET" + " MEM_ADD2 = ?" 
 							     + " WHERE MEM_ID = ?;";
@@ -158,4 +158,20 @@ public class MemberDAO {
 		
 		return resMap;
 	}
+	
+	//권한 수정 메소드
+	public static boolean ChangeMemberAuthor(MemberDTO update) {
+		String sql = "UPDATE MEMBER SET" + " AUTHOR = ?" 
+				     + " WHERE MEM_ID = ?;";
+				
+		List<Object> list = new ArrayList<>();
+		list.add(update.getAuthor());
+		list.add(update.getMemberId());
+		
+		if (jdbcUtil.update(sql, list) == 1) {
+			return true;
+		}
+		return false;
+		
+	}	
 }

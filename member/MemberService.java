@@ -1,12 +1,10 @@
 package member;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
-import orderSheet.OrderSheetDTO;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 import selectMenu.View;
@@ -26,7 +24,7 @@ public class MemberService {
 	}
 
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
-	private MemberDAO memberDao = MemberDAO.getInstance();
+	private static MemberDAO memberDao = MemberDAO.getInstance();
 
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
@@ -196,7 +194,7 @@ public class MemberService {
 	}
 
 	// 관리자 로그인 화면
-	private int mypageAdmin() {
+	public int mypageAdmin() {
 		System.out.println("-------------관리자 회원 로그인 되었습니다------------");
 		System.out.println("1.회원관리\t2.상품관리\t3.매입관리\t4.Q&A관리\t0.로그아웃");
 		System.out.println("--------------------------------------------");
@@ -206,35 +204,69 @@ public class MemberService {
 
 		switch (input) {
 		case 1:
-			break;
+			System.out.println("회원관리 페이지로 이동합니다");
+			return memberManagement();
+
 		case 2:
+			System.out.println("상품관리 페이지로 이동합니다");
+			return memberManagement();
+
+		case 3:
+			System.out.println("매입관리 페이지로 이동합니다");
+			break;
+		case 4:
+			System.out.println("Q&A관리 페이지로 이동합니다");
 			break;
 		case 0:
 			System.out.println("로그아웃 되었습니다.");
 			return View.HOME;
-			
+
 		}
 		return mypageAdmin();
 
 	}
+
 	private int memberManagement() {
-		System.out.println("---------회원관리 페이지 입니다---------");
-		System.out.println("1.회원정보 보기\t2.회원정보 수정t0.이전페이지");
-		System.out.println("---------------------------------");
+		System.out.println("---------회원관리 페이지 입니다------------------");
+		System.out.println("1.회원정보 보기\t2.회원정보 수정\t3.권한 수정\t0.이전페이지");
+		System.out.println("------------------------------------------");
 		System.out.print("번호 입력>");
 		int input = ScanUtil.nextInt();
-		
+
 		switch (input) {
-		case 1:
-			
-			break;
+		case 1:// 모든 회원들 정보 보기
+			System.out.println("회원정보를 조회합니다.");
+			List<Map<String, Object>> list = MemberDAO.getMemberAllInfo();
+
+			for (Map<String, Object> map : list) {
+				System.out.printf("%s\t%s\t%s\t%s\n", map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
+						map.get("MEM_HP"));
+			}
+			return memberManagement();
+		case 2:
+
+			return memberManagement();
+
+		case 3:
+			// 권한 변경 (수정)
+			MemberDTO memberDTO = new MemberDTO();
+			System.out.print("변경할 회원의 아이디를 입력하세요");
+			memberDTO.setMemberId(ScanUtil.nextLine());
+			System.out.print("일반회원으로 변경은 0, 관리자로 변경은 1을 입력하세요");
+			memberDTO.setAuthor(ScanUtil.nextLine());
+			if (MemberDAO.MemberInfoModifyHp(memberDTO)) {
+				System.out.println("권한변경 성공");
+			} else {
+				System.out.println("권한변경 실패");
+			}
+
+			return memberManagement();
 
 		case 0:
 			return mypageAdmin();
 		}
 		return memberManagement();
 
-		
 	}
-	
+
 }
