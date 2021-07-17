@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import product.ProductDTO;
 import selectMenu.JDBCUtil;
 
 public class PurchaseDAO {
@@ -26,7 +27,7 @@ public class PurchaseDAO {
 
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 
-	// 매입 메소드 (재고 수량도 반영됨)
+	// 매입 메소드 (재고 수량은 미반영)
 
 	public static int insertPurchase(Map<String, Object> p) {
 		String sql = "INSERT INTO PUCHAS VALUES (?, ?, ?, ?,)";
@@ -40,4 +41,22 @@ public class PurchaseDAO {
 		return jdbcUtil.update(sql, param);
 
 	}
+	
+	
+	//매입 후 재고 조정 메소드(재고 수량을 반영함)
+			public static boolean updateInventoryQuantity(ProductDTO productDTO) {
+				
+				String sql = "UPDATE PROD SET" + "PROD_ID = ?"
+							+ " WHERE INVNTRY_QTY = ?;";
+				
+				List<Object> list = new ArrayList<>();
+				list.add(productDTO.getProductId());
+				list.add(productDTO.getInventoryQuantity());
+				
+				if (jdbcUtil.update(sql, list) == 1) {
+					return true;
+				}
+						
+				return false;
+			}
 }

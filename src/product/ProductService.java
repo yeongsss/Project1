@@ -23,7 +23,9 @@ public class ProductService {
 	}
 
 	private ProductDAO productDAO = ProductDAO.getInstance();
-
+	
+	
+	// 상품목록 조회 -회원메뉴
 	public Map<String, Object> productList() {
 		System.out.println("==========================");
 		System.out.println("=====대분류를 선택해 주세요======");
@@ -103,7 +105,7 @@ public class ProductService {
 
 	}
 	
-	//상품 등록
+	//상품 등록 -관리자 메뉴
 	public static int addProduct() {
 		System.out.println("=========== 상품등록 =============");
 		System.out.print("상품코드>");
@@ -138,5 +140,6 @@ public class ProductService {
 		}
 		return addProduct();
 	}
+	
 
 }

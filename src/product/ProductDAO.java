@@ -74,18 +74,8 @@ public class ProductDAO {
 		param.add(category);
 		return jdbcUtil.selectList(sql, param);
 	}
+	
+	
 
-	public static int addOrderList(String p) {
-
-		String sql = "INSERT INTO ORDERLIST VALUES (?, ?)";
-
-		List<Object> param = new ArrayList<>();
-		param.add(p);
-		param.add(p);
-		param.add(p);
-
-		return jdbcUtil.update(sql, param);
-
-	}
-
+	
 }
