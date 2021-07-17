@@ -25,10 +25,10 @@ public class MemberDAO {
 		return instance;
 	}
 
-	private JDBCUtil jdbcUtil = JDBCUtil.getInstance();
+	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 
 	// 회원가입 메소드
-	public int insertMember(Map<String, Object> p) {
+	public static int insertMember(Map<String, Object> p) {
 		String sql = "INSERT INTO MEMBER VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		List<Object> param = new ArrayList<>();
@@ -46,7 +46,7 @@ public class MemberDAO {
 	}
 
 	// 로그인 메소드
-	public Map<String, Object> memberselect(String memberId, String memberPassword) {
+	public static Map<String, Object> memberselect(String memberId, String memberPassword) {
 		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(memberId);
@@ -57,14 +57,10 @@ public class MemberDAO {
 	}
 	// 회원정보 조회 메소드
 
-<<<<<<< HEAD
-	public MemberDTO getMemberInfo(Object object) {
-		MemberDTO memberInfo = new MemberDTO();
-=======
+	
 	public static Object getMemberInfo(Object object) {
 		MemberDTO dto = new MemberDTO();
 		List<Object> memberInfo = new ArrayList<>();
->>>>>>> branch 'develop' of https://github.com/yeongsss/Project1.git
 		String sql = "SELECT * FROM MEMBER" + " WHERE" + " MEM_ID= ?";
 		List<Object> param = new ArrayList<>();
 		param.add(object);
@@ -78,20 +74,70 @@ public class MemberDAO {
 		return memberInfo;
 	}
 	
-	//회원정보 수정 메소드
+	//회원비밀번호 수정 메소드
 	
-	public static int MemberInfoModify(Map<String, Object> p) {
+	public static boolean MemberInfoModifyPw(MemberDTO update) {
 		String sql = "UPDATE MEMBER SET" + " MEM_PW = ?" 
 				     + " WHERE MEM_ID = ?;";
 				
-		List<Object> param = new ArrayList<>();
-		param.add(p.get("MEM_PW"));
-		param.add(p.get("MEM_ID"));
+		List<Object> list = new ArrayList<>();
+		list.add(update.getMemberPassword());
+		list.add(update.getMemberId());
 		
-		
-		return jdbcUtil.update(sql, param);
+		if (jdbcUtil.update(sql, list) == 1) {
+			return true;
+		}
+		return false;
 		
 	}	
+	
+	//회원 전화번호 수정 메소드
+	public static boolean MemberInfoModifyHp(MemberDTO update) {
+		String sql = "UPDATE MEMBER SET" + " MEM_HP = ?" 
+				     + " WHERE MEM_ID = ?;";
+				
+		List<Object> list = new ArrayList<>();
+		list.add(update.getMemberHp());
+		list.add(update.getMemberId());
+		
+		if (jdbcUtil.update(sql, list) == 1) {
+			return true;
+		}
+		return false;
+		
+	}	
+	
+	//회원 기본주소 수정 메소드
+		public static boolean MemberInfoModifyAdd1(MemberDTO update) {
+			String sql = "UPDATE MEMBER SET" + " MEM_ADD1 = ?" 
+					     + " WHERE MEM_ID = ?;";
+					
+			List<Object> list = new ArrayList<>();
+			list.add(update.getMemberAdd1());
+			list.add(update.getMemberId());
+			
+			if (jdbcUtil.update(sql, list) == 1) {
+				return true;
+			}
+			return false;
+			
+		}	
+		
+		//회원 기본주소 수정 메소드
+				public static boolean MemberInfoModifyAdd2(MemberDTO update) {
+					String sql = "UPDATE MEMBER SET" + " MEM_ADD2 = ?" 
+							     + " WHERE MEM_ID = ?;";
+							
+					List<Object> list = new ArrayList<>();
+					list.add(update.getMemberAdd2());
+					list.add(update.getMemberId());
+					
+					if (jdbcUtil.update(sql, list) == 1) {
+						return true;
+					}
+					return false;
+					
+				}	
 	
 	//주문목록,배송현황 조회 메소드
 	

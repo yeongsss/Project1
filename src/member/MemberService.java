@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import orderSheet.OrderSheetDTO;
 import product.ProductDAO;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
@@ -26,7 +27,7 @@ public class MemberService {
 	}
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 	private MemberDAO memberDao = MemberDAO.getInstance();
-
+	
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
 		System.out.print("아이디>");
@@ -104,15 +105,15 @@ public class MemberService {
 			System.out.println(MemberDAO.getMemberInfo(Controller.loginUser.get("MEM_ID")));
 			return myPage(); //로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
 		case 2:
-			System.out.println("수정할 정보를 선택하세요.");
-			return editInfo();
+			System.out.println("수정할 정보를 선택하세요."); 
+			return editInfo();//정보 수정 뷰로 이동함
 		case 3:
 			List<Map<String, Object>> list = MemberDAO.getOrderList(Controller.loginUser.get("MEM_ID"));
 			for (Map<String, Object> map : list) {
 				System.out.printf("%s\t\t%s\t%s\n", map.get("ORD_NO"), map.get("ORD_DATE").toString().split("")[0], map.get("PAY_PRICE"));
 
 			}
-			return myPage();
+			return myPage(); //주문내역 결과 반환후, 마이페이지로 다시 이동함.
 		case 0:
 			System.out.println("로그아웃 되었습니다.");
 			return View.HOME;
@@ -127,31 +128,58 @@ public class MemberService {
 		System.out.println("---------------------------------------------");
 		System.out.print("번호 입력>");
 		int input = ScanUtil.nextInt();
+		
 		switch (input) {
 		case 1:
-			Map<String, Object> param = new HashMap<>();
-			System.out.println("변경할 비밀번호를 입력하세요");
-			String memberPassword = ScanUtil.nextLine();
-			param.put("MEM_PW", memberPassword);
-			param.put("MEM_ID",Controller.loginUser.get("MEM_ID"));
-			int result = MemberDAO.MemberInfoModify(param);
-			if (0 < result) {
-				System.out.println("회원정보 변경에 성공했습니다.");
-			} else {
-				System.out.println("회원정보 변경에 실패했습니다.");
+			MemberDTO memberDTO = new MemberDTO();
+			System.out.print("변경할 비밀번호를 입력하세요");
+			memberDTO.setMemberPassword(ScanUtil.nextLine());
+			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
+			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			if (MemberDAO.MemberInfoModifyPw(memberDTO)) {
+				System.out.println("변경 성공");
+			}else {
+				System.out.println("변경 실패");
 			}
+			break;	
 			
-			return editInfo();
 		case 2:
-			
-			return editInfo();
+			memberDTO = new MemberDTO();
+			System.out.print("변경할 전화번호를 입력하세요");
+			memberDTO.setMemberHp(ScanUtil.nextLine());
+			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
+			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			if (MemberDAO.MemberInfoModifyHp(memberDTO)) {
+				System.out.println("변경 성공");
+			}else {
+				System.out.println("변경 실패");
+			}
+			break;	
 			
 		case 3:
-			System.out.println("사용자를 먼저 재확인 합니다.비밀번호를 입력하세요");
-			return editInfo();
+			memberDTO = new MemberDTO();
+			System.out.print("변경할 일반주소를 입력하세요");
+			memberDTO.setMemberAdd1(ScanUtil.nextLine());
+			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
+			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			if (MemberDAO.MemberInfoModifyAdd1(memberDTO)) {
+				System.out.println("변경 성공");
+			}else {
+				System.out.println("변경 실패");
+			}
+			break;	
 		case 4:
-			System.out.println("사용자를 먼저 재확인 합니다.비밀번호를 입력하세요");
-			return editInfo();
+			memberDTO = new MemberDTO();
+			System.out.print("변경할 상세주소를 입력하세요");
+			memberDTO.setMemberAdd2(ScanUtil.nextLine());
+			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
+			//아이디는 로그인한 아이디의 값을 그대로 적용함.
+			if (MemberDAO.MemberInfoModifyAdd2(memberDTO)) {
+				System.out.println("변경 성공");
+			}else {
+				System.out.println("변경 실패");
+			}
+			break;	
 		case 0:
 			System.out.println("프로그램이 종료되었습니다.");
 			break;
