@@ -1,8 +1,9 @@
 package selectMenu;
 
+import java.util.Map;
 import java.util.Scanner;
 
-public class Util {
+public class ScanUtil {
 	
 
 	private static Scanner sc = new Scanner(System.in);

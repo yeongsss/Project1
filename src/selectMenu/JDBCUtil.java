@@ -94,12 +94,11 @@ public class JDBCUtil {
 
 	public Map<String, Object> selectOne(String sql, List<Object> param) {
 		Map<String, Object> row = null;
-
 		try {
 			con = DriverManager.getConnection(url, user, password);
 
 			ps = con.prepareStatement(sql);
-			System.out.println("fetchSize : " + ps.getFetchSize());
+//			System.out.println("fetchSize : " + ps.getFetchSize());
 			for (int i = 0; i < param.size(); i++) {
 				ps.setObject(i + 1, param.get(i));
 			}
@@ -109,7 +108,7 @@ public class JDBCUtil {
 			ResultSetMetaData md = rs.getMetaData(); // 메타데이터 : 데이터에 대한 데이터
 
 			int columnCount = md.getColumnCount(); // 컬럼 수
-
+			
 			while (rs.next()) {
 				row = new HashMap<>();
 				for (int i = 1; i <= columnCount; i++) {
@@ -172,7 +171,7 @@ public class JDBCUtil {
 				} catch (Exception e) {
 				}
 			if (con != null)
-				try {
+				try { 
 					con.close();
 				} catch (Exception e) {
 				}

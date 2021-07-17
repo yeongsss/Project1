@@ -1,3 +1,5 @@
+package controller;
+
 import java.util.Map;
 
 import member.MemberService;
@@ -17,11 +19,10 @@ public class Controller {
 	}
 
 	public static Map<String, Object> loginUser;
-	
+
 	private MemberService memberService = MemberService.getInstance();
 
 	private void start() {
-
 		int view = View.HOME;
 
 		while (true) {
@@ -29,12 +30,16 @@ public class Controller {
 			case View.HOME:
 				view = home();
 				break;
-					case View.LOGIN: view = memberService.login(); break;
-					case View.JOIN: view = memberService.join(); break;
-					
+			case View.LOGIN:
+				view = memberService.login();
+				break;
+			case View.JOIN:
+				view = memberService.join();
+				break;
+
 //					case View.BOARD_LIST: view = boardService.boardList(); break;
-					
-					//조회, 등록, 수정, 삭제를 구현해주세요.
+
+			// 조회, 등록, 수정, 삭제를 구현해주세요.
 //					case View.BOARD_INSERT_FORM: view = boardService.boardInsertForm(); break;
 //					case View.BOARD_VIEW: view = boardService.boardView(); break;
 			}
@@ -42,7 +47,6 @@ public class Controller {
 	}
 
 	private int home() {
-
 		System.out.println("--------------------------------");
 		System.out.println("1.로그인\t2.회원가입\t0.프로그램 종료");
 		System.out.println("--------------------------------");
@@ -51,7 +55,8 @@ public class Controller {
 		int input = ScanUtil.nextInt();
 
 		switch (input) {
-		case 1: return View.LOGIN;
+		case 1:
+			return View.LOGIN;
 		case 2:
 			return View.JOIN;
 		case 0:
@@ -61,7 +66,5 @@ public class Controller {
 		}
 		return View.HOME;
 	}
-	
-	
-	
+
 }
