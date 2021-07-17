@@ -1,15 +1,15 @@
 package comment;
 
-public class commentDTO {
+public class CommentDTO {
 	private int boardNo;
 	private String memberId;
 	private int commentDate;
 	private String commentContent;
 	
-	public commentDTO() {
+	public CommentDTO() {
 	}
 
-	public commentDTO(int boardNo, String memberId, String commentContent) {
+	public CommentDTO(int boardNo, String memberId, String commentContent) {
 		super();
 		this.boardNo = boardNo;
 		this.memberId = memberId;
@@ -18,7 +18,7 @@ public class commentDTO {
 	}
 
 	
-	public commentDTO(int boardNo, String memberId, int commentDate, String commentContent) {
+	public CommentDTO(int boardNo, String memberId, int commentDate, String commentContent) {
 		super();
 		this.boardNo = boardNo;
 		this.memberId = memberId;
@@ -83,7 +83,7 @@ public class commentDTO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		commentDTO other = (commentDTO) obj;
+		CommentDTO other = (CommentDTO) obj;
 		if (boardNo != other.boardNo)
 			return false;
 		if (commentContent == null) {

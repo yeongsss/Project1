@@ -7,20 +7,20 @@ import java.util.Map;
 
 import selectMenu.JDBCUtil;
 
-public class commentDAO {
-	private commentDAO() {}
+public class CommentDAO {
+	private CommentDAO() {}
 	
-	private static commentDAO instance;
-	public static commentDAO getInstance() {
+	private static CommentDAO instance;
+	public static CommentDAO getInstance() {
 		if (instance ==null) {
-			instance = new commentDAO();
+			instance = new CommentDAO();
 		}
 		return instance;
 	}
 	
 	private JDBCUtil jdbc =  JDBCUtil.getInstance();
 	
-	public boolean insertComment(commentDTO comment ) {
+	public boolean insertComment(CommentDTO comment ) {
 		String sql = "INSERT INTO CMNTS"
 							+ "    VALUES (? ,?,SYSDATE,?)";
 		
@@ -36,7 +36,7 @@ public class commentDAO {
 	}
 	
 	public List<Map<String , Object>> allComment() {
-		commentDTO commentDTO = new commentDTO();
+		CommentDTO commentDTO = new CommentDTO();
 		String sql = "SELECT * FROM CMNTS";
 		List<Map<String , Object>> list = jdbc.selectList(sql);
 		return list;
