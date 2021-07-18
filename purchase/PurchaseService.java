@@ -56,12 +56,29 @@ public class PurchaseService {
 		}
 		return purchase();
 		}
+	
+	
+	public int updatePurchase() {
+		ProductDTO productDTO = new ProductDTO();
+		System.out.println("취소할 상품의 상품코드를 입력하세요");
+		productDTO.setProductId(ScanUtil.nextLine());
+		System.out.println("취소할 수량을 입력하세요");
+		productDTO.setInventoryQuantity(-Integer.parseInt(ScanUtil.nextLine()));
+		
+		
+		
+		
+		
+		return 0;
+		
+		
+	}
 		
 		//매입 관리 뷰 -관리자
 		
 		private int purchaseManagement() {
 			System.out.println("--------------매입관리 페이지 입니다---------------");
-			System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 수정\t0.이전페이지");
+			System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
 			System.out.println("------------------------------------------");
 			System.out.print("번호 입력>");
 			int input = ScanUtil.nextInt();
