@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
-import product.ProductDAO;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 

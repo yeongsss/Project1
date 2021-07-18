@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import controller.Controller;
-import member.MemberDAO;
-import member.MemberDTO;
 import member.MemberService;
 import selectMenu.ScanUtil;
 

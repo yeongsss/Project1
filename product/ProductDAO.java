@@ -1,14 +1,10 @@
 package product;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import member.MemberDAO;
-import member.MemberDTO;
 import selectMenu.JDBCUtil;
-import selectMenu.ScanUtil;
 
 public class ProductDAO {
 	// 싱글톤
