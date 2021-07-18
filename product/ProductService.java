@@ -127,11 +127,32 @@ public class ProductService {
 			System.out.println("상품 등록 메뉴로 이동합니다");
 			return addProduct();
 		case 3:
-			break;
+			System.out.println("상품정보를 수정 합니다");
+			ProductDTO productDTO = new ProductDTO();
+			System.out.print("변경할 상품의 상품코드를 입력하세요");
+			productDTO.setProductId(ScanUtil.nextLine());
+			System.out.print("수정할 상품명을 입력하세요");
+			productDTO.setProductName(ScanUtil.nextLine());
+			System.out.print("수정할 상품코드를 입력하세요");
+			productDTO.setClassificationCode(ScanUtil.nextLine());
+			System.out.print("수정할 상품명을 입력하세요");
+			productDTO.setClassificationName(ScanUtil.nextLine());
+			System.out.print("수정할 판매가격 입력하세요");
+			productDTO.setPrice(Integer.parseInt(ScanUtil.nextLine()));
+			System.out.print("수정할 매입가격 입력하세요");
+			productDTO.setCost(Integer.parseInt(ScanUtil.nextLine()));
+			if (ProductDAO.productModify(productDTO)) {
+				System.out.println("상품정보 변경 성공");
+			} else {
+				System.out.println("상품정보 변경 실패");
+			}
+			
+			return productManagement();
 		case 4:
 			break;
 		case 5:
-			break;
+			System.out.println("재고관리 메뉴로 이동합니다");
+			return stockManagement();
 		case 0:
 			break;
 
@@ -175,6 +196,8 @@ public class ProductService {
 		return addProduct();
 	}
 
+	
+	
 	// 재고관리 뷰
 
 	public static int stockManagement() {
@@ -204,7 +227,7 @@ public class ProductService {
 			} else {
 				System.out.println("재고수량 변경 실패");
 			}
-			break;
+			return stockManagement();
 		case 0:
 			return productManagement();
 

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import product.ProductService;
+import purchase.PurchaseService;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 import selectMenu.View;
@@ -25,6 +27,8 @@ public class MemberService {
 
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 	private static MemberDAO memberDao = MemberDAO.getInstance();
+	private static PurchaseService purchaseService = PurchaseService.getInstance();
+	private static ProductService productService = ProductService.getInstance();
 
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
@@ -209,11 +213,11 @@ public class MemberService {
 
 		case 2:
 			System.out.println("상품관리 페이지로 이동합니다");
-			return memberManagement();
+			return productService.productManagement();
 
 		case 3:
 			System.out.println("매입관리 페이지로 이동합니다");
-			break;
+			return purchaseService.purchase();
 		case 4:
 			System.out.println("Q&A관리 페이지로 이동합니다");
 			break;
@@ -242,7 +246,7 @@ public class MemberService {
 				System.out.printf("%s\t%s\t%s\t%s\n", map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
 						map.get("MEM_HP"));
 			}
-			return memberManagement();
+			return editInfo();
 		case 2:
 
 			return memberManagement();

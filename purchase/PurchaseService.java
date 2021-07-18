@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import member.MemberDAO;
 import member.MemberService;
 import product.ProductDTO;
 import product.ProductService;
@@ -55,52 +56,56 @@ public class PurchaseService {
 			System.out.println("상품등록에 실패했습니다.");
 		}
 		return purchase();
-		}
-	
-	
+	}
+
+	// 매입 취소(수정)
+
 	public int updatePurchase() {
 		ProductDTO productDTO = new ProductDTO();
 		System.out.println("취소할 상품의 상품코드를 입력하세요");
 		productDTO.setProductId(ScanUtil.nextLine());
 		System.out.println("취소할 수량을 입력하세요");
 		productDTO.setInventoryQuantity(-Integer.parseInt(ScanUtil.nextLine()));
-		
-		
-		
-		
-		
-		return 0;
-		
-		
-	}
-		
-		//매입 관리 뷰 -관리자
-		
-		private int purchaseManagement() {
-			System.out.println("--------------매입관리 페이지 입니다---------------");
-			System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
-			System.out.println("------------------------------------------");
-			System.out.print("번호 입력>");
-			int input = ScanUtil.nextInt();
-			
-			switch (input) {
-			case 1:
-				System.out.println("매입내역을 조회합니다");
-				List<Map<String, Object>> list = purchaseDAO.getPurchaseAllInfo();
-				for (Map<String, Object> map : list) {
-					System.out.printf("%s\t%s\t%s\t%s\n", map.get("PU_NO"), map.get("PROD_ID"),
-							map.get("PU_DATE"), map.get("PU_QTY"));
-				}
-				
-				return purchaseManagement();
-			case 2: purchase();
-				break;
-			case 3: 
-				break;
-			case 0:
-				return memberService.mypageAdmin();
+
+		if (PurchaseDAO.updateInventoryQuantity(productDTO)) {
+			System.out.println("매입 취소 성공");
+		} else {
+			System.out.println("매입 취소 실패");
+		}
+
+		return purchaseManagement();
 
 	}
+
+	// 매입 관리 뷰 -관리자
+
+	private int purchaseManagement() {
+		System.out.println("--------------매입관리 페이지 입니다---------------");
+		System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
+		System.out.println("------------------------------------------");
+		System.out.print("번호 입력>");
+		int input = ScanUtil.nextInt();
+
+		switch (input) {
+		case 1:
+			System.out.println("매입내역을 조회합니다");
+			List<Map<String, Object>> list = purchaseDAO.getPurchaseAllInfo();
+			for (Map<String, Object> map : list) {
+				System.out.printf("%s\t%s\t%s\t%s\n", map.get("PU_NO"), map.get("PROD_ID"), map.get("PU_DATE"),
+						map.get("PU_QTY"));
+			}
+
 			return purchaseManagement();
-}
+		case 2:
+			System.out.println("매입신청 페이지로 이동합니다");
+			return purchase();
+		case 3:
+			System.out.println("매입취소 페이지로 이동합니다");
+			return updatePurchase();
+		case 0:
+			return memberService.mypageAdmin();
+
+		}
+		return purchaseManagement();
 	}
+}

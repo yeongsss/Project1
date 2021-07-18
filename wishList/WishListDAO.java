@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import member.MemberDTO;
 import selectMenu.JDBCUtil;
 
 public class WishListDAO {
@@ -23,6 +24,18 @@ public class WishListDAO {
 	}
 	
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
+	
+	
+	
+	//위시 리스트 조회 메소드
+	
+	public static List<Map<String, Object>> getWishListInfo() {
+		String sql = "SELECT * FROM WISHLIST WHERE MEM_ID = ?";
+		List<Map<String, Object>> resMap = jdbcUtil.selectList(sql);
+
+		return resMap;
+	}
+	
 	
 	
 	//위시 리스트 등록 메소드
