@@ -50,7 +50,21 @@ public class WishListService {
 			
 		case 3:
 			System.out.println("위시리스트 삭제 메뉴로 이동 합니다");
-			break;
+			System.out.print("삭제할 상품 코드를 입력하세요");
+			String productId = ScanUtil.nextLine();
+			String memberId = "";
+			Map<String, Object> wish = wishListDAO.wishListDelete(productId, (String)Controller.loginUser.get("MEM_ID"));
+
+
+			
+			if (wish == null) {
+				System.out.println("삭제할 위시리스트의 상품코드를 잘못 입력했거나, 존재하지 않는 상품코드 입니다");
+				return Wishlist();
+			} else {
+				System.out.println("위시리스트 삭제 성공");
+
+				return Wishlist();
+			}
 		}
 		
 		

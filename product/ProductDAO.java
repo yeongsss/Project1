@@ -104,6 +104,16 @@ public class ProductDAO {
 
 	}
 	
+	// 상품 삭제 -관리자
+	
+	public static Map<String, Object> productDelete(String productId) {
+		String sql = "DELETE FROM PROD WHERE PROD_ID = ?";
+		List<Object> param = new ArrayList<>();
+		param.add(productId);
+		return jdbcUtil.selectOne(sql, param);
+		
+	}
+	
 	
 	
 	

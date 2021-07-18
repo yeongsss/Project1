@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import controller.Controller;
 import member.MemberDAO;
 import member.MemberDTO;
+import member.MemberService;
 import selectMenu.ScanUtil;
 
 public class ProductService {
@@ -146,15 +148,29 @@ public class ProductService {
 			} else {
 				System.out.println("상품정보 변경 실패");
 			}
-			
+
 			return productManagement();
 		case 4:
-			break;
+
+			System.out.println("상품을 삭제 합니다.");
+			System.out.print("삭제할 상품 코드를 입력하세요");
+			String productId = ScanUtil.nextLine();
+
+			Map<String, Object> product = ProductDAO.productDelete(productId);
+
+			if (product == null) {
+				System.out.println("상품코드를 잘못 입력했거나, 존재하지 않는 상품코드 입니다");
+				return productManagement();
+			} else {
+				System.out.println("상품 삭제 성공");
+
+				return productManagement();
+			}
 		case 5:
 			System.out.println("재고관리 메뉴로 이동합니다");
 			return stockManagement();
 		case 0:
-			break;
+			return MemberService.getInstance().mypageAdmin();
 
 		}
 		return productManagement();
@@ -196,8 +212,6 @@ public class ProductService {
 		return addProduct();
 	}
 
-	
-	
 	// 재고관리 뷰
 
 	public static int stockManagement() {
@@ -221,7 +235,7 @@ public class ProductService {
 			System.out.print("변경할 재고의 상품코드를 입력하세요");
 			productDTO.setProductId(ScanUtil.nextLine());
 			System.out.print("변경할 재고의 수량을 입력하세요");
-			productDTO.setInventoryQuantity(Integer.parseInt(ScanUtil.nextLine()) );
+			productDTO.setInventoryQuantity(Integer.parseInt(ScanUtil.nextLine()));
 			if (ProductDAO.stockModify(productDTO)) {
 				System.out.println("재고수량 변경 성공");
 			} else {
@@ -233,8 +247,6 @@ public class ProductService {
 
 		}
 		return stockManagement();
-		
-		
 
 	}
 }
