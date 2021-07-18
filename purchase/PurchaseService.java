@@ -48,24 +48,24 @@ public class PurchaseService {
 			System.out.println("상품등록에 성공했습니다.");
 			ProductDTO productDTO = new ProductDTO();
 			productDTO.setProductId(productId);
-			productDTO.setInventoryQuantity(+Integer.parseInt(puroductQuantity));
-			PurchaseDAO.updateInventoryQuantity(productDTO);
+			productDTO.setInventoryQuantity(Integer.parseInt(puroductQuantity));
+			PurchaseDAO.plusInventoryQuantity(productDTO);
 		} else {
 			System.out.println("상품등록에 실패했습니다.");
 		}
 		return purchase();
 	}
 
-	// 매입 취소(수정)
+	// 매입 취소(수정 및 수량 감소)
 
 	public int updatePurchase() {
 		ProductDTO productDTO = new ProductDTO();
 		System.out.println("취소할 상품의 상품코드를 입력하세요");
 		productDTO.setProductId(ScanUtil.nextLine());
 		System.out.println("취소할 수량을 입력하세요");
-		productDTO.setInventoryQuantity(-Integer.parseInt(ScanUtil.nextLine()));
+		productDTO.setInventoryQuantity(Integer.parseInt(ScanUtil.nextLine()));
 
-		if (PurchaseDAO.updateInventoryQuantity(productDTO)) {
+		if (PurchaseDAO.minusInventoryQuantity(productDTO)) {
 			System.out.println("매입 취소 성공");
 		} else {
 			System.out.println("매입 취소 실패");
