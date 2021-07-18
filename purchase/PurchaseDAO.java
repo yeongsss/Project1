@@ -30,12 +30,10 @@ public class PurchaseDAO {
 	// 매입 메소드 (재고 수량은 미반영)
 
 	public static int insertPurchase(Map<String, Object> p) {
-		String sql = "INSERT INTO PUCHAS VALUES (?, ?, ?, ?,)";
+		String sql = "INSERT INTO PUCHAS VALUES (SEQ_PU_NO.NEXTVAL, ?, SYSDATE, ?,)";
 
 		List<Object> param = new ArrayList<>();
-		param.add(p.get("PU_NO"));
 		param.add(p.get("PROD_ID"));
-		param.add(p.get("PU_DATE"));
 		param.add(p.get("PU_QTY"));
 
 		return jdbcUtil.update(sql, param);
@@ -59,4 +57,18 @@ public class PurchaseDAO {
 						
 				return false;
 			}
+			
+	//매입 내역 조회
+			
+			public static List<Map<String, Object>> getPurchaseAllInfo() {
+				String sql = "SELECT * FROM PUCHAS";
+				List<Map<String, Object>> resMap = jdbcUtil.selectList(sql);
+
+				return resMap;
+			
+			
+			
+			
+}
+			
 }
