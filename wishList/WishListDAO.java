@@ -28,12 +28,11 @@ public class WishListDAO {
 	//위시 리스트 등록 메소드
 	
 	public static int insertWishList(Map<String, Object> p) {
-		String sql = "INSERT INTO WISHLIST VALUES (?, ?, ?)";
+		String sql = "INSERT INTO WISHLIST VALUES (?, ?, SYSDATE)";
 		
 		List<Object> param = new ArrayList<>();
 		param.add(p.get("MEM_ID"));
 		param.add(p.get("PROD_ID"));
-		param.add(p.get("WISH_DATE"));
 		
 		
 		

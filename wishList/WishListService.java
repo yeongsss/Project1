@@ -32,13 +32,11 @@ public class WishListService {
 		System.out.print("상품코드를 입력하세요");
 		String productId = ScanUtil.nextLine();
 		//위시리스트 추가일로 자동 날짜 등록
-		String wishListAddDate = "SYSDATE";
 		
 
 		Map<String, Object> param = new HashMap<>();
 		param.put("MEM_ID", memberId);
 		param.put("PROD_ID", productId);
-		param.put("WISH_DATE", wishListAddDate);
 
 		int result = WishListDAO.insertWishList(param);
 
