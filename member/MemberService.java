@@ -125,6 +125,8 @@ public class MemberService {
 		case 1:
 			System.out.println();
 			System.out.println(">>  정보를 조회 합니다.");
+			System.out.println();
+			System.out.println("  아이디		이름	생년월일		전화번호");
 			System.out.println(MemberDAO.getMemberInfo(Controller.loginUser.get("MEM_ID")));
 			return myPage(); // 로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
 		case 2:

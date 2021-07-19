@@ -57,7 +57,8 @@ public class MemberDAO {
 	public static Object getMemberInfo(Object object) {
 		MemberDTO dto = new MemberDTO();
 		List<Object> memberInfo = new ArrayList<>();
-		String sql = "SELECT * FROM MEMBER" + " WHERE" + " MEM_ID= ?";
+		String sql = "SELECT * FROM MEMBER" 
+								+ " WHERE  MEM_ID= ?";
 		List<Object> param = new ArrayList<>();
 		param.add(object);
 		Map<String, Object> resMap = jdbcUtil.selectOne(sql, param);
@@ -168,6 +169,5 @@ public class MemberDAO {
 			return true;
 		}
 		return false;
-		
 	}	
 }
