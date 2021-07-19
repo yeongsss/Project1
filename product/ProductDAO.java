@@ -84,7 +84,7 @@ public class ProductDAO {
 	// 상품 수정 -관리자
 	
 	public static boolean productModify(ProductDTO update) {
-		String sql = "UPDATE PROD SET" + " PROD_NAME = ? CL_ID = ? CL_NAME = ? PRICE = ? PU_COST =?" + " WHERE PROD_ID = ?;";
+		String sql = "UPDATE PROD SET" + " PROD_NAME = ?, CL_ID = ?, CL_NAME = ?, PRICE = ?, PU_COST =?" + " WHERE PROD_ID = ?";
 
 		List<Object> list = new ArrayList<>();
 		list.add(update.getProductName());
@@ -123,7 +123,7 @@ public class ProductDAO {
 
 	// 재고 수정- 관리자
 	public static boolean stockModify(ProductDTO update) {
-		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = ?" + " WHERE PROD_ID = ?;";
+		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = ?" + " WHERE PROD_ID = ?";
 
 		List<Object> list = new ArrayList<>();
 		list.add(update.getInventoryQuantity());

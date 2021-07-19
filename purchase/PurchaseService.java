@@ -34,7 +34,7 @@ public class PurchaseService {
 		System.out.print("상품코드를 입력하세요");
 		String productId = ScanUtil.nextLine();
 		System.out.print("매입수량을 입력하세요>");
-		String puroductQuantity = ScanUtil.nextLine();
+		int puroductQuantity = ScanUtil.nextInt();
 
 		Map<String, Object> param = new HashMap<>();
 		param.put("PROD_ID", productId);
@@ -42,18 +42,18 @@ public class PurchaseService {
 
 		int result = PurchaseDAO.insertPurchase(param);
 
-		// 매입후 if 문 이후에 상품등록 성공하면, 재고를 조정(수정) 함, +연산 넣기를 추가 할것.
+		// 매입후 if 문 이후에 상품등록 성공하면, 재고를 조정(수정) 함.
 
 		if (0 < result) {
-			System.out.println("상품등록에 성공했습니다.");
+			System.out.println("매입신청에 성공했습니다.");
 			ProductDTO productDTO = new ProductDTO();
 			productDTO.setProductId(productId);
-			productDTO.setInventoryQuantity(Integer.parseInt(puroductQuantity));
+			productDTO.setInventoryQuantity(puroductQuantity);
 			PurchaseDAO.plusInventoryQuantity(productDTO);
 		} else {
-			System.out.println("상품등록에 실패했습니다.");
+			System.out.println("매입신청에 실패했습니다.");
 		}
-		return purchase();
+		return purchaseManagement();
 	}
 
 	// 매입 취소(수정 및 수량 감소)
@@ -63,12 +63,12 @@ public class PurchaseService {
 		System.out.println("취소할 상품의 상품코드를 입력하세요");
 		productDTO.setProductId(ScanUtil.nextLine());
 		System.out.println("취소할 수량을 입력하세요");
-		productDTO.setInventoryQuantity(Integer.parseInt(ScanUtil.nextLine()));
+		productDTO.setInventoryQuantity(ScanUtil.nextInt());
 
 		if (PurchaseDAO.minusInventoryQuantity(productDTO)) {
-			System.out.println("매입 취소 성공");
+			System.out.println("매입 취소신청 성공");
 		} else {
-			System.out.println("매입 취소 실패");
+			System.out.println("매입 취소신청 실패");
 		}
 
 		return purchaseManagement();
@@ -77,7 +77,7 @@ public class PurchaseService {
 
 	// 매입 관리 뷰 -관리자
 
-	private int purchaseManagement() {
+	public int purchaseManagement() {
 		System.out.println("--------------매입관리 페이지 입니다---------------");
 		System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
 		System.out.println("------------------------------------------");

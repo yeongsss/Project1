@@ -29,6 +29,7 @@ public class MemberService {
 	private static MemberDAO memberDao = MemberDAO.getInstance();
 	private static PurchaseService purchaseService = PurchaseService.getInstance();
 	private static ProductService productService = ProductService.getInstance();
+	
 
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
@@ -80,7 +81,7 @@ public class MemberService {
 		System.out.print("비밀번호>");
 		String password = ScanUtil.nextLine();
 		
-
+		
 		Map<String, Object> user = MemberDAO.memberselect(userId, password);
 
 		if (user == null) {
@@ -90,9 +91,9 @@ public class MemberService {
 			Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
 
 			if (Controller.loginUser.get("AUTHOR") == "1") {
-
+				
 				mypageAdmin(); // 권한이 관리자면 관리자 페이지로 이동함.
-
+				
 			}
 			return myPage(); // 일반회원 로그인 성공하면, 마이페이지로 이동.
 
@@ -217,7 +218,7 @@ public class MemberService {
 
 		case 3:
 			System.out.println("매입관리 페이지로 이동합니다");
-			return purchaseService.purchase();
+			return purchaseService.purchaseManagement();
 		case 4:
 			System.out.println("Q&A관리 페이지로 이동합니다");
 			break;
@@ -246,7 +247,7 @@ public class MemberService {
 				System.out.printf("%s\t%s\t%s\t%s\n", map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
 						map.get("MEM_HP"));
 			}
-			return editInfo();
+			return memberManagement();
 		case 2:
 
 			return memberManagement();

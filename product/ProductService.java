@@ -134,12 +134,12 @@ public class ProductService {
 			productDTO.setProductName(ScanUtil.nextLine());
 			System.out.print("수정할 상품코드를 입력하세요");
 			productDTO.setClassificationCode(ScanUtil.nextLine());
-			System.out.print("수정할 상품명을 입력하세요");
+			System.out.print("수정할 분류명 입력하세요");
 			productDTO.setClassificationName(ScanUtil.nextLine());
 			System.out.print("수정할 판매가격 입력하세요");
-			productDTO.setPrice(Integer.parseInt(ScanUtil.nextLine()));
+			productDTO.setPrice(ScanUtil.nextInt());
 			System.out.print("수정할 매입가격 입력하세요");
-			productDTO.setCost(Integer.parseInt(ScanUtil.nextLine()));
+			productDTO.setCost(ScanUtil.nextInt());
 			if (ProductDAO.productModify(productDTO)) {
 				System.out.println("상품정보 변경 성공");
 			} else {
@@ -185,10 +185,10 @@ public class ProductService {
 		System.out.print("분류명>");
 		String classificationName = ScanUtil.nextLine();
 		System.out.print("판매가격>");
-		String price = ScanUtil.nextLine();
-		String inventoryQuantity = "0"; // 재고는 0으로 시작함
+		int price = ScanUtil.nextInt();
+		int inventoryQuantity = 0; // 재고는 0으로 시작함
 		System.out.print("매입가격>");
-		String cost = ScanUtil.nextLine();
+		int cost = ScanUtil.nextInt();
 
 		Map<String, Object> param = new HashMap<>();
 		param.put("PROD_ID", productId);
@@ -206,7 +206,7 @@ public class ProductService {
 		} else {
 			System.out.println("상품등록에 실패했습니다.");
 		}
-		return addProduct();
+		return productManagement();
 	}
 
 	// 재고관리 뷰
@@ -232,7 +232,7 @@ public class ProductService {
 			System.out.print("변경할 재고의 상품코드를 입력하세요");
 			productDTO.setProductId(ScanUtil.nextLine());
 			System.out.print("변경할 재고의 수량을 입력하세요");
-			productDTO.setInventoryQuantity(Integer.parseInt(ScanUtil.nextLine()));
+			productDTO.setInventoryQuantity(ScanUtil.nextInt());
 			if (ProductDAO.stockModify(productDTO)) {
 				System.out.println("재고수량 변경 성공");
 			} else {
