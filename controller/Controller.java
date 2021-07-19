@@ -53,12 +53,7 @@ public class Controller {
 			}
 			return View.HOME;
 		} catch (NumberFormatException e) {
-<<<<<<< HEAD
 			System.out.println("메뉴 선택은 숫자로 입력해 주세요");
-			System.out.println();
-=======
-			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
->>>>>>> branch 'develop' of https://github.com/yeongsss/Project1
 			
 		}
 		return View.HOME;

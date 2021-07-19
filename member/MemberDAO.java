@@ -55,17 +55,10 @@ public class MemberDAO {
 	// 내정보 조회 메소드
 
 	
-<<<<<<< HEAD
-	public static Object getMemberInfo(Object object) {
-		MemberDTO dto = new MemberDTO();
-		List<Object> memberInfo = new ArrayList<>();
-		String sql = "SELECT * FROM MEMBER" 
-								+ " WHERE  MEM_ID= ?";
-=======
+	
 	public static List<Map<String, Object>> getMemberInfo(String memberId) {
 		MemberDTO memberInfo = new MemberDTO();
 		String sql = "SELECT * FROM MEMBER" + " WHERE" + " MEM_ID= ?";
->>>>>>> branch 'develop' of https://github.com/yeongsss/Project1
 		List<Object> param = new ArrayList<>();
 		param.add(memberId);
 			
