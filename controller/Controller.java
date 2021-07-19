@@ -30,7 +30,7 @@ public class Controller {
 	}
 
 	private int home() {
-		System.out.println("하이마트에 오신것을 환영합니다.");
+		System.out.println("** 하이마트에 오신것을 환영합니다. **");
 		System.out.println("[ 1.로그인\t2.회원가입\t0.프로그램 종료 ]");
 //		System.out.println("--------------------------------");
 		System.out.print("번호를 입력해주세요 ->  ");

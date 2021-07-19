@@ -107,15 +107,16 @@ public class ProductService {
 
 	// 상품관리 메뉴 뷰
 	public static int productManagement() {
-		System.out.println("-----------------------상품관리 페이지 입니다-----------------------");
+		System.out.println();
+		System.out.println("-----------------------------------------상품관리 ---------------------------------------");
 		System.out.println("1.상품 조회\t2.상품 등록\t3.상품정보 수정\t4.상품삭제\t5.재고 관리\t0.이전페이지");
-		System.out.println("------------------------------------------------------------");
-		System.out.print("번호 입력>");
+		System.out.println("------------------------------------------------------------------------------------------");
+		System.out.print("번호 입력 :  ");
 		int input = ScanUtil.nextInt();
 
 		switch (input) {
 		case 1:
-			System.out.println("상품목록을 조회합니다");
+			System.out.println("     														< 상품목록 >																	");
 			List<Map<String, Object>> list = ProductDAO.getProductAllInfo();
 			for (Map<String, Object> map : list) {
 				System.out.printf("%s\t%s\t%s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("CL_ID"),

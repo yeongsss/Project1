@@ -75,7 +75,7 @@ public class MemberService {
 
 // 로그인실패시  다시 입력받기 OR 메인화면 이동 선택가능하게 수정
 	public int login() {
-		System.out.println("============== 로그인 ===============");
+		System.out.println("========================== 로그인 =========================");
 		while (true) {
 			System.out.print("아이디 :  ");
 			String userId = ScanUtil.nextLine();
@@ -96,7 +96,7 @@ public class MemberService {
 				}
 
 			} else {
-				System.out.println("로그인 성공!!!!!");
+//				System.out.println("로그인 성공");
 				Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
 
 
@@ -115,14 +115,16 @@ public class MemberService {
 
 	// 로그인 성공 후, 마이페이지(일반회원) 접속 뷰
 	private int myPage() {
-		System.out.println("------------일반 회원 로그인 되었습니다---------------");
-		System.out.println("1.내정보 조회\t2.내정보 수정\t3.주문내역\t0.로그아웃");
-		System.out.println("---------------------------------------------");
-		System.out.print("번호 입력>");
+		System.out.println();
+		System.out.println("========================= 일반 회원  ========================");
+		System.out.println("1.내정보 조회 \t 2.내정보 수정 \t 3.주문내역 \t 0.로그아웃");
+		System.out.println("========================================================");	
+		System.out.print("번호 입력 :  ");
 		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
-			System.out.println("정보를 조회 합니다.");
+			System.out.println();
+			System.out.println(">>  정보를 조회 합니다.");
 			System.out.println(MemberDAO.getMemberInfo(Controller.loginUser.get("MEM_ID")));
 			return myPage(); // 로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
 		case 2:
@@ -212,27 +214,28 @@ public class MemberService {
 
 	// 관리자 로그인 화면
 	public int mypageAdmin() {
-		System.out.println("-------------관리자 회원 로그인 되었습니다------------");
-		System.out.println("1.회원관리\t2.상품관리\t3.매입관리\t4.Q&A관리\t0.로그아웃");
-		System.out.println("--------------------------------------------");
-		System.out.print("번호 입력>");
-
+		System.out.println();
+		System.out.println("========================== 관리자 =========================");
+		System.out.println(" 1.회원관리 \t 2.상품관리 \t 3.매입관리 \t 4.Q&A관리 \t 0.로그아웃  ");
+		System.out.println("========================================================");
+		System.out.print("번호 입력 :  ");
 		int input = ScanUtil.nextInt();
+		System.out.println();
 
 		switch (input) {
 		case 1:
-			System.out.println("회원관리 페이지로 이동합니다");
+			System.out.println(">>  회원관리 페이지로 이동합니다");
 			return memberManagement();
 
 		case 2:
-			System.out.println("상품관리 페이지로 이동합니다");
+			System.out.println(">>  상품관리 페이지로 이동합니다");
 			return productService.productManagement();
 
 		case 3:
-			System.out.println("매입관리 페이지로 이동합니다");
+			System.out.println(">>  매입관리 페이지로 이동합니다");
 			return purchaseService.purchaseManagement();
 		case 4:
-			System.out.println("Q&A관리 페이지로 이동합니다");
+			System.out.println(">>  Q&A관리 페이지로 이동합니다");
 			break;
 		case 0:
 			System.out.println("로그아웃 되었습니다.");
@@ -244,6 +247,7 @@ public class MemberService {
 	}
 
 	private int memberManagement() {
+		System.out.println();
 		System.out.println("---------회원관리 페이지 입니다------------------");
 		System.out.println("1.회원정보 보기\t2.회원정보 수정\t3.권한 수정\t0.이전페이지");
 		System.out.println("------------------------------------------");
@@ -261,7 +265,7 @@ public class MemberService {
 			}
 			return memberManagement();
 		case 2:
-
+			
 			return memberManagement();
 
 		case 3:
