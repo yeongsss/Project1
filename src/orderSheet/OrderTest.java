@@ -21,7 +21,7 @@ public class OrderTest {
 			List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo(ScanUtil.nextLine());
 			
 			System.out.println("============================ 주문서 ==============================");
-			System.out.println("주문번호\t | 아이디\t | 주문일자\t | 주소\t | 상세주소\t | 주문가격\t | 주문현황\t | 배송현황\t");
+			System.out.println("주문번호 | 아이디\t\t | 주문일자\t\t | 주소\t | 상세주소\t | 주문가격\t | 주문현황\t | 배송현황\t");
 			
 			for (Map<String, Object> map : list) {
 				System.out.printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",map.get("ORD_NO"), map.get("MEM_ID"),map.get("ORD_DATE"), map.get("ORD_ADD1"),map.get("ORD_ADD2"),map.get("PAY_PRICE"), map.get("PAY_STATE"),map.get("DELIVERY_STATE"));

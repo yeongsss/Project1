@@ -92,8 +92,11 @@ public class OrderSheetDTO {
 
 	@Override
 	public String toString() {
-		return orderNumber +  "\t" + memberId + "\t" + orderDate +  "\t" + orderAdd1 +  "\t" + orderAdd2 
-				+  "\t" + payPrice +  "\t" + payState  +  "\t" + deliveryState;
+		
+		return String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s", orderNumber, memberId, orderDate, orderAdd1, 
+								orderAdd2, payPrice, payState, deliveryState);
+//		return orderNumber +  "\t" + memberId + "\t" + orderDate +  "\t" + orderAdd1 +  "\t" + orderAdd2 
+//				+  "\t" + payPrice +  "\t" + payState  +  "\t" + deliveryState;
 	}
 	
 
