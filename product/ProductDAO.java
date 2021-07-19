@@ -84,14 +84,16 @@ public class ProductDAO {
 	// 상품 수정 -관리자
 	
 	public static boolean productModify(ProductDTO update) {
-		String sql = "UPDATE PROD SET" + " PROD_NAME = ? CL_ID = ? CL_NAME = ? PRICE = ? PU_COST =?" + " WHERE PROD_ID = ?;";
+		String sql = "UPDATE PROD SET" + " PROD_NAME = ?, CL_ID = ?, CL_NAME = ?, PRICE = ?, PU_COST =?" + " WHERE PROD_ID = ?";
 
 		List<Object> list = new ArrayList<>();
 		list.add(update.getProductName());
 		list.add(update.getClassificationCode());
 		list.add(update.getProductName());
 		list.add(update.getPrice());
+		list.add(update.getCost());
 		list.add(update.getProductId());
+		
 
 		if (jdbcUtil.update(sql, list) == 1) {
 			return true;
@@ -123,7 +125,7 @@ public class ProductDAO {
 
 	// 재고 수정- 관리자
 	public static boolean stockModify(ProductDTO update) {
-		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = ?" + " WHERE PROD_ID = ?;";
+		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = ?" + " WHERE PROD_ID = ?";
 
 		List<Object> list = new ArrayList<>();
 		list.add(update.getInventoryQuantity());
@@ -136,6 +138,41 @@ public class ProductDAO {
 
 	}
 	
+	//매입 후 재고 조정 메소드(재고 수량을 증가)
+	public static boolean plusInventoryQuantity(ProductDTO productDTO) {
+		
+		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = INVNTRY_QTY +" + "?"
+				+ " WHERE PROD_ID = ?";
+					
+		
+		List<Object> list = new ArrayList<>();
+		list.add(productDTO.getProductId());
+		list.add(productDTO.getInventoryQuantity());
+		
+		if (jdbcUtil.update(sql, list) == 1) {
+			return true;
+		}
+				
+		return false;
+	}
+	
+//매입 후 재고 조정 메소드(재고 수량을 반영함)
+	public static boolean minusInventoryQuantity(ProductDTO productDTO) {
+		
+		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = INVNTRY_QTY -" +"(?)"
+		+ " WHERE PROD_ID = ?";
+					
+		
+		List<Object> list = new ArrayList<>();
+		list.add(productDTO.getProductId());
+		list.add(productDTO.getInventoryQuantity());
+		
+		if (jdbcUtil.update(sql, list) == 1) {
+			return true;
+		}
+				
+		return false;
+	}
 	
 
 }

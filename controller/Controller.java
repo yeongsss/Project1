@@ -9,11 +9,6 @@ import selectMenu.View;
 public class Controller {
 
 	public static void main(String[] args) {
-		/*
-		 * 발표순서 : 조 소개 > 주제 소개 > 주제 선정 배경 > 메뉴 구조 > 시연 발표인원 : 발표자 1명, ppt 및 시연 도우미 1명
-		 * 
-		 * Controller : 화면 이동 Service : 화면 기능 Dao : 쿼리작성
-		 */
 
 		new Controller().start();
 	}
@@ -37,11 +32,7 @@ public class Controller {
 				view = memberService.join();
 				break;
 
-//					case View.BOARD_LIST: view = boardService.boardList(); break;
 
-			// 조회, 등록, 수정, 삭제를 구현해주세요.
-//					case View.BOARD_INSERT_FORM: view = boardService.boardInsertForm(); break;
-//					case View.BOARD_VIEW: view = boardService.boardView(); break;
 			}
 		}
 	}

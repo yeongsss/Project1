@@ -43,12 +43,11 @@ public class MemberDAO {
 	}
 
 	// 로그인 메소드
-	public static Map<String, Object> memberselect(String memberId, String memberPassword, String author) {
-		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?" + "AND AUTHOR = ?";
+	public static Map<String, Object> memberselect(String memberId, String memberPassword) {
+		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(memberId);
 		param.add(memberPassword);
-		param.add(author);
 		return jdbcUtil.selectOne(sql, param);
 
 	}
@@ -75,7 +74,7 @@ public class MemberDAO {
 	
 	public static boolean MemberInfoModifyPw(MemberDTO update) {
 		String sql = "UPDATE MEMBER SET" + " MEM_PW = ?" 
-				     + " WHERE MEM_ID = ?;";
+				     + " WHERE MEM_ID = ?";
 				
 		List<Object> list = new ArrayList<>();
 		list.add(update.getMemberPassword());
@@ -91,7 +90,7 @@ public class MemberDAO {
 	//회원 전화번호 수정 메소드
 	public static boolean MemberInfoModifyHp(MemberDTO update) {
 		String sql = "UPDATE MEMBER SET" + " MEM_HP = ?" 
-				     + " WHERE MEM_ID = ?;";
+				     + " WHERE MEM_ID = ?";
 				
 		List<Object> list = new ArrayList<>();
 		list.add(update.getMemberHp());
@@ -107,7 +106,7 @@ public class MemberDAO {
 	//회원 기본주소 수정 메소드
 		public static boolean MemberInfoModifyAdd1(MemberDTO update) {
 			String sql = "UPDATE MEMBER SET" + " MEM_ADD1 = ?" 
-					     + " WHERE MEM_ID = ?;";
+					     + " WHERE MEM_ID = ?";
 					
 			List<Object> list = new ArrayList<>();
 			list.add(update.getMemberAdd1());
@@ -123,7 +122,7 @@ public class MemberDAO {
 		//회원 상세주소 수정 메소드
 				public static boolean MemberInfoModifyAdd2(MemberDTO update) {
 					String sql = "UPDATE MEMBER SET" + " MEM_ADD2 = ?" 
-							     + " WHERE MEM_ID = ?;";
+							     + " WHERE MEM_ID = ?";
 							
 					List<Object> list = new ArrayList<>();
 					list.add(update.getMemberAdd2());
@@ -159,7 +158,7 @@ public class MemberDAO {
 	//권한 수정 메소드
 	public static boolean ChangeMemberAuthor(MemberDTO update) {
 		String sql = "UPDATE MEMBER SET" + " AUTHOR = ?" 
-				     + " WHERE MEM_ID = ?;";
+				     + " WHERE MEM_ID = ?";
 				
 		List<Object> list = new ArrayList<>();
 		list.add(update.getAuthor());

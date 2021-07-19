@@ -30,7 +30,7 @@ public class PurchaseDAO {
 	// 매입 메소드 (재고 수량은 미반영)
 
 	public static int insertPurchase(Map<String, Object> p) {
-		String sql = "INSERT INTO PUCHAS VALUES (SEQ_PU_NO.NEXTVAL, ?, SYSDATE, ?,)";
+		String sql = "INSERT INTO PUCHAS VALUES (SEQ_PUCHAS.NEXTVAL, ?, SYSDATE, ?)";
 
 		List<Object> param = new ArrayList<>();
 		param.add(p.get("PROD_ID"));
@@ -41,39 +41,7 @@ public class PurchaseDAO {
 	}
 	
 	
-	//매입 후 재고 조정 메소드(재고 수량을 증가)
-			public static boolean plusInventoryQuantity(ProductDTO productDTO) {
-				
-				String sql = "UPDATE PROD SET" + "PROD_ID = ?"
-							+ " WHERE INVNTRY_QTY = INVNTRY_QTY +?;";
-				
-				List<Object> list = new ArrayList<>();
-				list.add(productDTO.getProductId());
-				list.add(productDTO.getInventoryQuantity());
-				
-				if (jdbcUtil.update(sql, list) == 1) {
-					return true;
-				}
-						
-				return false;
-			}
-			
-		//매입 후 재고 조정 메소드(재고 수량을 반영함)
-			public static boolean minusInventoryQuantity(ProductDTO productDTO) {
-				
-				String sql = "UPDATE PROD SET" + "PROD_ID = ?"
-							+ " WHERE INVNTRY_QTY = INVNTRY_QTY -?;";
-				
-				List<Object> list = new ArrayList<>();
-				list.add(productDTO.getProductId());
-				list.add(productDTO.getInventoryQuantity());
-				
-				if (jdbcUtil.update(sql, list) == 1) {
-					return true;
-				}
-						
-				return false;
-			}
+	
 			
 	//매입 내역 조회
 			
