@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import member.MemberService;
+import product.ProductDAO;
 import product.ProductDTO;
 import selectMenu.ScanUtil;
 
@@ -49,7 +50,7 @@ public class PurchaseService {
 			ProductDTO productDTO = new ProductDTO();
 			productDTO.setProductId(productId);
 			productDTO.setInventoryQuantity(puroductQuantity);
-			PurchaseDAO.plusInventoryQuantity(productDTO);
+			ProductDAO.plusInventoryQuantity(productDTO);
 		} else {
 			System.out.println("매입신청에 실패했습니다.");
 		}
@@ -65,7 +66,7 @@ public class PurchaseService {
 		System.out.println("취소할 수량을 입력하세요");
 		productDTO.setInventoryQuantity(ScanUtil.nextInt());
 
-		if (PurchaseDAO.minusInventoryQuantity(productDTO)) {
+		if (ProductDAO.minusInventoryQuantity(productDTO)) {
 			System.out.println("매입 취소신청 성공");
 		} else {
 			System.out.println("매입 취소신청 실패");
