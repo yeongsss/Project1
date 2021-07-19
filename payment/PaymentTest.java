@@ -3,6 +3,7 @@ package payment;
 import java.util.List;
 import java.util.Map;
 
+import paymentMethod.PaymentMethodDTO;
 import selectMenu.ScanUtil;
 
 public class PaymentTest {
@@ -32,14 +33,15 @@ public class PaymentTest {
 
          case 2:
             PaymentDTO paymentDTO2 = new PaymentDTO();
+            PaymentMethodDTO paymentMethodDTO = new PaymentMethodDTO();
             System.out.print("변경할 주문번호 입력>");
             paymentDTO2.setOrderNumber(ScanUtil.nextInt());
             
             System.out.println("1.계좌이체\t 2.카드결제");
             System.out.print("결제 수단을 선택해주세요>> ");
-            paymentDTO2.setPaymentCode(ScanUtil.nextLine());
+            paymentMethodDTO.setPaymentMethod(ScanUtil.nextLine());
             
-            if (paymentDAO.updatePaymentCode(paymentDTO2)) {
+            if (paymentMethodDTO.(paymentMethodDTO)) {
                System.out.println("선택 완료");
             } else {
                System.out.println("선택 실패");

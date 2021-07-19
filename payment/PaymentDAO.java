@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import paymentMethod.PaymentMethodDTO;
 import selectMenu.JDBCUtil;
 
 public class PaymentDAO {
@@ -32,12 +33,12 @@ public class PaymentDAO {
 		return jdbc.selectList(sql, list);
 	}
 
-	public boolean updatePaymentCode(PaymentDTO update) {
-		String sql = "UPDATE PAYMENT SET PAY_CODE = ? WHERE ORD_NO = ?";
+	public boolean updatePaymentCode(PaymentMethodDTO update) {
+		String sql = "UPDATE PAYMENTMETHOD SET PAY_METH = ? WHERE PAY_CODE = ?";
 
 		List<Object> list = new ArrayList<>();
+		list.add(update.getPaymentMethod());
 		list.add(update.getPaymentCode());
-		list.add(update.getOrderNumber());
 
 		if (jdbc.update(sql, list) == 1) {
 			return true;
