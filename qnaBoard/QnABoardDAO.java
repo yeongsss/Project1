@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import comment.CommentDTO;
 import selectMenu.JDBCUtil;
 
 public class QnABoardDAO {
@@ -52,6 +53,24 @@ public class QnABoardDAO {
 			return false;
 		}
 		
+		public List<Map<String , Object>> getBoard() {
+			QnABoardDTO qnABoardDTO = new QnABoardDTO();
+			CommentDTO commentDTO = new CommentDTO();
+			String sql = "    SELECT B.BOARD_NO, "
+					   + "           B.Q_TITLE,"
+					   + "           B.Q_CONTENT,"
+					   + "			 B.Q_DATE,"
+					   + "           NVL(C.CM_CONTENT, '댓글없음') AS CM_CONTENT,"
+					   + "			 C.CM_DATE	"
+					   + "      FROM QNA_BOARD B, CMNTS C"
+					   + "     WHERE B.BOARD_NO = C.BOARD_NO(+)";
+			List<Map<String, Object>> list = jdbc.selectList(sql);
+			return list;
+			
+		}
+		
+		
+		
 		public List<Map<String, Object>> getQnaBoardMEMID(String memberId) {
 			String sql = "SELECT * FROM QNA_BOARD"
 								+ "        WHERE MEM_ID= ? ";
@@ -77,19 +96,17 @@ public class QnABoardDAO {
 			return list;
 		}
 		
-//		public List<Map<String, Object>> deleteQnA(int boardNo) {
-//			String sql = "delete from QNA_BOARD where BOARD_NO = ?";
-//			
-//			List<Object> list = new ArrayList();
-//			list.add(boardNo);
-
-//			if (jdbc.update(sql)==1) {
-//				return true;
-//			} return false;
-//			
+		public int deleteQnA(int  boardNo) {
+			String sql = "DELETE FROM QNA_BOARD "
+					+ " WHERE BOARD_NO = "+ boardNo;
+			
+			return jdbc.update(sql);
+					
+		
+			
 		}
 
-//}
+}
 
 
 

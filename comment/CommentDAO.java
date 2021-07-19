@@ -54,12 +54,19 @@ public class CommentDAO {
 	}
 	
 
-	public Map<String, Object> deleteComment (int boardNo) {
+	public boolean deleteComment (int boardNo) {
 		String sql = "DELETE FROM CMNTS"
-								+ "WHERE BOARD_NO= ?";
+								+ " WHERE BOARD_NO = ?";
 		List<Object> list = new ArrayList<>();
 		list.add(boardNo);
-		return jdbc.selectOne(sql) ;
+		
+		int result = jdbc.update(sql, list);
+		
+		if(result > 0) {
+			return true;
+		}
+		
+		return false;
 	}
 }
 

@@ -1,14 +1,17 @@
 package controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Map;
 
+import member.MemberExceptionBirth;
+import member.MemberExceptionId;
 import member.MemberService;
 import selectMenu.ScanUtil;
 import selectMenu.View;
 
 public class Controller {
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws MemberExceptionId, MemberExceptionBirth, SQLIntegrityConstraintViolationException{
 
 		new Controller().start();
 	}
@@ -17,7 +20,7 @@ public class Controller {
 
 	private MemberService memberService = MemberService.getInstance();
 
-	private void start() {
+	private void start() throws MemberExceptionId, MemberExceptionBirth, SQLIntegrityConstraintViolationException {
 		int view = View.HOME;
 
 		while (true) {
@@ -53,7 +56,7 @@ public class Controller {
 			}
 			return View.HOME;
 		} catch (NumberFormatException e) {
-			System.out.println("메뉴 선택은 숫자로 입력해 주세요");
+			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
 			
 		}
 		return View.HOME;
