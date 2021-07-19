@@ -263,7 +263,7 @@ public class JDBCUtil {
 				ps.setObject(i + 1, param.get(i));
 			}
 			result = ps.executeUpdate();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (rs != null)

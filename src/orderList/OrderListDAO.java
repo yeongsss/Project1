@@ -24,8 +24,7 @@ public class OrderListDAO {
    //주문목록 조회
    public List<Map<String, Object>> getorderListinfo(String orderSheet){
       OrderListDAO orderListinfo = new OrderListDAO();
-      String sql = "SELECT A.ORD_NO, B.PROD_ID FROM ORDERLIST A, PROD B"
-               + "WHERE A.PROD_ID=B.PROD_ID AND ORD_NO = ? ";
+      String sql = "SELECT ORD_NO, PROD_ID, ORD_QTY FROM ORDERLIST WHERE ORD_NO = ?";
       List<Object> list = new ArrayList<>();
       list.add(orderSheet);
       
@@ -33,11 +32,11 @@ public class OrderListDAO {
    }
    //주문수량 수정
    public boolean updateOderQuantity(OrderListDTO update) {
-      String sql = "UPDATE ORDERLIST SET ORD_QTY = ? WHERE ORD_NO = ?";
+      String sql = "UPDATE ORDERLIST SET ORD_QTY = ? WHERE PROD_ID = ?";
       
       List<Object> list = new ArrayList<>();
       list.add(update.getOrderQuantity());
-      list.add(update.getOrderNumber());
+      list.add(update.getProductId());
       
       if(jdbc.update(sql, list) == 1) {
          return true;

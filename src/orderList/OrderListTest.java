@@ -22,18 +22,22 @@ package orderList;
 	            System.out.println("주문번호\t  상품코드\t  주문수량 ");
 	            
 	            for (Map<String, Object> map : list) {
-	               System.out.printf("%s\t%s\t%s", map.get("ORD_NO"), map.get("PROD_ID"), map.get("ORD_QTY"));
+	               System.out.printf("%s\t%s\t\t%s\n", map.get("ORD_NO"), map.get("PROD_ID"), map.get("ORD_QTY"));
 	            }
 	            break;
 	         case 2:
 	            OrderListDTO orderListDTO2 = new OrderListDTO();
-	            System.out.print("주문수량 변경>> ");
-	            orderListDTO.setOrderQuantity(ScanUtil.nextInt());
+	            System.out.println("상품코드>> ");
+	            orderListDTO2.setProductId(ScanUtil.nextLine());
+	            System.out.print("변경할 주문수량>> ");
+	            orderListDTO2.setOrderQuantity(ScanUtil.nextInt());
+	            
 	            if (orderListDAO.updateOderQuantity(orderListDTO2)) {
 	               System.out.println("변경 성공");
 	            } else {
 	               System.out.println("변경 실패");
-	            }break;
+	            }
+	            break;
 	         
 	         case 0:
 	            System.out.println("종료");
