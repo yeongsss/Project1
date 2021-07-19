@@ -74,6 +74,7 @@ public class MemberService {
 	}
 
 // 로그인실패시  다시 입력받기 OR 메인화면 이동 선택가능하게 수정
+	
 	public int login() {
 		System.out.println("========================== 로그인 =========================");
 		while (true) {
@@ -250,20 +251,22 @@ public class MemberService {
 
 	private int memberManagement() {
 		System.out.println();
-		System.out.println("---------회원관리 페이지 입니다------------------");
-		System.out.println("1.회원정보 보기\t2.회원정보 수정\t3.권한 수정\t0.이전페이지");
-		System.out.println("------------------------------------------");
-		System.out.print("번호 입력>");
+		System.out.println("---------------------------------------- 회원관리 ---------------------------------------");
+		System.out.println("1.회원정보 보기 \t 2.회원정보 수정 \t 3.권한 수정 \t 0.이전페이지");
+		System.out.println("-------------------------------------------------------------------------------------------");
+		System.out.print("번호 입력 :  ");
 		int input = ScanUtil.nextInt();
 
 		switch (input) {
 		case 1:// 모든 회원들 정보 보기
+			System.out.println();
 			System.out.println("회원정보를 조회합니다.");
+			System.out.println("[  	아이디 \t \t | 이름 \t | 생년월일		 \t\t | 전화번호 \t | 주소 ]  ");
 			List<Map<String, Object>> list = MemberDAO.getMemberAllInfo();
-
+			int cnt = 1;
 			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t%s\t%s\t%s\n", map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
-						map.get("MEM_HP"));
+				System.out.printf("%s\t%s\t%s\t%s\t %s  \t %s  %s\t ( %s)\n", cnt++ ,map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
+						map.get("MEM_HP"),map.get("MEM_ADD1"),map.get("MEM_ADD2"),map.get("AUTHOR"));
 			}
 			return memberManagement();
 		case 2:
