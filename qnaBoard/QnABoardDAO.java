@@ -52,7 +52,7 @@ public class QnABoardDAO {
 			return false;
 		}
 		
-		public List<Map<String, Object>> getQnaBoard(String memberId) {
+		public List<Map<String, Object>> getQnaBoardMEMID(String memberId) {
 			String sql = "SELECT * FROM QNA_BOARD"
 								+ "        WHERE MEM_ID= ? ";
 			List<Object> param = new ArrayList<>();
@@ -61,7 +61,17 @@ public class QnABoardDAO {
 			
 			 
 		}
-	
+		
+		public List<Map<String, Object>> getQnaBoardNO(int boardNo) {
+			String sql = "SELECT * FROM QNA_BOARD"
+								+ "        WHERE BOARD_NO= ? ";
+			List<Object> param = new ArrayList<>();
+			param.add(boardNo);
+			return jdbc.selectList(sql, param);
+			
+			 
+		}
+		
 		public List<Map<String, Object>> allQnaBoard() {
 			QnABoardDTO boardDTO = new QnABoardDTO();
 			String sql = "SELECT * FROM QNA_BOARD";

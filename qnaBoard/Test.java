@@ -52,7 +52,7 @@ public class Test {
 				case 3:
 
 					System.out.print("검색할 아이디 입력>>");
-					List<Map<String, Object>> qnaBoard = qnABoardDAO.getQnaBoard(ScanUtil.nextLine());
+					List<Map<String, Object>> qnaBoard = qnABoardDAO.getQnaBoardMEMID(ScanUtil.nextLine());
 
 					for (Map<String, Object> map : qnaBoard) {
 						System.out.println("------------------------------------------------------------------------------------------------");
