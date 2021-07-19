@@ -7,6 +7,7 @@ import java.util.Map;
 import controller.Controller;
 import product.ProductService;
 import purchase.PurchaseService;
+import qnaBoard.QnABoardService;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 import selectMenu.View;
@@ -28,8 +29,10 @@ public class MemberService {
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
 	private static MemberDAO memberDao = MemberDAO.getInstance();
 	private static PurchaseService purchaseService = PurchaseService.getInstance();
-	private static ProductService productService = ProductService.getInstance();
-
+	private static ProductService productService = ProductService.getInstance(); 
+	private static QnABoardService qnaBoardService = QnABoardService.getInstance();
+	
+	
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
 		System.out.print("아이디>");
@@ -83,6 +86,7 @@ public class MemberService {
 			System.out.print("비밀번호 :  ");
 			String password = ScanUtil.nextLine();
 			Map<String, Object> user = MemberDAO.memberselect(userId, password);
+			
 
 			if (user == null) {
 				System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
@@ -99,7 +103,7 @@ public class MemberService {
 			} else {
 //				System.out.println("로그인 성공");
 				Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
-
+				System.out.println(Controller.loginUser.get("MEM_NAME")+"님 어서오세요!");
 
 					if (Controller.loginUser.get("AUTHOR").equals("1") == true) {
 
@@ -121,8 +125,7 @@ public class MemberService {
 		System.out.println("1.내정보 조회 \t 2.내정보 수정 \t 3.주문내역 \t 0.로그아웃");
 		System.out.println("========================================================");	
 		System.out.print("번호 입력 :  ");
-		int input = ScanUtil.nextInt();
-		switch (input) {
+		switch (ScanUtil.nextInt()) {
 		case 1:
 			System.out.println();
 			System.out.println(">>  정보를 조회 합니다.");
@@ -239,7 +242,7 @@ public class MemberService {
 			return purchaseService.purchaseManagement();
 		case 4:
 			System.out.println(">>  Q&A관리 페이지로 이동합니다");
-			break;
+			return qnaBoardService.qnaBoardManagement();
 		case 0:
 			System.out.println("로그아웃 되었습니다.");
 			return View.HOME;
@@ -256,22 +259,22 @@ public class MemberService {
 		System.out.println("-------------------------------------------------------------------------------------------");
 		System.out.print("번호 입력 :  ");
 		int input = ScanUtil.nextInt();
-
+		
 		switch (input) {
 		case 1:// 모든 회원들 정보 보기
 			System.out.println();
 			System.out.println("회원정보를 조회합니다.");
-			System.out.println("[  	아이디 \t \t | 이름 \t | 생년월일		 \t\t | 전화번호 \t | 주소 ]  ");
+			System.out.println("[  아이디  | 이름  | 생년월일  | 전화번호  | 주소 ]  ");
 			List<Map<String, Object>> list = MemberDAO.getMemberAllInfo();
 			int cnt = 1;
 			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t%s\t%s\t%s\t %s  \t %s  %s\t ( %s)\n", cnt++ ,map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
+				System.out.printf("%s\t%s\t\t%s\t\t%s\t\t %s  \t\t %s  %s\t ( %s)\n", cnt++ ,map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
 						map.get("MEM_HP"),map.get("MEM_ADD1"),map.get("MEM_ADD2"),map.get("AUTHOR"));
 			}
 			return memberManagement();
 		case 2:
 			
-			return memberManagement();
+			return editInfoAdmin();
 
 		case 3:
 			// 권한 변경 (수정)
@@ -295,4 +298,68 @@ public class MemberService {
 
 	}
 
+
+private int editInfoAdmin() {
+	System.out.println("--------------변경할 내용을 선택해 주세요------------");
+	System.out.println("1.전화번호\t2.일반주소\t3.상세주소\t0.이전메뉴");
+	System.out.println("---------------------------------------------");
+	System.out.print("번호 입력>");
+	int input = ScanUtil.nextInt();
+
+	switch (input) {
+	case 1:
+		MemberDTO memberDTO = new MemberDTO();
+		System.out.print("변경할 아이디를 입력하세요");
+		memberDTO.setMemberId(ScanUtil.nextLine());
+		System.out.println("변경할 전화번호를 입력하세요");
+		memberDTO.setMemberHp(ScanUtil.nextLine());
+
+		if (MemberDAO.MemberInfoModifyHp(memberDTO)) {
+			System.out.println("변경 성공");
+		} else {
+			System.out.println("변경 실패");
+		}
+		return editInfoAdmin();
+
+	case 2:
+		memberDTO = new MemberDTO();
+		System.out.print("변경할 아이디를 입력하세요");
+		memberDTO.setMemberId(ScanUtil.nextLine());
+		System.out.print("변경할 일반주소를 입력하세요");
+		memberDTO.setMemberAdd1(ScanUtil.nextLine());
+		// 아이디는 로그인한 아이디의 값을 그대로 적용함.
+		if (MemberDAO.MemberInfoModifyAdd1(memberDTO)) {
+			System.out.println("변경 성공");
+		} else {
+			System.out.println("변경 실패");
+		}
+		return editInfoAdmin();
+
+	case 3:
+		memberDTO = new MemberDTO();
+		System.out.print("변경할 아이디를 입력하세요");
+		memberDTO.setMemberId(ScanUtil.nextLine());
+		System.out.print("변경할 상세주소를 입력하세요");
+		memberDTO.setMemberAdd2(ScanUtil.nextLine());
+		// 아이디는 로그인한 아이디의 값을 그대로 적용함.
+		if (MemberDAO.MemberInfoModifyAdd2(memberDTO)) {
+			System.out.println("변경 성공");
+		} else {
+			System.out.println("변경 실패");
+		}
+		return editInfoAdmin();
+
+	
+	case 0:
+		return memberManagement();
+
+	}
+	return myPage();
 }
+
+}
+
+
+
+
+

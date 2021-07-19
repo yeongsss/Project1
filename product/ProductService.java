@@ -116,7 +116,8 @@ public class ProductService {
 
 		switch (input) {
 		case 1:
-			System.out.println("     														< 상품목록 >																	");
+			System.out.println();
+			System.out.println(" < 상품목록 >	");
 			List<Map<String, Object>> list = ProductDAO.getProductAllInfo();
 			for (Map<String, Object> map : list) {
 				System.out.printf("%s\t%s\t%s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("CL_ID"),

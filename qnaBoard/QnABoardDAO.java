@@ -68,21 +68,40 @@ public class QnABoardDAO {
 			List<Object> param = new ArrayList<>();
 			param.add(boardNo);
 			return jdbc.selectList(sql, param);
-			
-			 
 		}
 		
 		public List<Map<String, Object>> allQnaBoard() {
 			QnABoardDTO boardDTO = new QnABoardDTO();
 			String sql = "SELECT * FROM QNA_BOARD";
-			
 			List<Map<String, Object>>  list = jdbc.selectList(sql);
-			
 			return list;
-			
-			
 		}
 		
+		public List<Map<String, Object>> deleteQnA(int boardNo) {
+			String sql = "delete from QNA_BOARD where BOARD_NO = ?";
+			
+			List<Object> list = new ArrayList();
+			list.add(boardNo);
+
+			if (jdbc.update(sql)==1) {
+				return true;
+			} return false;
+			
+		}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

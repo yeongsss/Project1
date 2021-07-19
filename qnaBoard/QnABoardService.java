@@ -5,15 +5,54 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import comment.CommentService;
 import selectMenu.ScanUtil;
+import selectMenu.View;
 
-public class Test {
-	public static void main(String[] args) {
-		QnABoardDAO qnABoardDAO = QnABoardDAO.getInstance();
+public class QnABoardService {
+	private static QnABoardService instance;
+
+	private QnABoardService() {
+	}
+
+	public static QnABoardService getInstance() {
+		if (instance == null) {
+			instance = new QnABoardService();
+		}
+		return instance;
+	}
+
+	QnABoardDAO qnABoardDAO = QnABoardDAO.getInstance();
+
+	public int qnaBoardManagement() {
+		qna: while (true) {
+			System.out.println("------------------------------------ QnA (관리자) -------------------------------------");
+			System.out.println("1.QnA조회 \t 2.QnA삭제 \t 0.이전단계");
+			System.out.println("------------------------------------------------------------------------------------------");
+			System.out.print("번호 입력 :  ");
+			switch (ScanUtil.nextInt()) {
+			case 1:
+				List<Map<String, Object>> list = qnABoardDAO.allQnaBoard();
+				for (Map<String, Object> map : list) {
+//						System.out.println("-------------------------------------------------------------------------------------------");
+					System.out.println();
+					System.out.printf("No-%s\t %s\t작성자-:%s\n\t\t제목:  %s\n\t\t내용:  %s\n", map.get("BOARD_NO"),
+							map.get("Q_DATE").toString().split(" ")[0], map.get("MEM_ID"), map.get("Q_TITLE"),
+							map.get("Q_CONTENT"));
+				}
+				break;
+			case 2:
+				System.out.print("삭제할 번호 입력:  ");
+				List<Map<String, Object>> list = qnABoardDAO.deleteQnA(ScanUtil.nextInt());
+			}
+		}
+	}
+
+	public int qnaBoardMember() {
 		// 게시글 순번
 		int cnt = 1;
 		qna: while (true) {
-			System.out.println("===========================================================");
+			System.out.println("========================== QnA ==========================");
 			System.out.println("1.QnA 조회 \t 2.QnA등록 \t 3.QnA글 검색(아이디)\t 4.QnA 수정 \t 0.종료");
 			System.out.print("선택>> ");
 			int input = ScanUtil.nextInt();
@@ -24,7 +63,8 @@ public class Test {
 				case 1:
 					List<Map<String, Object>> list = qnABoardDAO.allQnaBoard();
 					for (Map<String, Object> map : list) {
-						System.out.println("-------------------------------------------------------------------------------------------");
+						System.out.println(
+								"-------------------------------------------------------------------------------------------");
 						System.out.printf("%s\nNo( %s)\t작성일: %s\t작성자: %s\t제목: %s\n", (cnt++), map.get("BOARD_NO"),
 								map.get("Q_DATE").toString().split(" ")[0], map.get("MEM_ID"), map.get("Q_TITLE"));
 //						System.out.println();
@@ -55,7 +95,8 @@ public class Test {
 					List<Map<String, Object>> qnaBoard = qnABoardDAO.getQnaBoardMEMID(ScanUtil.nextLine());
 
 					for (Map<String, Object> map : qnaBoard) {
-						System.out.println("------------------------------------------------------------------------------------------------");
+						System.out.println(
+								"------------------------------------------------------------------------------------------------");
 						System.out.print("=>  ");
 						System.out.printf("No(%s)\t작성일: %s\t작성자: %s\n\t\t\t제목: %s\n\t\t\t내용: %s\n", map.get("BOARD_NO"),
 								map.get("Q_DATE").toString().split(" ")[0], map.get("MEM_ID"), map.get("Q_TITLE"),
@@ -67,7 +108,7 @@ public class Test {
 				case 4:
 					QnABoardDTO qnABoardDTO2 = new QnABoardDTO();
 
-					System.out.print("수정할 글 번호 입력>>");  
+					System.out.print("수정할 글 번호 입력>>");
 					qnABoardDTO2.setBoardNo(ScanUtil.nextInt());
 					System.out.println("수정할 내용 입력>>");
 					qnABoardDTO2.setQnaContent(ScanUtil.nextLine());
@@ -88,8 +129,8 @@ public class Test {
 				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
 				continue;
 			}
-
 		}
-
+		return View.HOME;
 	}
+
 }

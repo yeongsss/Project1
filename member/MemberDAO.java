@@ -122,8 +122,9 @@ public class MemberDAO {
 		
 		//회원 상세주소 수정 메소드
 				public static boolean MemberInfoModifyAdd2(MemberDTO update) {
-					String sql = "UPDATE MEMBER SET" + " MEM_ADD2 = ?" 
-							     + " WHERE MEM_ID = ?";
+					String sql = "UPDATE MEMBER"
+										+ " 		SET MEM_ADD2 = ?" 
+										+ " WHERE MEM_ID = ?";
 							
 					List<Object> list = new ArrayList<>();
 					list.add(update.getMemberAdd2());

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import selectMenu.ScanUtil;
 
-public class OrderTest {
+public class OrderSheetTest {
 	public static void main(String[] args) {
 		
 		OrderSheetDAO orderSheetDAO = OrderSheetDAO.getInstance();
