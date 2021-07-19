@@ -29,7 +29,6 @@ public class MemberService {
 	private static MemberDAO memberDao = MemberDAO.getInstance();
 	private static PurchaseService purchaseService = PurchaseService.getInstance();
 	private static ProductService productService = ProductService.getInstance();
-	
 
 	public int join() {
 		System.out.println("=========== 회원가입 =============");
@@ -80,8 +79,7 @@ public class MemberService {
 		String userId = ScanUtil.nextLine();
 		System.out.print("비밀번호>");
 		String password = ScanUtil.nextLine();
-		
-		
+
 		Map<String, Object> user = MemberDAO.memberselect(userId, password);
 
 		if (user == null) {
@@ -89,11 +87,11 @@ public class MemberService {
 		} else {
 			System.out.println("로그인 성공");
 			Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
+			System.out.println(Controller.loginUser.get("AUTHOR"));
 			if (Controller.loginUser.get("AUTHOR").equals("1") == true) {
-				
-				
+
 				mypageAdmin(); // 권한이 관리자면 관리자 페이지로 이동함.
-				
+
 			}
 			return myPage(); // 일반회원 로그인 성공하면, 마이페이지로 이동.
 
@@ -191,7 +189,7 @@ public class MemberService {
 			}
 			break;
 		case 0:
-			System.out.println("프로그램이 종료되었습니다.");
+			System.out.println("이전 메뉴로 이동합니다");
 			break;
 
 		}
@@ -224,7 +222,8 @@ public class MemberService {
 			break;
 		case 0:
 			System.out.println("로그아웃 되었습니다.");
-			return View.HOME;
+			System.exit(0);
+			break;
 
 		}
 		return mypageAdmin();
@@ -250,7 +249,7 @@ public class MemberService {
 			return memberManagement();
 		case 2:
 
-			return memberManagement();
+			return editInfoAdmin();
 
 		case 3:
 			// 권한 변경 (수정)
@@ -272,6 +271,64 @@ public class MemberService {
 		}
 		return memberManagement();
 
+	}
+
+	private int editInfoAdmin() {
+		System.out.println("--------------변경할 내용을 선택해 주세요------------");
+		System.out.println("1.전화번호\t2.일반주소\t3.상세주소\t0.이전메뉴");
+		System.out.println("---------------------------------------------");
+		System.out.print("번호 입력>");
+		int input = ScanUtil.nextInt();
+
+		switch (input) {
+		case 1:
+			MemberDTO memberDTO = new MemberDTO();
+			System.out.print("변경할 아이디를 입력하세요");
+			memberDTO.setMemberId(ScanUtil.nextLine());
+			System.out.println("변경할 전화번호를 입력하세요");
+			memberDTO.setMemberHp(ScanUtil.nextLine());
+
+			if (MemberDAO.MemberInfoModifyHp(memberDTO)) {
+				System.out.println("변경 성공");
+			} else {
+				System.out.println("변경 실패");
+			}
+			return editInfoAdmin();
+
+		case 2:
+			memberDTO = new MemberDTO();
+			System.out.print("변경할 아이디를 입력하세요");
+			memberDTO.setMemberId(ScanUtil.nextLine());
+			System.out.print("변경할 일반주소를 입력하세요");
+			memberDTO.setMemberAdd1(ScanUtil.nextLine());
+			// 아이디는 로그인한 아이디의 값을 그대로 적용함.
+			if (MemberDAO.MemberInfoModifyAdd1(memberDTO)) {
+				System.out.println("변경 성공");
+			} else {
+				System.out.println("변경 실패");
+			}
+			return editInfoAdmin();
+
+		case 3:
+			memberDTO = new MemberDTO();
+			System.out.print("변경할 아이디를 입력하세요");
+			memberDTO.setMemberId(ScanUtil.nextLine());
+			System.out.print("변경할 상세주소를 입력하세요");
+			memberDTO.setMemberAdd2(ScanUtil.nextLine());
+			// 아이디는 로그인한 아이디의 값을 그대로 적용함.
+			if (MemberDAO.MemberInfoModifyAdd2(memberDTO)) {
+				System.out.println("변경 성공");
+			} else {
+				System.out.println("변경 실패");
+			}
+			return editInfoAdmin();
+
+		
+		case 0:
+			return memberManagement();
+
+		}
+		return myPage();
 	}
 
 }
