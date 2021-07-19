@@ -52,7 +52,7 @@ public class Controller {
 			}
 			return View.HOME;
 		} catch (NumberFormatException e) {
-			System.out.println("메뉴 선택은 숫자로 입력해 주세요");
+			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
 			
 		}
 		return View.HOME;
