@@ -79,9 +79,9 @@ public class MemberService {
 		String userId = ScanUtil.nextLine();
 		System.out.print("비밀번호>");
 		String password = ScanUtil.nextLine();
-		String author = new MemberDTO().getAuthor();
+		
 
-		Map<String, Object> user = MemberDAO.memberselect(userId, password, author);
+		Map<String, Object> user = MemberDAO.memberselect(userId, password);
 
 		if (user == null) {
 			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
