@@ -77,19 +77,19 @@ public class QnABoardDAO {
 			return list;
 		}
 		
-		public List<Map<String, Object>> deleteQnA(int boardNo) {
-			String sql = "delete from QNA_BOARD where BOARD_NO = ?";
-			
-			List<Object> list = new ArrayList();
-			list.add(boardNo);
+//		public List<Map<String, Object>> deleteQnA(int boardNo) {
+//			String sql = "delete from QNA_BOARD where BOARD_NO = ?";
+//			
+//			List<Object> list = new ArrayList();
+//			list.add(boardNo);
 
-			if (jdbc.update(sql)==1) {
-				return true;
-			} return false;
-			
+//			if (jdbc.update(sql)==1) {
+//				return true;
+//			} return false;
+//			
 		}
 
-}
+//}
 
 
 

@@ -41,9 +41,9 @@ public class QnABoardService {
 							map.get("Q_CONTENT"));
 				}
 				break;
-			case 2:
-				System.out.print("삭제할 번호 입력:  ");
-				List<Map<String, Object>> list = qnABoardDAO.deleteQnA(ScanUtil.nextInt());
+//			case 2:
+//				System.out.print("삭제할 번호 입력:  ");
+//				List<Map<String, Object>> list = qnABoardDAO.deleteQnA(ScanUtil.nextInt());
 			}
 		}
 	}
