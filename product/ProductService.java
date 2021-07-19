@@ -107,13 +107,23 @@ public class ProductService {
 
 	// 상품관리 메뉴 뷰
 	public static int productManagement() {
+<<<<<<< HEAD
 		System.out.println();
 		System.out.println("-----------------------------------------상품관리 ---------------------------------------");
 		System.out.println("1.상품 조회\t2.상품 등록\t3.상품정보 수정\t4.상품삭제\t5.재고 관리\t0.이전페이지");
 		System.out.println("------------------------------------------------------------------------------------------");
 		System.out.print("번호 입력 :  ");
 		int input = ScanUtil.nextInt();
+=======
+		try {
+			System.out.println("-----------------------상품관리 페이지 입니다-----------------------");
+			System.out.println("1.상품 조회\t2.상품 등록\t3.상품정보 수정\t4.상품삭제\t5.재고 관리\t0.이전페이지");
+			System.out.println("------------------------------------------------------------");
+			System.out.print("번호 입력>");
+			int input = ScanUtil.nextInt();
+>>>>>>> branch 'develop' of https://github.com/yeongsss/Project1
 
+<<<<<<< HEAD
 		switch (input) {
 		case 1:
 			System.out.println();
@@ -159,18 +169,68 @@ public class ProductService {
 
 			if (product == null) {
 				System.out.println("상품코드를 잘못 입력했거나, 존재하지 않는 상품코드 입니다");
+=======
+			switch (input) {
+			case 1:
+				System.out.println("상품목록을 조회합니다");
+				List<Map<String, Object>> list = ProductDAO.getProductAllInfo();
+				for (Map<String, Object> map : list) {
+					System.out.printf("%s\t%s\t%s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("CL_ID"),
+							map.get("CL_NAME"), map.get("PRICE"));
+				}
+>>>>>>> branch 'develop' of https://github.com/yeongsss/Project1
 				return productManagement();
-			} else {
-				System.out.println("상품 삭제 성공");
+			case 2:
+				System.out.println("상품 등록 메뉴로 이동합니다");
+				return addProduct();
+			case 3:
+				System.out.println("상품정보를 수정 합니다");
+				ProductDTO productDTO = new ProductDTO();
+				System.out.print("변경할 상품의 상품코드를 입력하세요");
+				productDTO.setProductId(ScanUtil.nextLine());
+				System.out.print("수정할 상품명을 입력하세요");
+				productDTO.setProductName(ScanUtil.nextLine());
+				System.out.print("수정할 상품코드를 입력하세요");
+				productDTO.setClassificationCode(ScanUtil.nextLine());
+				System.out.print("수정할 분류명 입력하세요");
+				productDTO.setClassificationName(ScanUtil.nextLine());
+				System.out.print("수정할 판매가격 입력하세요");
+				productDTO.setPrice(ScanUtil.nextInt());
+				System.out.print("수정할 매입가격 입력하세요");
+				productDTO.setCost(ScanUtil.nextInt());
+				if (ProductDAO.productModify(productDTO)) {
+					System.out.println("상품정보 변경 성공");
+				} else {
+					System.out.println("상품정보 변경 실패");
+				}
 
 				return productManagement();
+			case 4:
+
+				System.out.println("상품을 삭제 합니다.");
+				System.out.print("삭제할 상품 코드를 입력하세요");
+				String productId = ScanUtil.nextLine();
+
+				Map<String, Object> product = ProductDAO.productDelete(productId);
+
+				if (product == null) {
+					System.out.println("상품코드를 잘못 입력했거나, 존재하지 않는 상품코드 입니다");
+					return productManagement();
+				} else {
+					System.out.println("상품 삭제 성공");
+
+					return productManagement();
+				}
+			case 5:
+				System.out.println("재고관리 메뉴로 이동합니다");
+				return stockManagement();
+			case 0:
+				return MemberService.getInstance().mypageAdmin();
+
 			}
-		case 5:
-			System.out.println("재고관리 메뉴로 이동합니다");
-			return stockManagement();
-		case 0:
-			return MemberService.getInstance().mypageAdmin();
-
+			return productManagement();
+		} catch (NumberFormatException e) {
+			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
 		}
 		return productManagement();
 	}
@@ -214,36 +274,41 @@ public class ProductService {
 	// 재고관리 뷰
 
 	public static int stockManagement() {
-		System.out.println("-------재고관리 페이지 입니다-------");
-		System.out.println("1.재고 조회\t2.재고 수정\t0.이전페이지");
-		System.out.println("-------------------------_---");
-		System.out.print("번호 입력>");
-		int input = ScanUtil.nextInt();
+		try {
+			System.out.println("-------재고관리 페이지 입니다-------");
+			System.out.println("1.재고 조회\t2.재고 수정\t0.이전페이지");
+			System.out.println("-------------------------_---");
+			System.out.print("번호 입력>");
+			int input = ScanUtil.nextInt();
 
-		switch (input) {
-		case 1:
-			System.out.println("재고목록을 조회합니다");
-			List<Map<String, Object>> list = ProductDAO.getStockAllInfo();
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t%s\t%s\t%s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"),
-						map.get("CL_ID"), map.get("CL_NAME"), map.get("INVNTRY_QTY"), map.get("PU_COST"));
+			switch (input) {
+			case 1:
+				System.out.println("재고목록을 조회합니다");
+				List<Map<String, Object>> list = ProductDAO.getStockAllInfo();
+				for (Map<String, Object> map : list) {
+					System.out.printf("%s\t%s\t%s\t%s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"),
+							map.get("CL_ID"), map.get("CL_NAME"), map.get("INVNTRY_QTY"), map.get("PU_COST"));
+				}
+				return stockManagement();
+			case 2:
+				ProductDTO productDTO = new ProductDTO();
+				System.out.print("변경할 재고의 상품코드를 입력하세요");
+				productDTO.setProductId(ScanUtil.nextLine());
+				System.out.print("변경할 재고의 수량을 입력하세요");
+				productDTO.setInventoryQuantity(ScanUtil.nextInt());
+				if (ProductDAO.stockModify(productDTO)) {
+					System.out.println("재고수량 변경 성공");
+				} else {
+					System.out.println("재고수량 변경 실패");
+				}
+				return stockManagement();
+			case 0:
+				return productManagement();
+
 			}
 			return stockManagement();
-		case 2:
-			ProductDTO productDTO = new ProductDTO();
-			System.out.print("변경할 재고의 상품코드를 입력하세요");
-			productDTO.setProductId(ScanUtil.nextLine());
-			System.out.print("변경할 재고의 수량을 입력하세요");
-			productDTO.setInventoryQuantity(ScanUtil.nextInt());
-			if (ProductDAO.stockModify(productDTO)) {
-				System.out.println("재고수량 변경 성공");
-			} else {
-				System.out.println("재고수량 변경 실패");
-			}
-			return stockManagement();
-		case 0:
-			return productManagement();
-
+		} catch (NumberFormatException e) {
+			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
 		}
 		return stockManagement();
 

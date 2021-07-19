@@ -79,31 +79,37 @@ public class PurchaseService {
 	// 매입 관리 뷰 -관리자
 
 	public int purchaseManagement() {
-		System.out.println("--------------매입관리 페이지 입니다---------------");
-		System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
-		System.out.println("------------------------------------------");
-		System.out.print("번호 입력>");
-		int input = ScanUtil.nextInt();
+		try {
+			System.out.println("--------------매입관리 페이지 입니다---------------");
+			System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
+			System.out.println("------------------------------------------");
+			System.out.print("번호 입력>");
+			int input = ScanUtil.nextInt();
 
-		switch (input) {
-		case 1:
-			System.out.println("매입내역을 조회합니다");
-			List<Map<String, Object>> list = purchaseDAO.getPurchaseAllInfo();
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t%s\t%s\t%s\n", map.get("PU_NO"), map.get("PROD_ID"), map.get("PU_DATE"),
-						map.get("PU_QTY"));
+			switch (input) {
+			case 1:
+				System.out.println("매입내역을 조회합니다");
+				List<Map<String, Object>> list = purchaseDAO.getPurchaseAllInfo();
+				for (Map<String, Object> map : list) {
+					System.out.printf("%s\t%s\t%s\t%s\n", map.get("PU_NO"), map.get("PROD_ID"), map.get("PU_DATE"),
+							map.get("PU_QTY"));
+				}
+
+				return purchaseManagement();
+			case 2:
+				System.out.println("매입신청 페이지로 이동합니다");
+				return purchase();
+			case 3:
+				System.out.println("매입취소 페이지로 이동합니다");
+				return updatePurchase();
+			case 0:
+				return memberService.mypageAdmin();
+
 			}
-
 			return purchaseManagement();
-		case 2:
-			System.out.println("매입신청 페이지로 이동합니다");
-			return purchase();
-		case 3:
-			System.out.println("매입취소 페이지로 이동합니다");
-			return updatePurchase();
-		case 0:
-			return memberService.mypageAdmin();
-
+			
+		} catch (NumberFormatException e) {
+			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
 		}
 		return purchaseManagement();
 	}
