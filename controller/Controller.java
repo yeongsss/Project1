@@ -22,27 +22,19 @@ public class Controller {
 
 		while (true) {
 			switch (view) {
-			case View.HOME:
-				view = home();
-				break;
-			case View.LOGIN:
-				view = memberService.login();
-				break;
-			case View.JOIN:
-				view = memberService.join();
-				break;
-
-
+			case View.HOME:	view = home();break;
+			case View.LOGIN:	view = memberService.login();	break;
+			case View.JOIN:	view = memberService.join();	break;
 			}
 		}
 	}
 
 	private int home() {
-		System.out.println("--------------------------------");
-		System.out.println("1.로그인\t2.회원가입\t0.프로그램 종료");
-		System.out.println("--------------------------------");
-		System.out.print("번호 입력>");
-
+		System.out.println("하이마트에 오신것을 환영합니다.");
+		System.out.println("[ 1.로그인\t2.회원가입\t0.프로그램 종료 ]");
+//		System.out.println("--------------------------------");
+		System.out.print("번호를 입력해주세요 ->  ");
+		
 		int input = ScanUtil.nextInt();
 
 		switch (input) {
@@ -51,8 +43,10 @@ public class Controller {
 		case 2:
 			return View.JOIN;
 		case 0:
-			System.out.println("프로그램이 종료되었습니다.");
+			System.out.println("이용해주셔서 감사합니다.");
 			System.exit(0);
+		default:
+			System.out.println("다시 입력해주세요.");
 			break;
 		}
 		return View.HOME;

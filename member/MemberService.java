@@ -73,24 +73,33 @@ public class MemberService {
 
 		return View.HOME;
 	}
-
+// 로그인실패시  다시 입력받기 OR 메인화면 이동 선택가능하게 수정
 	public int login() {
 		System.out.println("============== 로그인 ===============");
-		System.out.print("아이디>");
+		while(true) {
+		System.out.print("아이디 :  ");
 		String userId = ScanUtil.nextLine();
-		System.out.print("비밀번호>");
+		System.out.print("비밀번호 :  ");
 		String password = ScanUtil.nextLine();
-		
-		
 		Map<String, Object> user = MemberDAO.memberselect(userId, password);
 
 		if (user == null) {
 			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+			System.out.println("-------------------------------------------------------");
+			System.out.println("[ 1.다시입력 \t 2.메인화면 ]");
+			int input = ScanUtil.nextInt();
+			switch (input) {
+			case 1:	break;
+			case 2: 
+				return View.HOME;
+			}
+			
+			
 		} else {
-			System.out.println("로그인 성공");
+			System.out.println("로그인 성공!!!!!");
 			Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
 
-			if (Controller.loginUser.get("AUTHOR") == "1") {
+			if (user.get("AUTHOR") == "1") {
 				
 				mypageAdmin(); // 권한이 관리자면 관리자 페이지로 이동함.
 				
@@ -98,9 +107,9 @@ public class MemberService {
 			return myPage(); // 일반회원 로그인 성공하면, 마이페이지로 이동.
 
 		}
-		return View.HOME; // 로그인 실패시, 다시 메인화면으로 이동함
+//		return View.HOME; // 로그인 실패시, 다시 메인화면으로 이동함
 	}
-
+	}
 	// 로그인 성공 후, 마이페이지(일반회원) 접속 뷰
 	private int myPage() {
 		System.out.println("------------일반 회원 로그인 되었습니다---------------");
