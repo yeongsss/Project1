@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import orderSheet.OrderSheetDTO;
+import product.ProductDTO;
 import selectMenu.JDBCUtil;
 
 public class MemberDAO {
@@ -51,24 +52,21 @@ public class MemberDAO {
 		return jdbcUtil.selectOne(sql, param);
 
 	}
-	// 회원정보 조회 메소드
+	// 내정보 조회 메소드
 
 	
-	public static Object getMemberInfo(Object object) {
-		MemberDTO dto = new MemberDTO();
-		List<Object> memberInfo = new ArrayList<>();
+	public static List<Map<String, Object>> getMemberInfo(String memberId) {
+		MemberDTO memberInfo = new MemberDTO();
 		String sql = "SELECT * FROM MEMBER" + " WHERE" + " MEM_ID= ?";
 		List<Object> param = new ArrayList<>();
-		param.add(object);
-		Map<String, Object> resMap = jdbcUtil.selectOne(sql, param);
-		memberInfo.add("아이디\t  이름\t   생년월일    전화번호\n");
-		memberInfo.add(resMap.get("MEM_ID"));
-		memberInfo.add(resMap.get("MEM_NAME"));
-		memberInfo.add(resMap.get("MEM_BIRTH"));
-		memberInfo.add(resMap.get("MEM_HP"));
+		param.add(memberId);
+			
+		
+		return jdbcUtil.selectList(sql, param);
 
-		return memberInfo;
 	}
+	
+	
 	
 	//회원비밀번호 수정 메소드
 	

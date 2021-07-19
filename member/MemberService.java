@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import product.ProductDAO;
 import product.ProductService;
 import purchase.PurchaseService;
 import selectMenu.JDBCUtil;
@@ -26,7 +27,6 @@ public class MemberService {
 	}
 
 	private static JDBCUtil jdbcUtil = JDBCUtil.getInstance();
-	private static MemberDAO memberDao = MemberDAO.getInstance();
 	private static PurchaseService purchaseService = PurchaseService.getInstance();
 	private static ProductService productService = ProductService.getInstance();
 
@@ -108,16 +108,23 @@ public class MemberService {
 		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
-			System.out.println("정보를 조회 합니다.");
-			System.out.println(MemberDAO.getMemberInfo(Controller.loginUser.get("MEM_ID")));
-			return myPage(); // 로그인한 유저의 ID를 가져와서 일치하는 정보를 리턴함.
+
+			System.out.println("내정보를 조회합니다");
+			List<Map<String, Object>> memberInfo = MemberDAO.getMemberInfo((String)Controller.loginUser.get("MEM_ID"));
+			for (Map<String, Object> map : memberInfo) {
+				System.out.printf("아이디: %s\n이름: %s\n생년월일: %s\n전화번호: %s\n기본주소: %s\n상세주소: %s\n", map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
+						map.get("MEM_HP"), map.get("MEM_ADD1"), map.get("MEM_ADD2"));
+			}
+
+			return myPage();
+
 		case 2:
 			System.out.println("수정할 정보를 선택하세요.");
 			return editInfo();// 정보 수정 뷰로 이동함
 		case 3:
 			List<Map<String, Object>> list = MemberDAO.getOrderList(Controller.loginUser.get("MEM_ID"));
 			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("ORD_NO"), map.get("ORD_DATE").toString().split("")[0],
+				System.out.printf("주문번호: %s\t주문일자: %s\t주문가격: %s\n", map.get("ORD_NO"), map.get("ORD_DATE").toString().split("")[0],
 						map.get("PAY_PRICE"));
 
 			}
@@ -142,7 +149,7 @@ public class MemberService {
 			MemberDTO memberDTO = new MemberDTO();
 			System.out.print("변경할 비밀번호를 입력하세요");
 			memberDTO.setMemberPassword(ScanUtil.nextLine());
-			memberDTO.setMemberId((String) Controller.loginUser.get("MEM_ID"));
+			memberDTO.setMemberId((String)Controller.loginUser.get("MEM_ID"));
 			// 아이디는 로그인한 아이디의 값을 그대로 적용함.
 			if (MemberDAO.MemberInfoModifyPw(memberDTO)) {
 				System.out.println("변경 성공");
@@ -243,8 +250,8 @@ public class MemberService {
 			List<Map<String, Object>> list = MemberDAO.getMemberAllInfo();
 
 			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t%s\t%s\t%s\n", map.get("MEM_ID"), map.get("MEM_NAME"), map.get("MEM_BIRTH"),
-						map.get("MEM_HP"));
+				System.out.printf("%-15s\t%-6s\t\t%7s\t\t%11s\n", map.get("MEM_ID"), map.get("MEM_NAME"),
+						map.get("MEM_BIRTH"), map.get("MEM_HP"));
 			}
 			return memberManagement();
 		case 2:
@@ -323,7 +330,6 @@ public class MemberService {
 			}
 			return editInfoAdmin();
 
-		
 		case 0:
 			return memberManagement();
 
