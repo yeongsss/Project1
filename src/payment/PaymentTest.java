@@ -26,7 +26,8 @@ public class PaymentTest {
             System.out.println("주문번호\t| 결제수단코드\t | 결제일\t");
             
             for (Map<String, Object> map : list) {
-               System.out.printf("%s\t%s\t\t%s\n",map.get("ORD_NO"), map.get("PAY_CODE"),map.get("PAY_DATE"));
+               System.out.printf("%s\t%s\t\t%s\n",map.get("ORD_NO"), map.get("PAY_CODE"),map.get("PAY_DATE").toString().split(" ")[0]);
+           
             }
             break;
 
