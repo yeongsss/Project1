@@ -10,10 +10,14 @@ public class MemberDTO {
 	private String memberHp; // 전화번호
 	private String memberAdd1; // 기본주소
 	private String memberAdd2; // 상세주소
-	private String AUTHOR; // 일반회원, 권리자권한 여부
+	private String author; // 일반회원, 권리자권한 여부
 
+	public MemberDTO() {
+	}
+	
 	public MemberDTO(String memberId, String memberPassword, String memberName, String memberBirth, String memberHp,
 			String memberAdd1, String memberAdd2, String author) {
+		super();
 		this.memberId = memberId;
 		this.memberPassword = memberPassword;
 		this.memberName = memberName;
@@ -21,19 +25,7 @@ public class MemberDTO {
 		this.memberHp = memberHp;
 		this.memberAdd1 = memberAdd1;
 		this.memberAdd2 = memberAdd2;
-		AUTHOR = author;
-	}
-	
-	public MemberDTO() {
-	}
-
-	
-	public MemberDTO(String memberId, String memberName, String memberBirth, String memberHp, String author) {
-		this.memberId = memberId;
-		this.memberName = memberName;
-		this.memberBirth = memberBirth;
-		this.memberHp = memberHp;
-		AUTHOR = author;
+		this.author = author;
 	}
 
 	public String getMemberId() {
@@ -92,17 +84,18 @@ public class MemberDTO {
 		this.memberAdd2 = memberAdd2;
 	}
 
-	public String getAUTHOR() {
-		return AUTHOR;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setAUTHOR(String aUTHOR) {
-		AUTHOR = aUTHOR;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(AUTHOR, memberAdd1, memberAdd2, memberBirth, memberHp, memberId, memberName,
+		return Objects.hash(author, memberAdd1, memberAdd2, memberBirth, memberHp, memberId, memberName,
 				memberPassword);
 	}
 
@@ -115,7 +108,7 @@ public class MemberDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		MemberDTO other = (MemberDTO) obj;
-		return Objects.equals(AUTHOR, other.AUTHOR) && Objects.equals(memberAdd1, other.memberAdd1)
+		return Objects.equals(author, other.author) && Objects.equals(memberAdd1, other.memberAdd1)
 				&& Objects.equals(memberAdd2, other.memberAdd2) && Objects.equals(memberBirth, other.memberBirth)
 				&& Objects.equals(memberHp, other.memberHp) && Objects.equals(memberId, other.memberId)
 				&& Objects.equals(memberName, other.memberName) && Objects.equals(memberPassword, other.memberPassword);
@@ -124,8 +117,8 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [회원 아이디=" + memberId + ", memberPassword=" + memberPassword + ", 회원 이름=" + memberName
-				+ ", 생년월일=" + memberBirth + ", 전화번호=" + memberHp + ", 기본주소=" + memberAdd1
-				+ ", 상세주소=" + memberAdd2 + ", 회원등급=" + AUTHOR + "]";
+				+ ", 생년월일=" + memberBirth + ", 전화번호=" + memberHp + ", 기본주소=" + memberAdd1 + ", 상세주소=" + memberAdd2
+				+ ", 회원등급=" + author + "]";
 	}
 
 }

@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import controller.Controller;
 import orderSheet.OrderSheetDTO;
-import product.ProductDTO;
 import selectMenu.JDBCUtil;
-import selectMenu.ScanUtil;
 
 public class MemberDAO {
 	// 싱글톤 패턴
@@ -46,12 +43,12 @@ public class MemberDAO {
 	}
 
 	// 로그인 메소드
-	public static Map<String, Object> memberselect(String memberId, String memberPassword) {
-		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?";
+	public static Map<String, Object> memberselect(String memberId, String memberPassword, String author) {
+		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?" + "AND AUTHOR = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(memberId);
 		param.add(memberPassword);
-
+		param.add(author);
 		return jdbcUtil.selectOne(sql, param);
 
 	}
@@ -123,7 +120,7 @@ public class MemberDAO {
 			
 		}	
 		
-		//회원 기본주소 수정 메소드
+		//회원 상세주소 수정 메소드
 				public static boolean MemberInfoModifyAdd2(MemberDTO update) {
 					String sql = "UPDATE MEMBER SET" + " MEM_ADD2 = ?" 
 							     + " WHERE MEM_ID = ?;";
@@ -158,4 +155,20 @@ public class MemberDAO {
 		
 		return resMap;
 	}
+	
+	//권한 수정 메소드
+	public static boolean ChangeMemberAuthor(MemberDTO update) {
+		String sql = "UPDATE MEMBER SET" + " AUTHOR = ?" 
+				     + " WHERE MEM_ID = ?;";
+				
+		List<Object> list = new ArrayList<>();
+		list.add(update.getAuthor());
+		list.add(update.getMemberId());
+		
+		if (jdbcUtil.update(sql, list) == 1) {
+			return true;
+		}
+		return false;
+		
+	}	
 }

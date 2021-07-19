@@ -29,11 +29,22 @@ public class CommentDAO {
 		list.add(comment.getMemberId());
 		list.add(comment.getCommentContent());
 		
+		
 		if (jdbc.update(sql, list)==1) {
 			return true;
 		}
 		return false;
 	}
+	
+	public List<Map<String, Object>> getComment(int boardNo) {
+		String sql = "SELECT * FROM CMNTS"
+							+ "        WHERE BOARD_NO= ? ";
+		List<Object> param = new ArrayList<>();
+		param.add(boardNo);
+		return jdbc.selectList(sql, param);
+		
+		 
+	}	
 	
 	public List<Map<String , Object>> allComment() {
 		CommentDTO commentDTO = new CommentDTO();
@@ -42,5 +53,32 @@ public class CommentDAO {
 		return list;
 	}
 	
-	
+
+	public Map<String, Object> deleteComment (int boardNo) {
+		String sql = "DELETE FROM CMNTS"
+								+ "WHERE BOARD_NO= ?";
+		List<Object> list = new ArrayList<>();
+		list.add(boardNo);
+		return jdbc.selectOne(sql) ;
+	}
 }
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
