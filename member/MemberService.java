@@ -89,8 +89,9 @@ public class MemberService {
 		} else {
 			System.out.println("로그인 성공");
 			Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
-
-			if (Controller.loginUser.get("AUTHOR") == "1") {
+			System.out.println(Controller.loginUser.get("AUTHOR"));
+			if (Controller.loginUser.get("AUTHOR").equals("1") == true) {
+				
 				
 				mypageAdmin(); // 권한이 관리자면 관리자 페이지로 이동함.
 				

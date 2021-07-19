@@ -44,7 +44,7 @@ public class MemberDAO {
 
 	// 로그인 메소드
 	public static Map<String, Object> memberselect(String memberId, String memberPassword) {
-		String sql = "SELECT MEM_ID, MEM_PW" + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?";
+		String sql = "SELECT * " + " FROM MEMBER" + " WHERE MEM_ID = ?" + " AND MEM_PW = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(memberId);
 		param.add(memberPassword);
