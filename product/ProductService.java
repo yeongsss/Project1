@@ -26,7 +26,7 @@ public class ProductService {
 	private ProductDAO productDAO = ProductDAO.getInstance();
 
 	// 상품목록 조회 -회원메뉴
-	public Map<String, Object> productList() {
+	public int productList() {
 		System.out.println("==========================");
 		System.out.println("=====대분류를 선택해 주세요======");
 		System.out.println("1.TV/t2.냉장고/t3.건조기/t4.컴퓨터/t5.카메라");
@@ -105,7 +105,7 @@ public class ProductService {
 
 	}
 
-	// 상품관리 메뉴 뷰
+	// 상품관리 메뉴 뷰a
 	public static int productManagement() {
 		try {
 			System.out.println();
@@ -136,14 +136,9 @@ public class ProductService {
 				productDTO.setProductId(ScanUtil.nextLine());
 				System.out.print("수정할 상품명을 입력하세요");
 				productDTO.setProductName(ScanUtil.nextLine());
-				System.out.print("수정할 상품코드를 입력하세요");
-				productDTO.setClassificationCode(ScanUtil.nextLine());
-				System.out.print("수정할 분류명 입력하세요");
-				productDTO.setClassificationName(ScanUtil.nextLine());
 				System.out.print("수정할 판매가격 입력하세요");
 				productDTO.setPrice(ScanUtil.nextInt());
-				System.out.print("수정할 매입가격 입력하세요");
-				productDTO.setCost(ScanUtil.nextInt());
+				
 				if (ProductDAO.productModify(productDTO)) {
 					System.out.println("상품정보 변경 성공");
 				} else {

@@ -46,7 +46,12 @@ public class PurchaseDAO {
 	//매입 내역 조회
 			
 			public static List<Map<String, Object>> getPurchaseAllInfo() {
-				String sql = "SELECT * FROM PUCHAS";
+				String sql = " SELECT pu_no,"
+						+ "           prod_id,"
+						+ "           pu_date,"
+						+ "           pu_qty"
+						+ " FROM PUCHAS "
+						+ " order by 1";
 				List<Map<String, Object>> resMap = jdbcUtil.selectList(sql);
 
 				return resMap;

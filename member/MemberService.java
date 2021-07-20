@@ -30,6 +30,7 @@ public class MemberService {
 	private static PurchaseService purchaseService = PurchaseService.getInstance();
 	private static ProductService productService = ProductService.getInstance();
 	private static QnABoardService qnaBoardService = QnABoardService.getInstance();
+	
 
 	public int join() {
 		
@@ -115,7 +116,6 @@ public class MemberService {
 					}
 
 				} else {
-//				System.out.println("로그인 성공");
 					Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
 					System.out.println(Controller.loginUser.get("MEM_NAME") + "님 어서오세요!");
 
@@ -135,12 +135,45 @@ public class MemberService {
 	}
 //		return View.HOME; // 로그인 실패시, 다시 메인화면으로 이동함
 	
-	// 로그인 성공 후, 마이페이지(일반회원) 접속 뷰
+	public int memberLoginMenu() {
+		
+		
+		System.out.println();
+		System.out.println("======================= 일반 회원 =======================");
+		System.out.println("1.마이페이지 \t 2.상품메뉴 \t 3. 장바구니/위시리스트 \t 0. 로그아웃 ");
+		int input = ScanUtil.nextInt();
+		switch (input) {
+		
+		case 1: 
+			return myPage();
+			
+		case 2:
+			return productService.productList();
+		
+		case 3:
+			
+		case 0:
+			System.out.println("로그아웃 되었습니다");
+			return login();
+			
+			
+		}
+		return memberLoginMenu();
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	//  마이페이지(일반회원) 접속 뷰
 	private int myPage() {
 		try {
 			System.out.println();
-			System.out.println("========================= 일반 회원  ========================");
-			System.out.println("1.내정보 조회 \t 2.내정보 수정 \t 3.주문내역 \t 0.로그아웃");
+			System.out.println("========================= 마이페이지  ========================");
+			System.out.println("1.내정보 조회 \t 2.내정보 수정 \t 3.주문내역 \t 0.이전메뉴");
 			System.out.println("========================================================");
 			System.out.print("번호 입력 :  ");
 			int input = ScanUtil.nextInt();
@@ -149,6 +182,7 @@ public class MemberService {
 
 				System.out.println("내정보를 조회합니다");
 				List<Map<String, Object>> memberInfo = MemberDAO
+						
 						.getMemberInfo((String) Controller.loginUser.get("MEM_ID"));
 				for (Map<String, Object> map : memberInfo) {
 					System.out.printf("아이디: %s\n이름: %s\n생년월일: %s\n전화번호: %s\n기본주소: %s\n상세주소: %s\n", map.get("MEM_ID"),
@@ -170,8 +204,8 @@ public class MemberService {
 				}
 				return myPage(); // 주문내역 결과 반환후, 마이페이지로 다시 이동함.
 			case 0:
-				System.out.println("로그아웃 되었습니다.");
-				return View.HOME;
+				
+				return memberLoginMenu();
 
 			}
 			return myPage(); // 주문내역 결과 반환후, 마이페이지로 다시 이동함.

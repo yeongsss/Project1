@@ -74,14 +74,6 @@ public class CommentService {
 			case 3: 
 				System.out.print("삭제할 댓글 번호>");
 				dao.deleteComment(ScanUtil.nextInt());
-//				for (Map<String, Object> map : delete) {
-//					System.out.printf("글번호:%s\t작성일:%s\t아이디:%s\n댓글:%s\n",map.get("BOARD_NO"),map.get("CM_DATE").toString().split(" ")[0],map.get("MEM_ID"),map.get("CM_CONTENT"));
-//				}
-				
-//				List<Map<String , Object>> co = dao.allComment();
-//				for (Map<String, Object> map : co ) {
-//					System.out.printf("글번호:%s\t작성일:%s\t아이디:%s\n댓글:%s\n",map.get("BOARD_NO"),map.get("CM_DATE").toString().split(" ")[0],map.get("MEM_ID"),map.get("CM_CONTENT"));
-//				}
 				break;
 			
 			case 0 : 

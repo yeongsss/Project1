@@ -84,15 +84,13 @@ public class ProductDAO {
 	// 상품 수정 -관리자
 	
 	public static boolean productModify(ProductDTO update) {
-		String sql = "UPDATE PROD SET" + " PROD_NAME = ?, CL_ID = ?, CL_NAME = ?, PRICE = ?, PU_COST =?" + " WHERE PROD_ID = ?";
+		String sql = "UPDATE PROD SET" + " PROD_NAME = ?, PRICE = ?" + " WHERE PROD_ID = ?";
 
 		List<Object> list = new ArrayList<>();
 		list.add(update.getProductName());
-		list.add(update.getClassificationCode());
-		list.add(update.getProductName());
 		list.add(update.getPrice());
-		list.add(update.getCost());
 		list.add(update.getProductId());
+		
 		
 
 		if (jdbcUtil.update(sql, list) == 1) {
