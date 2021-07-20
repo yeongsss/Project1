@@ -22,11 +22,11 @@ public class OrderListDAO {
    private static JDBCUtil jdbc = JDBCUtil.getInstance();
    
    //주문목록 조회
-   public List<Map<String, Object>> getorderListinfo(String orderSheet){
+   public List<Map<String, Object>> getorderListinfo(int orderNo){
       OrderListDAO orderListinfo = new OrderListDAO();
       String sql = "SELECT ORD_NO, PROD_ID, ORD_QTY FROM ORDERLIST WHERE ORD_NO = ?";
       List<Object> list = new ArrayList<>();
-      list.add(orderSheet);
+      list.add(orderNo);
       
       return jdbc.selectList(sql, list);
    }

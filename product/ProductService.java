@@ -30,10 +30,10 @@ public class ProductService {
 	private OrderListService orderListService = OrderListService.getInstance();
 	private WishListService wishListService = WishListService.getInstance();
 
-	public int listMenu() {
+	public int listMenu() throws IOException {
 		System.out.println("==========================================================");
-		System.out.println("원하시는 리스트에 상품을 등록해주세요>> ");
-		System.out.println("1.장바구니에 등록\t 2.위시리스트에 등록\t 0.이전메뉴");
+		System.out.println();
+		System.out.println("1.장바구니 등록\t 2.위시리스트 등록\t 0.이전메뉴");
 		switch (ScanUtil.nextInt()) {
 		case 1:
 			return orderListService.orderList();
@@ -46,13 +46,13 @@ public class ProductService {
 	}
 
 	// 상품목록 조회 -회원메뉴
-	public int productList() {
+	public int productList() throws IOException {
 		System.out.println();
 		System.out.println("------------------------------------- 대분류 ------------------------------------");
 		System.out.println("[ 1.TV \t 2.냉장고 /t 3.건조기 /t 4.컴퓨터 /t 5.카메라 ]");
-		System.out.println("[ 6.청소기 /t 7.휴대폰 /t 8.생활/주방용품 /t 9.잡화    ]");
+		System.out.println("[ 6.청소기 /t 7.휴대폰 /t 8.생활/주방용품 /t 9.잡화 \t 0.이전메뉴  ]");
 		System.out.println("---------------------------------------------------------------------------------");
-		
+
 		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
@@ -62,7 +62,7 @@ public class ProductService {
 				System.out.printf(" %s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 2:
 			list = ProductDAO.getproductList("냉장고");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -70,7 +70,7 @@ public class ProductService {
 				System.out.printf(" %s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 3:
 			list = ProductDAO.getproductList("건조기");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -78,7 +78,7 @@ public class ProductService {
 				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 4:
 			list = ProductDAO.getproductList("컴퓨터");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -86,7 +86,7 @@ public class ProductService {
 				System.out.printf(" %s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 5:
 			list = ProductDAO.getproductList("카메라");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -94,7 +94,7 @@ public class ProductService {
 				System.out.printf(" %s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 6:
 			list = ProductDAO.getproductList("청소기");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -102,7 +102,7 @@ public class ProductService {
 				System.out.printf(" %s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 7:
 			list = ProductDAO.getproductList("휴대폰");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -110,7 +110,7 @@ public class ProductService {
 				System.out.printf(" %s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 8:
 			list = ProductDAO.getproductList("생활/주방용품");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -118,7 +118,7 @@ public class ProductService {
 				System.out.printf(" %s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
 		case 9:
 			list = ProductDAO.getproductList("잡화");
 			System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
@@ -126,7 +126,9 @@ public class ProductService {
 				System.out.printf(" %s1\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
 			}
-			break;
+			return listMenu();
+		case 0:
+			return MemberService.getInstance().memberLoginMenu();
 
 		default:
 			productList();
@@ -142,7 +144,8 @@ public class ProductService {
 			System.out.println();
 			System.out.println("-----------------------------------------상품관리 ---------------------------------------");
 			System.out.println("1.상품 조회\t2.상품 등록\t3.상품정보 수정\t 4.상품삭제\t5.재고 관리\t0.이전페이지");
-			System.out.println("------------------------------------------------------------------------------------------");
+			System.out.println(
+					"------------------------------------------------------------------------------------------");
 			System.out.print("번호 입력 :  ");
 			int input = ScanUtil.nextInt();
 
@@ -257,7 +260,8 @@ public class ProductService {
 		try {
 			System.out.println("------------------------------------재고관리 페이지 입니다-------------------------------");
 			System.out.println("1.재고 조회\t2.재고 수정\t0.이전페이지\t9.관리자페이지");
-			System.out.println("-----------------------------------------------------------------------------------------");
+			System.out.println(
+					"-----------------------------------------------------------------------------------------");
 			System.out.print("번호 입력>");
 			int input = ScanUtil.nextInt();
 

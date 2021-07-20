@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import selectMenu.JDBCUtil;
 
 public class OrderSheetDAO {
@@ -33,18 +35,17 @@ public class OrderSheetDAO {
 		list.add(member);
 		return jdbc.selectList(sql, list);
 		
-		
-		
-//		Map<String, Object> res = jdbc.selectOne(sql, list);
-//		orderSheetInfo.setOrderNumber(Integer.parseInt(res.get("ORD_NO").toString()));
-//		orderSheetInfo.setMemberId((String)res.get("MEM_ID"));
-//		orderSheetInfo.setOrderDate(res.get("ORD_DATE").toString().split(" ")[0]);
-//		orderSheetInfo.setOrderAdd1((String)res.get("ORD_ADD1"));
-//		orderSheetInfo.setOrderAdd2((String)res.get("ORD_ADD2"));
-//		orderSheetInfo.setPayPrice(Integer.parseInt(res.get("PAY_PRICE").toString()));
-//		orderSheetInfo.setPayState((String)res.get("PAY_STATE"));
-//		orderSheetInfo.setDeliveryState((String)res.get("DELIVERY_STATE"));
 	}
+	
+	//주문서등록
+	public boolean insertOrderSheet(Object data){
+		String sql = "INSERT INTO ORDSHEET"
+				   + "    VALUES(SEQ_ORD_NO.NEXTVAL,'hyunsoo88',SYSDATE, '대전','대덕인재개발원',50000,'5',NULL);";
+		                  
+	}
+	
+	
+	
 	//배송지 수정
 	public boolean updateOrderSheetinfo(OrderSheetDTO update) {
 		String sql = "UPDATE ORDSHEET SET ORD_ADD1 = ?, ORD_ADD2 = ?"

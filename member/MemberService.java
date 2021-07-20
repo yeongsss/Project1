@@ -9,12 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import orderList.OrderListService;
 import product.ProductService;
 import purchase.PurchaseService;
 import qnaBoard.QnABoardService;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 import selectMenu.View;
+import wishList.WishListService;
 
 public class MemberService {
 
@@ -150,7 +152,7 @@ public class MemberService {
 		
 		System.out.println();
 		System.out.println("=================================== 일반 회원 ===================================");
-		System.out.println("1.마이페이지 \t 2.상품메뉴 \t 3. 장바구니/위시리스트 \t 0. 로그아웃 ");
+		System.out.println("1.마이페이지 \t 2.상품메뉴 \t 3. 장바구니\t 4.위시리스트 \t 0. 로그아웃 ");
 		System.out.println("=================================================================================");
 		System.out.print("번호 입력: ");
 		
@@ -168,7 +170,11 @@ public class MemberService {
 		case 3:
 			System.out.println();
 			System.out.println(">> 장바구니로 이동합니다.");
-//			return WishListService.Wishlist;
+			return OrderListService.getInstance().orderList();
+		case 4: 
+			System.out.println();
+			System.out.println(">> 위시리스트로 이동합니다.");
+			return WishListService.getInstance().Wishlist();
 		case 0:
 			Controller.loginUser = null;
 			System.out.println();

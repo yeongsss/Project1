@@ -1,10 +1,12 @@
 package wishList;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import product.ProductService;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
 
@@ -26,7 +28,7 @@ public class WishListService {
 	private WishListDAO wishListDAO = WishListDAO.getInstance();
 	
 	
-	public int Wishlist() {
+	public int Wishlist() throws IOException {
 		System.out.println("================= 위시리스트 메뉴 =====================");
 		System.out.println("1.위시리스트 조회\t2.위시리스트 추가\t3.위시리스트 삭제\t0.이전페이지");
 		System.out.println("==================================================");
@@ -34,7 +36,7 @@ public class WishListService {
 		int input = ScanUtil.nextInt();
 
 		switch (input) {
-		case 1: //Join 문으로 SQL문 작성해야 상품 정보 불러오기 가능.
+		case 1: //Join 문으로 SQL문 작성해야 상품 정보 불러오기 가능.S
 			System.out.println("위시리스트를 조회합니다");
 			List<Map<String, Object>> list = WishListDAO.getWishListInfo();
 			for (Map<String, Object> map : list) {
@@ -73,7 +75,7 @@ public class WishListService {
 	
 	
 	
-	public int addWishList() {
+	public int addWishList() throws IOException {
 		System.out.println("=========== 위시리스트 등록 =============");
 		//로그인한 멤버의 아이디로 자동 등록
 		String memberId = (String) Controller.loginUser.get("MEM_ID");
@@ -94,7 +96,7 @@ public class WishListService {
 			System.out.println("위시리스트 등록에 실패했습니다.");
 		}
 
-		return addWishList();
+		return ProductService.getInstance().productList();
 	}
 
 }
