@@ -70,7 +70,7 @@ public class JDBCUtil {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		} finally {
 			if (rs != null)
 				try {
@@ -118,7 +118,7 @@ public class JDBCUtil {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		} finally {
 			if (rs != null)
 				try {

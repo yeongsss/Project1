@@ -80,9 +80,8 @@ public class ProductDAO {
 		return resMap;
 	}
 
-	
 	// 상품 수정 -관리자
-	
+
 	public static boolean productModify(ProductDTO update) {
 		String sql = "UPDATE PROD SET" + " PROD_NAME = ?, PRICE = ?" + " WHERE PROD_ID = ?";
 
@@ -90,8 +89,6 @@ public class ProductDAO {
 		list.add(update.getProductName());
 		list.add(update.getPrice());
 		list.add(update.getProductId());
-		
-		
 
 		if (jdbcUtil.update(sql, list) == 1) {
 			return true;
@@ -99,20 +96,17 @@ public class ProductDAO {
 		return false;
 
 	}
-	
+
 	// 상품 삭제 -관리자
-	
+
 	public static Map<String, Object> productDelete(String productId) {
 		String sql = "DELETE FROM PROD WHERE PROD_ID = ?";
 		List<Object> param = new ArrayList<>();
 		param.add(productId);
 		return jdbcUtil.selectOne(sql, param);
-		
+
 	}
-	
-	
-	
-	
+
 	// 전체 재고조회 -관리자
 	public static List<Map<String, Object>> getStockAllInfo() {
 		String sql = "SELECT * FROM PROD";
@@ -135,42 +129,44 @@ public class ProductDAO {
 		return false;
 
 	}
-	
-	//매입 후 재고 조정 메소드(재고 수량을 증가)
+
+	// 매입 후 재고 조정 메소드(재고 수량을 증가)
 	public static boolean plusInventoryQuantity(ProductDTO productDTO) {
-		
-		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = INVNTRY_QTY +?"
-				+ " WHERE PROD_ID = ?";
-					
-		
+
+		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = INVNTRY_QTY +?" + " WHERE PROD_ID = ?";
+
 		List<Object> list = new ArrayList<>();
 		list.add(productDTO.getInventoryQuantity());
 		list.add(productDTO.getProductId());
-		
+
 		if (jdbcUtil.update(sql, list) == 1) {
 			return true;
 		}
-				
+
 		return false;
 	}
-	
+
 //매입 후 재고 조정 메소드(재고 수량을 반영함)
 	public static boolean minusInventoryQuantity(ProductDTO productDTO) {
-		
-		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = INVNTRY_QTY -?"
-		+ " WHERE PROD_ID = ?";
-					
-		
+
+		String sql = "UPDATE PROD SET" + " INVNTRY_QTY = INVNTRY_QTY -?" + " WHERE PROD_ID = ?";
+
 		List<Object> list = new ArrayList<>();
 		list.add(productDTO.getInventoryQuantity());
 		list.add(productDTO.getProductId());
-		
+
 		if (jdbcUtil.update(sql, list) == 1) {
 			return true;
 		}
-				
+
 		return false;
 	}
-	
+
+	public static Map<String, Object> productCheck(String productId) {
+		String sql = "SELECT COUNT(*) FROM PROD" + " WHERE PROD_ID = ?";
+		List<Object> param = new ArrayList<>();
+		param.add(productId);
+		return jdbcUtil.selectOne(sql, param);
+	}
 
 }

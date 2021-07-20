@@ -96,29 +96,21 @@ public class QnABoardDAO {
 			return list;
 		}
 		
-		public int deleteQnA(int  boardNo) {
+		public boolean deleteQnA(int  boardNo) {
 			String sql = "DELETE FROM QNA_BOARD "
-					+ " WHERE BOARD_NO = "+ boardNo;
+							+ " WHERE BOARD_NO = ? ";
+			List<Object> list  = new ArrayList<>();
+			list.add(boardNo);
 			
-			return jdbc.update(sql);
+			int result =jdbc.update(sql, list);
+			
+			if (result >0) {
+				return true;
+			}
+			return false;
 					
 		
 			
 		}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

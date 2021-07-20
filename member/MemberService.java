@@ -30,7 +30,7 @@ public class MemberService {
 	private static PurchaseService purchaseService = PurchaseService.getInstance();
 	private static ProductService productService = ProductService.getInstance();
 	private static QnABoardService qnaBoardService = QnABoardService.getInstance();
-	private static WishListService WishListService = WishListService.getInstance();
+//	private static WishListService WishListService = WishListService.getInstance();
 	
 
 	public int join() {
@@ -125,7 +125,7 @@ public class MemberService {
 						mypageAdmin(); // 권한이 관리자면 관리자 페이지로 이동함.
 
 					}
-					return myPage(); // 일반회원 로그인 성공하면, 마이페이지로 이동.
+					return memberLoginMenu(); // 일반회원 로그인 성공하면, 마이페이지로 이동.
 
 				}
 			}
@@ -152,9 +152,9 @@ public class MemberService {
 			return productService.productList();
 		
 		case 3:
-			return WishListService.Wishlist;
+//			return WishListService.Wishlist;
 		case 0:
-			System.out.println("로그아웃 되었습니다");
+			System.out.println("로그아웃 되었습니다"); 
 			return login();
 			
 			

@@ -1,5 +1,6 @@
 package qnaBoard;
 
+import java.sql.SQLNonTransientException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -42,26 +43,34 @@ public class QnABoardService {
 				List<Map<String, Object>> qnaBoard = qnABoardDAO.getBoard();
 				for (Map<String, Object> map : qnaBoard) {
 //						System.out.println("----
-					if (map.get("CM_DATE")  == null) {
-						System.out.printf("%s   제목: %s	내용: %s	날짜: %s\n    댓글: %s	날짜: %s\n",
-								map.get("BOARD_NO"),map.get("Q_TITLE"),map.get("Q_CONTENT"),map.get("Q_DATE").toString().split(" ")[0],
-								"--","--");
+					if (map.get("CM_DATE") == null) {
+						System.out.printf("%s   제목: %s	내용: %s	날짜: %s\n    댓글: %s	날짜: %s\n", map.get("BOARD_NO"),
+								map.get("Q_TITLE"), map.get("Q_CONTENT"), map.get("Q_DATE").toString().split(" ")[0],
+								"--", "--");
 						System.out.println();
-					}else {
-						System.out.printf("%s   제목: %s	내용: %s	날짜: %s\n    댓글: %s	날짜: %s\n",
-								map.get("BOARD_NO"),map.get("Q_TITLE"),map.get("Q_CONTENT"),map.get("Q_DATE").toString().split(" ")[0],
-								map.get("CM_CONTENT"),map.get("CM_DATE").toString().split(" ")[0]);
+					} else {
+						System.out.printf("%s   제목: %s	내용: %s	날짜: %s\n    댓글: %s	날짜: %s\n", map.get("BOARD_NO"),
+								map.get("Q_TITLE"), map.get("Q_CONTENT"), map.get("Q_DATE").toString().split(" ")[0],
+								map.get("CM_CONTENT"), map.get("CM_DATE").toString().split(" ")[0]);
 						System.out.println();
 					}
-					
+
 				}
 				break;
 			case 2:
 				System.out.print("삭제할 번호 입력:  ");
-				qnABoardDAO.deleteQnA(ScanUtil.nextInt());
+				int input = ScanUtil.nextInt();
+				if (commentDAO.deleteComment(input)) {
+					if (qnABoardDAO.deleteQnA(ScanUtil.nextInt())) {
+						System.out.println("삭제 완료!");
+					}
+				} else {
+					System.out.println("실패");
+				}
+
 				break;
-				
-			case 3: 
+
+			case 3:
 				CommentDTO commentDTO = new CommentDTO();
 				System.out.print("글번호 : ");
 				commentDTO.setBoardNo(ScanUtil.nextInt());
@@ -69,22 +78,22 @@ public class QnABoardService {
 				commentDTO.setMemberId(ScanUtil.nextLine());
 				System.out.print("댓글내용: ");
 				commentDTO.setCommentContent(ScanUtil.nextLine());
-				
+
 				if (commentDAO.insertComment(commentDTO)) {
 					System.out.println("댓글 등록 성공");
 				} else {
 					System.out.println("댓글 등록 실패");
 				}
 				break;
-			
-			case 4: 
-				System.out.print("삭제할 댓글 번호>");
-				if(commentDAO.deleteComment(ScanUtil.nextInt())) {
-					System.out.println("삭제 완료 임마!");
+
+			case 4:
+				System.out.print("삭제할 댓글 번호 :  ");
+				if (commentDAO.deleteComment(ScanUtil.nextInt())) {
+					System.out.println("삭제 완료!");
 				} else {
-					System.out.println("님 뭐 잘못 입력 하심 ㅡㅡ");
+					System.out.println("삭제 실패!");
 				}
-				
+
 			case 0:
 				return memberservice.mypageAdmin();
 			}

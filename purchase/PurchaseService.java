@@ -88,12 +88,12 @@ public class PurchaseService {
 
 			switch (input) {
 			case 1:
-				System.out.println("매입내역을 조회합니다");
-				List<Map<String, Object>> list = purchaseDAO.getPurchaseAllInfo();
-				for (Map<String, Object> map : list) {
-					System.out.printf("%s\t%s\t%s\t%s\n", map.get("PU_NO"), map.get("PROD_ID"), map.get("PU_DATE").toString().split(" ")[0],
-							map.get("PU_QTY"));
-				}
+	            System.out.println("매입내역을 조회합니다");
+	            List<Map<String, Object>> list = purchaseDAO.getPurchaseAllInfo();
+	            for (Map<String, Object> map : list) {
+	               System.out.printf("%s\t%s\t%s\t%s\t%s\n", map.get("PU_NO"), map.get("PROD_ID"),map.get("PROD_NAME").toString().substring(0,11) ,map.get("PU_DATE").toString().split(" ")[0],
+	                     map.get("PU_QTY"));
+	            }
 
 				return purchaseManagement();
 			case 2:
