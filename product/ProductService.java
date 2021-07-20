@@ -117,13 +117,14 @@ public class ProductService {
 
 			switch (input) {
 			case 1:
-				System.out.println();
-				System.out.println(" < 상품목록 >	");
-				List<Map<String, Object>> list = ProductDAO.getProductAllInfo();
-				for (Map<String, Object> map : list) {
-					System.out.printf("%s\t%s\t%s\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("CL_ID"),
-							map.get("CL_NAME"), map.get("PRICE"));
-				}
+	            System.out.println();
+	            System.out.println(" < 상품목록 >   ");
+	            System.out.println("[상품코드\t 분류코드\t 분류명\t 상품명\t\t\t\t\t\t 가격 ]");
+	            List<Map<String, Object>> list = ProductDAO.getProductAllInfo();
+	            for (Map<String, Object> map : list) {
+	               System.out.printf("%s\t%s\t%s\t%s\t\t\t%s\n", map.get("PROD_ID"), map.get("CL_ID"), map.get("CL_NAME"),
+	                     map.get("PROD_NAME"), map.get("PRICE"));
+	            }
 				return productManagement();
 			case 2:
 				System.out.println("상품 등록 메뉴로 이동합니다");
