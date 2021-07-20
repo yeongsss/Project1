@@ -5,18 +5,28 @@ public class OrderListDTO {
 	  private int orderNumber;
 	   private String productId;
 	   private int orderQuantity;
+	   private int orderListNo;
 	   
 	   public OrderListDTO() {}
 
-	   public OrderListDTO(int orderNumber, String productId, int orderQuantity) {
+	   public OrderListDTO(int orderNumber, String productId, int orderQuantity,int orderListNo) {
 	      super();
 	      this.orderNumber = orderNumber;
 	      this.productId = productId;
 	      this.orderQuantity = orderQuantity;
+	      this.orderListNo = orderListNo;
 	   }
 
 
-	   public int getOrderNumber() {
+	   public int getOrderListNo() {
+		return orderListNo;
+	}
+
+	public void setOrderListNo(int orderListNo) {
+		this.orderListNo = orderListNo;
+	}
+
+	public int getOrderNumber() {
 	      return orderNumber;
 	   }
 
@@ -40,41 +50,11 @@ public class OrderListDTO {
 	      this.orderQuantity = orderQuantity;
 	   }
 
-	   
-	   @Override
-	   public int hashCode() {
-	      final int prime = 31;
-	      int result = 1;
-	      result = prime * result + orderNumber;
-	      result = prime * result + orderQuantity;
-	      result = prime * result + ((productId == null) ? 0 : productId.hashCode());
-	      return result;
-	   }
+	@Override
+	public String toString() {
+		return " 주문번호: " + orderNumber + "상품코드: " + productId + "수량: "
+				+ orderQuantity + "목록번호: " + orderListNo + "]";
+	}
 
-	   @Override
-	   public boolean equals(Object obj) {
-	      if (this == obj)
-	         return true;
-	      if (obj == null)
-	         return false;
-	      if (getClass() != obj.getClass())
-	         return false;
-	      OrderListDTO other = (OrderListDTO) obj;
-	      if (orderNumber != other.orderNumber)
-	         return false;
-	      if (orderQuantity != other.orderQuantity)
-	         return false;
-	      if (productId == null) {
-	         if (other.productId != null)
-	            return false;
-	      } else if (!productId.equals(other.productId))
-	         return false;
-	      return true;
-	   }
-
-	   @Override
-	   public String toString() {
-	      return "주문목록 [주문번호: " + orderNumber + ", \t상품코드: " + productId + ", \t주문수량: "
-	            + orderQuantity + "]";
-	   }
+	
 }

@@ -25,6 +25,9 @@ public class OrderSheetDTO {
 		this.memberId = memberId;
 		this.deliveryState = deliveryState;
 	}
+	public OrderSheetDTO(int orderNumber) {
+		this.orderNumber = orderNumber;
+	}
 
 	public int getOrderNumber() {
 		return orderNumber;

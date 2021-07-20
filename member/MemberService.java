@@ -108,8 +108,8 @@ public class MemberService {
 				String userId = ScanUtil.nextLine();
 				System.out.print("비밀번호 :  ");
 				String password = ScanUtil.nextLine();
-				Map<String, Object> user = MemberDAO.memberselect(userId, password);
-
+				Map<String, Object> user = MemberDAO.memberselect(userId, password);	
+				
 				if (user == null) {
 					System.out.println(">>아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
 					System.out.println("-------------------------------------------------------");
@@ -155,7 +155,6 @@ public class MemberService {
 		System.out.println("1.마이페이지 \t 2.상품메뉴 \t 3. 장바구니\t 4.위시리스트 \t 0. 로그아웃 ");
 		System.out.println("=================================================================================");
 		System.out.print("번호 입력: ");
-		
 		switch (ScanUtil.nextInt()) {
 		case 1: 
 			System.out.println();
@@ -188,7 +187,6 @@ public class MemberService {
 		
 		
 	}
-	
 	
 	
 	

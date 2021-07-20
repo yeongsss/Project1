@@ -1,11 +1,17 @@
 package orderList;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import controller.Controller;
+import orderSheet.OrderSheetDAO;
+import orderSheet.OrderSheetDTO;
 import payment.PaymentService;
 import payment.PaymentTest;
+import product.ProductService;
 import selectMenu.ScanUtil;
+import selectMenu.SessionUtil;
 
 public class OrderListService {
 
@@ -23,16 +29,39 @@ public class OrderListService {
 	}
 	private OrderListDAO orderListDAO = OrderListDAO.getInstance();
 	private PaymentService paymentService = PaymentService.getInstance();
+	private OrderSheetDAO orderSheetDAO = OrderSheetDAO.getInstance();
 	
-//    OrderListDTO orderListDTO = new OrderListDTO();
-    public int orderList() {
-	List: while(true) {
+		
+	public int insertCart() throws IOException {
+		System.out.println(SessionUtil.getInstance().getOrderNO());
+		OrderListDTO orderListDTO = new OrderListDTO(); 
+		orderListDTO.setOrderNumber(SessionUtil.getInstance().getOrderNO());
+		System.out.print("추가할 상품코드: ");
+		orderListDTO.setProductId(ScanUtil.nextLine());
+		System.out.print("수량: ");
+		orderListDTO.setOrderQuantity(ScanUtil.nextInt());
+		
+		if (orderListDAO.insertOrderList(orderListDTO)) {
+			System.out.println("장바구니 등록 성공");
+		} else {
+			System.out.println("장바구니 등록 실패");
+		}
+		return ProductService.getInstance().productList();
+		
+	}
+		
+	
+	
+	
+	
+	public int orderList() throws IOException {
+		System.out.println();
 		System.out.println("================장바구니================");
        System.out.println("1.장바구니 조회\t 2.장바구니 수정\t 3.구매하기 \t 0.종료");
        System.out.print("선택:  ");
-       switch (ScanUtil.nextInt()) {
+       List : switch (ScanUtil.nextInt()) {
        case 1:
-          List<Map<String,Object>> list = orderListDAO.getorderListinfo(주문번호);
+          List<Map<String,Object>> list = orderListDAO.getorderListinfo(SessionUtil.getInstance().getOrderNO());
           
           System.out.println("==========주문목록==========");
           System.out.println("주문번호\t  상품코드\t  주문수량 ");
@@ -59,7 +88,7 @@ public class OrderListService {
           System.out.println("종료");
           break List;
        }
-    }
+  
 	return PaymentService.getInstance().paymentList();
  }
-}	
+}

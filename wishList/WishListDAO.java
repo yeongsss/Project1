@@ -27,12 +27,19 @@ public class WishListDAO {
 
 	// 위시 리스트 조회 메소드
 
-	public static List<Map<String, Object>> getWishListInfo() {
-		String sql = "SELECT * FROM WISHLIST WHERE MEM_ID = ?";
-		List<Map<String, Object>> resMap = jdbcUtil.selectList(sql);
+	  public static List<Map<String, Object>> getWishListInfo(String memberId) {
+	      String sql = "SELECT A.PROD_ID,"
+	      + " A.PROD_NAME,"
+	      + " A.PRICE,"
+	      + " B.WISH_DATE"
+	      + " FROM PROD A, WISHLIST B"
+	      + " WHERE A.PROD_ID=B.PROD_ID"
+	      + " AND MEM_ID = ?";
+	      List<Object> param = new ArrayList<>();
+	      param.add(memberId);
 
-		return resMap;
-	}
+	      return jdbcUtil.selectList(sql, param);
+	   }
 
 	// 위시 리스트 등록 메소드
 

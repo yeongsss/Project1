@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
+import controller.Controller;
 import selectMenu.JDBCUtil;
+import selectMenu.SessionUtil;
 
 public class OrderSheetDAO {
 	
@@ -26,6 +28,7 @@ public class OrderSheetDAO {
 	private JDBCUtil jdbc = JDBCUtil.getInstance();
 	
 	
+	
 	// 로그인된 아이디의 주문서 조회
 	public List<Map<String, Object>> getOrderSheetInfo(String member) {
 		OrderSheetDTO orderSheetInfo = new OrderSheetDTO();
@@ -37,14 +40,31 @@ public class OrderSheetDAO {
 		
 	}
 	
-	//주문서등록
-	public boolean insertOrderSheet(Object data){
-		String sql = "INSERT INTO ORDSHEET"
-				   + "    VALUES(SEQ_ORD_NO.NEXTVAL,'hyunsoo88',SYSDATE, '대전','대덕인재개발원',50000,'5',NULL);";
-		                  
+	//주문서등록(주문번호,아이디,날짜)
+	//주문번호 가져오기
+	public void OrderSheetNo(){
+		String sql = "INSERT INTO ORDSHEET( ORD_NO, MEM_ID, ORD_DATE) "
+				   + "    VALUES(SEQ_ORD_NO.NEXTVAL, '"+ Controller.loginUser.get("MEM_ID") +"',SYSDATE)";
+		jdbc.update(sql);
+		
+//		System.out.println(Controller.loginUser.get("MEM_ID"));
+		
+		String no = "    SELECT ORD_NO"
+				  + "    FROM ORDSHEET"
+				  + "    WHERE MEM_ID='" + Controller.loginUser.get("MEM_ID").toString() + "'"
+				  + "    ORDER BY ORD_NO DESC";
+		
+		List<Map<String , Object>> list = jdbc.selectList(no);
+		
+		
+		System.out.println(Integer.parseInt(list.get(0).get("ORD_NO")+""));
+		SessionUtil.getInstance().setOrderNO(Integer.parseInt(list.get(0).get("ORD_NO")+""));	
+//		System.out.println(Integer.parseInt(list.get(0).get("ORD_NO").toString()));
+//		System.out.println( SessionUtil.getInstance().getOrderNO());
+		
 	}
 	
-	
+	// =>  SessionUtil.getInstance().getOrderNO()
 	
 	//배송지 수정
 	public boolean updateOrderSheetinfo(OrderSheetDTO update) {

@@ -1,8 +1,10 @@
 package payment;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import member.MemberService;
 import selectMenu.ScanUtil;
 
 public class PaymentService {
@@ -21,7 +23,7 @@ public class PaymentService {
 	}	
 	private PaymentDAO paymentDAO = PaymentDAO.getInstance();
 	
-	public int paymentList() {
+	public int paymentList() throws IOException {
 		Payment: while (true) {
 			System.out.println("1.결제서 조회 \t2. 결제 수단 선택 \t0. 결제");
 			System.out.print("선택>> ");
@@ -29,16 +31,18 @@ public class PaymentService {
 			switch (ScanUtil.nextInt()) {
 			case 1:
 
-				System.out.print("결제할 주문번호>> ");
-				List<Map<String, Object>> list = paymentDAO.getPaymentinfo(ScanUtil.nextLine());
+				 System.out.print("결제할 주문번호>> ");
+		            List<Map<String, Object>> list = paymentDAO.getPaymentinfo(ScanUtil.nextLine());
+		            System.out.println("============== 주문서 조회 ==============");
+		            System.out.println("주문번호 \t 결제수단명 \t 결제일 \t");
 
-				System.out.println("주문번호\t| 결제수단명\t | 결제일\t");
+		            for (Map<String, Object> map : list) {
+		               System.out.printf("%s\t  %s\t  %s\n", map.get("ORD_NO"), map.get("PAY_METH"),
+		                     map.get("PAY_DATE").toString().split(" ")[0]);
+		            }
+		            System.out.println("결제 목록으로 넘어갑니다.");
+		            break;
 
-				for (Map<String, Object> map : list) {
-					System.out.printf("%s\t  %s\t  %s\n", map.get("ORD_NO"), map.get("PAY_METH"),
-							map.get("PAY_DATE").toString().split(" ")[0]);
-				}
-				break;
 
 			case 2:
 				PaymentDTO paymentDTO2 = new PaymentDTO();
@@ -56,10 +60,10 @@ public class PaymentService {
 				}
 				break;
 			case 0:
-				System.out.println("결제 완료");
-				break Payment;
+				 System.out.println("<< 결제 완료!! >>");
+		         return MemberService.getInstance().memberLoginMenu();
+
 			}
 		}
-		return paymentList();
 	}
 }

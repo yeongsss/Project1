@@ -36,13 +36,13 @@ public class WishListService {
 		int input = ScanUtil.nextInt();
 
 		switch (input) {
-		case 1: //Join 문으로 SQL문 작성해야 상품 정보 불러오기 가능.S
-			System.out.println("위시리스트를 조회합니다");
-			List<Map<String, Object>> list = WishListDAO.getWishListInfo();
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t%s\n", map.get("PROD_ID"), map.get("WISH_DATE"));
-			}
-			return Wishlist();
+		  case 1:
+		         System.out.println("위시리스트를 조회합니다");
+		         List<Map<String, Object>> list = WishListDAO.getWishListInfo((String) Controller.loginUser.get("MEM_ID"));
+		         for (Map<String, Object> map : list) {
+		            System.out.printf("%s\t%10s\t\t\t%s\t\t%s\n", map.get("PROD_ID"),map.get("PROD_NAME"), map.get("PRICE"), map.get("WISH_DATE").toString().split(" ")[0]);
+		         }
+		         return Wishlist();
 			
 			
 		case 2:

@@ -36,7 +36,7 @@ public class ProductService {
 		System.out.println("1.장바구니 등록\t 2.위시리스트 등록\t 0.이전메뉴");
 		switch (ScanUtil.nextInt()) {
 		case 1:
-			return orderListService.orderList();
+			return orderListService.insertCart();
 		case 2:
 			return wishListService.addWishList();
 		case 0:

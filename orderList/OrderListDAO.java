@@ -21,6 +21,24 @@ public class OrderListDAO {
    
    private static JDBCUtil jdbc = JDBCUtil.getInstance();
    
+   //주문목록 등록
+   public boolean insertOrderList(OrderListDTO data) {
+	String sql = "INSERT INTO ORDERLIST"
+			   + "    VALUES(?,?,?,ORDLIST_NO.NEXTVAL)";	//주문번호, 상품코드, 수량, 목록번호
+	List<Object> list = new ArrayList<Object>();
+	list.add(data.getOrderNumber());
+	list.add(data.getProductId());
+	list.add(data.getOrderQuantity());
+	
+	if (jdbc.update(sql,list)==1) {
+		return true;
+	} return false;
+	
+}
+   
+   
+   
+   
    //주문목록 조회
    public List<Map<String, Object>> getorderListinfo(int orderNo){
       OrderListDAO orderListinfo = new OrderListDAO();
@@ -43,4 +61,33 @@ public class OrderListDAO {
       }
       return false;
    }
+   
+   //주문 삭제
+   public boolean deleteOrderList(int orderSheet) {
+      String sql = "DELETE FROM ORDERLIST "
+               + "WHERE ORD_NO = ?";
+      List<Object> list = new ArrayList<>();
+      list.add(orderSheet);
+      
+      int result = jdbc.update(sql, list);
+      
+      if (result > 0) {
+      return true;
+   }
+      return false;
+   }
+   
+   
+   
+   
 }
+
+
+
+
+
+
+
+
+
+
