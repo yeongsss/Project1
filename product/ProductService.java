@@ -224,9 +224,9 @@ public class ProductService {
 
 	public static int stockManagement() {
 		try {
-			System.out.println("-------재고관리 페이지 입니다-------");
+			System.out.println("------------------------------------재고관리 페이지 입니다-------------------------------");
 			System.out.println("1.재고 조회\t2.재고 수정\t0.이전페이지");
-			System.out.println("-------------------------_---");
+			System.out.println("-----------------------------------------------------------------------------------------");
 			System.out.print("번호 입력>");
 			int input = ScanUtil.nextInt();
 

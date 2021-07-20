@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import orderSheet.OrderSheetDTO;
-import product.ProductDTO;
 import selectMenu.JDBCUtil;
 
 public class MemberDAO {
@@ -52,6 +51,16 @@ public class MemberDAO {
 		return jdbcUtil.selectOne(sql, param);
 
 	}
+	// 아이디 중복검사
+	
+	public static Map<String, Object> idCheck(String memberId) {
+		String sql = "SELECT COUNT(*) FROM MEMBER" + " WHERE MEM_ID = ?";
+		List<Object> param = new ArrayList<>();
+		param.add(memberId);
+		return jdbcUtil.selectOne(sql, param);
+	}	
+	
+	
 	// 내정보 조회 메소드
 
 	

@@ -1,12 +1,10 @@
 package member;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
-import product.ProductDAO;
 import product.ProductService;
 import purchase.PurchaseService;
 import qnaBoard.QnABoardService;
@@ -33,16 +31,24 @@ public class MemberService {
 	private static ProductService productService = ProductService.getInstance();
 	private static QnABoardService qnaBoardService = QnABoardService.getInstance();
 
-	public int join() throws MemberExceptionId, MemberExceptionBirth, SQLIntegrityConstraintViolationException {
-		try {
+	public int join() {
+		
 			System.out.println("=========== 회원가입 =============");
 			System.out.print("아이디>");
 			String memberId = ScanUtil.nextLine();
 			if (memberId.length() >= 12) {
-				throw new MemberExceptionId();
-
+				System.out.println("아이디는 12글자까지만 입력 가능합니다");
+				return join();
+			
 			}
-
+			Map<String, Object> user = MemberDAO.idCheck(memberId);
+			if (user.get("COUNT(*)").toString().equals("0")) {
+				
+			}
+			else {
+				System.out.println("이미 가입된 아이디 입니다 다른 아이디를 입력하세요");
+				return join();
+			}
 			System.out.print("비밀번호>");
 			String memberPassword = ScanUtil.nextLine();
 			System.out.print("이름>");
@@ -50,10 +56,11 @@ public class MemberService {
 			System.out.print("생년월일>");
 			String memberBirth = ScanUtil.nextLine();
 			if (memberBirth.length() >= 8) {
-				throw new MemberExceptionBirth();
+				System.out.println("생년월일은 990801-1 과 같은 형식으로 입력해 주세요");
+				System.out.print("생년월일을 재입력");
+				memberBirth = ScanUtil.nextLine();
 
 			}
-
 			System.out.print("전화번호>");
 			String memberHp = ScanUtil.nextLine();
 			System.out.print("기본주소>");
@@ -61,10 +68,6 @@ public class MemberService {
 			System.out.print("상세주소>");
 			String memberAdd2 = ScanUtil.nextLine();
 			String author = "0"; // 기본 회원가입은 모두 일반회원으로 가입 됨
-
-			// 아이디 중복 확인 생략
-			// 정규표현식(유효성 검사) 생략
-
 			Map<String, Object> param = new HashMap<>();
 			param.put("MEM_ID", memberId);
 			param.put("MEM_PW", memberPassword);
@@ -86,14 +89,7 @@ public class MemberService {
 			
 			return View.HOME;
 			
-		} catch (MemberExceptionId e) {
-			System.out.println("아이디는 12글자를 초과할 수 없습니다");
-		} catch (MemberExceptionBirth e) {
-			System.out.println("생년월일은 990801-1 과 같은 형식으로 입력해 주세요");
-			
 		}
-		return join();
-	}
 
 // 로그인실패시  다시 입력받기 OR 메인화면 이동 선택가능하게 수정
 	public int login() {
@@ -331,12 +327,13 @@ public class MemberService {
 				System.out.print("일반회원으로 변경은 0, 관리자로 변경은 1을 입력하세요");
 				memberDTO.setAuthor(ScanUtil.nextLine());
 
-				if (memberDTO.getAuthor() != "0" || memberDTO.getAuthor() != "1") {
-					throw new AuthorException();
-
+				if (memberDTO.getAuthor() != "0" && memberDTO.getAuthor() != "1") {
+					System.out.println("권한은 0 또는 1만 입력 가능합니다.");
+					System.out.print("일반회원으로 변경은 0, 관리자로 변경은 1을 입력하세요");
+					memberDTO.setAuthor(ScanUtil.nextLine());
 				}
 
-				if (MemberDAO.MemberInfoModifyHp(memberDTO)) {
+				if (MemberDAO.ChangeMemberAuthor(memberDTO)) {
 					System.out.println("권한변경 성공");
 				} else {
 					System.out.println("권한변경 실패");
@@ -350,11 +347,8 @@ public class MemberService {
 			return memberManagement();
 		} catch (NumberFormatException e) {
 			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
-		} catch (AuthorException e) {
-			System.out.println("권한은 0 또는 1만 입력 할 수 있습니다");
 			return memberManagement();
 		}
-		return memberManagement();
 
 	}
 
@@ -386,7 +380,7 @@ public class MemberService {
 				memberDTO.setMemberId(ScanUtil.nextLine());
 				System.out.print("변경할 일반주소를 입력하세요");
 				memberDTO.setMemberAdd1(ScanUtil.nextLine());
-				// 아이디는 로그인한 아이디의 값을 그대로 적용함.
+				
 				if (MemberDAO.MemberInfoModifyAdd1(memberDTO)) {
 					System.out.println("변경 성공");
 				} else {
@@ -400,7 +394,7 @@ public class MemberService {
 				memberDTO.setMemberId(ScanUtil.nextLine());
 				System.out.print("변경할 상세주소를 입력하세요");
 				memberDTO.setMemberAdd2(ScanUtil.nextLine());
-				// 아이디는 로그인한 아이디의 값을 그대로 적용함.
+				
 				if (MemberDAO.MemberInfoModifyAdd2(memberDTO)) {
 					System.out.println("변경 성공");
 				} else {

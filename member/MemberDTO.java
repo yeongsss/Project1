@@ -14,19 +14,6 @@ public class MemberDTO {
 
 	public MemberDTO() {
 	}
-	
-	public MemberDTO(String memberId, String memberPassword, String memberName, String memberBirth, String memberHp,
-			String memberAdd1, String memberAdd2, String author) {
-		super();
-		this.memberId = memberId;
-		this.memberPassword = memberPassword;
-		this.memberName = memberName;
-		this.memberBirth = memberBirth;
-		this.memberHp = memberHp;
-		this.memberAdd1 = memberAdd1;
-		this.memberAdd2 = memberAdd2;
-		this.author = author;
-	}
 
 	public String getMemberId() {
 		return memberId;
@@ -92,7 +79,6 @@ public class MemberDTO {
 		this.author = author;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(author, memberAdd1, memberAdd2, memberBirth, memberHp, memberId, memberName,
@@ -116,9 +102,10 @@ public class MemberDTO {
 
 	@Override
 	public String toString() {
-		return "MemberDTO [회원 아이디=" + memberId + ", memberPassword=" + memberPassword + ", 회원 이름=" + memberName
-				+ ", 생년월일=" + memberBirth + ", 전화번호=" + memberHp + ", 기본주소=" + memberAdd1 + ", 상세주소=" + memberAdd2
-				+ ", 회원등급=" + author + "]";
+		return "MemberDTO [memberId=" + memberId + ", memberPassword=" + memberPassword + ", memberName=" + memberName
+				+ ", memberBirth=" + memberBirth + ", memberHp=" + memberHp + ", memberAdd1=" + memberAdd1
+				+ ", memberAdd2=" + memberAdd2 + ", author=" + author + "]";
 	}
-
+	
 }
+	

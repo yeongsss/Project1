@@ -1,17 +1,14 @@
 package controller;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Map;
 
-import member.MemberExceptionBirth;
-import member.MemberExceptionId;
 import member.MemberService;
 import selectMenu.ScanUtil;
 import selectMenu.View;
 
 public class Controller {
 
-	public static void main(String[] args) throws MemberExceptionId, MemberExceptionBirth, SQLIntegrityConstraintViolationException{
+	public static void main(String[] args){
 
 		new Controller().start();
 	}
@@ -20,7 +17,7 @@ public class Controller {
 
 	private MemberService memberService = MemberService.getInstance();
 
-	private void start() throws MemberExceptionId, MemberExceptionBirth, SQLIntegrityConstraintViolationException {
+	private void start() {
 		int view = View.HOME;
 
 		while (true) {
