@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import member.MemberService;
@@ -8,7 +9,8 @@ import selectMenu.View;
 
 public class Controller {
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
+		System.out.println("** 하이마트에 오신것을 환영합니다. **");
 
 		new Controller().start();
 	}
@@ -17,7 +19,7 @@ public class Controller {
 
 	private MemberService memberService = MemberService.getInstance();
 
-	private void start() {
+	private void start() throws IOException {
 		int view = View.HOME;
 
 		while (true) {
@@ -31,7 +33,6 @@ public class Controller {
 	}
 
 	private int home() {
-		System.out.println("** 하이마트에 오신것을 환영합니다. **");
 		try {
 			System.out.println("[ 1.로그인\t2.회원가입\t0.프로그램 종료 ]");
 //		System.out.println("--------------------------------");
@@ -58,5 +59,14 @@ public class Controller {
 		}
 		return View.HOME;
 	}
-
+	
+	
+	
 }
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 package qnaBoard;
 
+import java.io.IOException;
 import java.sql.SQLNonTransientException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +32,7 @@ public class QnABoardService {
 	MemberService memberservice = MemberService.getInstance();
 	CommentDAO commentDAO = CommentDAO.getInstance();
 
-	public int boardManagement() {
+	public int boardManagement() throws IOException {
 		qna: while (true) {
 			System.out.println();
 			System.out.println("------------------------------ QnA게시판 (관리자) -------------------------------");

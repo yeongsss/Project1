@@ -12,4 +12,6 @@ public class View {
 	public static final int BOARD_LIST = 3;
 	public static final int BOARD_VIEW = 4;
 	public static final int BOARD_INSERT_FORM = 5;
+	public static final int LOGOUT = 6;
+	
 }

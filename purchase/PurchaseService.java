@@ -1,5 +1,6 @@
 package purchase;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class PurchaseService {
 
 	// 매입 (재고수량도 조정.)
 
-	public int purchase() {
+	public int purchase() throws IOException {
 		System.out.println("========== 매입 신청 ============");
 		System.out.print("상품코드를 입력하세요");
 		String productId = ScanUtil.nextLine();
@@ -59,7 +60,7 @@ public class PurchaseService {
 
 	// 매입 취소(수정 및 수량 감소)
 
-	public int updatePurchase() {
+	public int updatePurchase() throws IOException {
 		ProductDTO productDTO = new ProductDTO();
 		System.out.println("취소할 상품의 상품코드를 입력하세요");
 		productDTO.setProductId(ScanUtil.nextLine());
@@ -78,7 +79,7 @@ public class PurchaseService {
 
 	// 매입 관리 뷰 -관리자
 
-	public int purchaseManagement() {
+	public int purchaseManagement() throws IOException {
 		try {
 			System.out.println("--------------매입관리 페이지 입니다---------------");
 			System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
