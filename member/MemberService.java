@@ -30,6 +30,7 @@ public class MemberService {
 	private static PurchaseService purchaseService = PurchaseService.getInstance();
 	private static ProductService productService = ProductService.getInstance();
 	private static QnABoardService qnaBoardService = QnABoardService.getInstance();
+	private static WishListService WishListService = WishListService.getInstance();
 	
 
 	public int join() {
@@ -151,7 +152,7 @@ public class MemberService {
 			return productService.productList();
 		
 		case 3:
-			
+			return WishListService.Wishlist;
 		case 0:
 			System.out.println("로그아웃 되었습니다");
 			return login();

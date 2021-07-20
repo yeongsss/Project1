@@ -34,68 +34,77 @@ public class ProductService {
 		int input = ScanUtil.nextInt();
 		switch (input) {
 		case 1:
-			List<Map<String, Object>> list = ProductDAO.getproductList("TV");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         List<Map<String, Object>> list = ProductDAO.getproductList("TV");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 2:
-			list = ProductDAO.getproductList("냉장고");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 2:
+	         list = ProductDAO.getproductList("냉장고");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 3:
-			list = ProductDAO.getproductList("건조기");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 3:
+	         list = ProductDAO.getproductList("건조기");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 4:
-			list = ProductDAO.getproductList("컴퓨터");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 4:
+	         list = ProductDAO.getproductList("컴퓨터");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 5:
-			list = ProductDAO.getproductList("카메라");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 5:
+	         list = ProductDAO.getproductList("카메라");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 6:
-			list = ProductDAO.getproductList("청소기");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 6:
+	         list = ProductDAO.getproductList("청소기");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 7:
-			list = ProductDAO.getproductList("휴대폰");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 7:
+	         list = ProductDAO.getproductList("휴대폰");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 8:
-			list = ProductDAO.getproductList("생활/주방용품");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 8:
+	         list = ProductDAO.getproductList("생활/주방용품");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
-		case 9:
-			list = ProductDAO.getproductList("잡화");
-			for (Map<String, Object> map : list) {
-				System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
+	         }
+	         break;
+	      case 9:
+	         list = ProductDAO.getproductList("잡화");
+	         for (Map<String, Object> map : list) {
+	            System.out.println("[상품코드\t\t 상품명\t\t\t\t 가격]");
+	            System.out.printf("%s\t\t%s\t%s\n", map.get("PROD_ID"), map.get("PROD_NAME"), map.get("PRICE"));
 
-			}
-			break;
+	         }
+	         break;
 
 		default:
 			productList();
