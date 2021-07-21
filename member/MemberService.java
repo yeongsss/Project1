@@ -390,7 +390,7 @@ public class MemberService {
 				return memberManagement();
 			case 2:
 				System.out.println();
-				System.out.println(">> 회언정보를 수정합니다.");
+				System.out.println(">> 회원정보를 수정합니다.");
 				return editInfoAdmin();
 
 			case 3:

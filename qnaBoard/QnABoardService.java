@@ -101,7 +101,7 @@ public class QnABoardService {
 		}
 	}
 
-	public int qnaBoardMember() {
+	public int qnaBoardMember() throws IOException {
 		// 게시글 순번
 		int cnt = 1;
 		qna: while (true) {
@@ -178,7 +178,7 @@ public class QnABoardService {
 
 				case 0:
 					System.out.println("QnA 종료");
-					break qna;
+					return memberservice.memberLoginMenu();
 				}// switch문
 			} // if 문
 			else {
@@ -186,7 +186,6 @@ public class QnABoardService {
 				continue;
 			}
 		}
-		return View.HOME;
 	}
 
 }
