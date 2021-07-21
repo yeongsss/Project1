@@ -33,7 +33,7 @@ public class OrderListService {
 	
 		
 	public int insertCart() throws IOException {
-		System.out.println(SessionUtil.getInstance().getOrderNO());
+//		System.out.println(SessionUtil.getInstance().getOrderNO());
 		OrderListDTO orderListDTO = new OrderListDTO(); 
 		orderListDTO.setOrderNumber(SessionUtil.getInstance().getOrderNO());
 		System.out.print("추가할 상품코드: ");
@@ -47,34 +47,31 @@ public class OrderListService {
 			System.out.println("장바구니 등록 실패");
 		}
 		return ProductService.getInstance().productList();
-		
 	}
 		
 	
 	
-	
-	
 	public int orderList() throws IOException {
 		System.out.println();
-		System.out.println("================장바구니================");
+		System.out.println("================ 장바구니 ================");
        System.out.println("1.장바구니 조회\t 2.장바구니 수정\t 3.구매하기 \t 0.종료");
        System.out.print("선택:  ");
-       List : switch (ScanUtil.nextInt()) {
+       switch (ScanUtil.nextInt()) {
        case 1:
-          List<Map<String,Object>> list = orderListDAO.getorderListinfo(SessionUtil.getInstance().getOrderNO());
+          List<Map<String,Object>> list = orderListDAO.selectCart();
           
-          System.out.println("==========주문목록==========");
-          System.out.println("주문번호\t  상품코드\t  주문수량 ");
+          System.out.println("========== 장바구니 목록 ==========");
+          System.out.println("[ 주문번호\t 상품코드\t 상품명\t 주문수량 ] ");
           
           for (Map<String, Object> map : list) {
-             System.out.printf("%s\t%s\t\t%s\n", map.get("ORD_NO"), map.get("PROD_ID"), map.get("ORD_QTY"));
+             System.out.printf("%s\t%s\t\t%s\t%s\n", map.get("ORD_NO"), map.get("PROD_ID"), map.get("PROD_NAME"),map.get("ORD_QTY"));
           }
-          break;
+          return orderList();
        case 2:
           OrderListDTO orderListDTO2 = new OrderListDTO();
-          System.out.println("상품코드>> ");
+          System.out.println("상품코드:  ");
           orderListDTO2.setProductId(ScanUtil.nextLine());
-          System.out.print("변경할 주문수량>> ");
+          System.out.print("변경할 주문수량: ");
           orderListDTO2.setOrderQuantity(ScanUtil.nextInt());
           
           if (orderListDAO.updateOderQuantity(orderListDTO2)) {
@@ -82,11 +79,13 @@ public class OrderListService {
           } else {
              System.out.println("변경 실패");
           }
-          break;
+          return orderList();
+       
+       case 3:
+    	   
        
        case 0:
           System.out.println("종료");
-          break List;
        }
   
 	return PaymentService.getInstance().paymentList();

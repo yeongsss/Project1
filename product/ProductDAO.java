@@ -168,5 +168,28 @@ public class ProductDAO {
 		param.add(productId);
 		return jdbcUtil.selectOne(sql, param);
 	}
+	
+	// 상품 페이지 검사
+	   
+	   public static Map<String, Object> productPage() {
+	      String sql = "SELECT COUNT(*) FROM PROD"; 
+	      return jdbcUtil.selectOne(sql);
+	   }   
+	
+	
+	
+	
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+

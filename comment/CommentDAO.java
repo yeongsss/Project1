@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 import selectMenu.JDBCUtil;
 
 public class CommentDAO {
@@ -69,22 +68,4 @@ public class CommentDAO {
 		return false;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

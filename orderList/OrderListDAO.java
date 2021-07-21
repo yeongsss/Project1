@@ -6,6 +6,7 @@ import java.util.Map;
 
 import orderSheet.OrderSheetDTO;
 import selectMenu.JDBCUtil;
+import selectMenu.SessionUtil;
 
 public class OrderListDAO {
 
@@ -76,18 +77,21 @@ public class OrderListDAO {
    }
       return false;
    }
-   
+//   ----------------------------------------------------------------------------------------
+   // 장바구니 목록조회
+   public List<Map<String, Object>> selectCart(){
+	   String sql = "SELECT A.ORD_NO,"
+	   			  + "          A.PROD_ID,"
+	   			  + "          B.PROD_NAME,"
+	   			  + "          A.ORD_QTY"
+	   			  + " FROM ORDERLIST A , PROD B "
+	   			  + " WHERE A.PROD_ID = B.PROD_ID "
+	   			  + "   AND A.ORD_NO = "+ SessionUtil.getInstance().getOrderNO();
+	   List<Map<String, Object>> list = new ArrayList<>();
+	   return jdbc.selectList(sql);
+	   
+   }
    
    
    
 }
-
-
-
-
-
-
-
-
-
-

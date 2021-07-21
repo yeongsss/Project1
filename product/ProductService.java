@@ -7,6 +7,8 @@ import java.util.Map;
 
 import member.MemberService;
 import orderList.OrderListService;
+import orderSheet.OrderSheetDAO;
+import orderSheet.OrderSheetDTO;
 import selectMenu.ScanUtil;
 import wishList.WishListService;
 
@@ -29,6 +31,7 @@ public class ProductService {
 	private ProductDAO productDAO = ProductDAO.getInstance();
 	private OrderListService orderListService = OrderListService.getInstance();
 	private WishListService wishListService = WishListService.getInstance();
+	private OrderSheetDAO orderSheetDAO = OrderSheetDAO.getInstance();
 
 	public int listMenu() throws IOException {
 		System.out.println("==========================================================");
@@ -36,6 +39,7 @@ public class ProductService {
 		System.out.println("1.장바구니 등록\t 2.위시리스트 등록\t 0.이전메뉴");
 		switch (ScanUtil.nextInt()) {
 		case 1:
+			orderSheetDAO.OrderSheetNo();
 			return orderListService.insertCart();
 		case 2:
 			return wishListService.addWishList();
@@ -151,16 +155,44 @@ public class ProductService {
 
 			switch (input) {
 			case 1:
-				System.out.println();
-				System.out.println(">> 상품목록을 조회합니다.");
-				System.out.println("[상품코드\t 분류코드 \t 분류명 \t 상품명\t\t\t\t\t가격 ]");
-				System.out.println();
-				List<Map<String, Object>> list = ProductDAO.getProductAllInfo();
-				for (Map<String, Object> map : list) {
-					System.out.printf(" %s\t%s\t%s\t%s\t\t\t%s\n", map.get("PROD_ID"), map.get("CL_ID"),
-							map.get("CL_NAME"), map.get("PROD_NAME"), map.get("PRICE"));
-				}
-				return productManagement();
+			    Map<String, Object> productPage = ProductDAO.productPage();
+	            int totalPage = Integer.parseInt(productPage.get("COUNT(*)").toString());
+	            System.out.println("총 상품목록 페이지는" + (totalPage / 10) + "페이지 입니다");
+
+	            while (true) {
+	               
+	               System.out.println("확인할 페이지를 입력하세요\t\t 0.뒤로가기");
+	               int i = ScanUtil.nextInt();
+	               if ((totalPage / 10) < i) {
+	               System.out.println("범위 내 페이지를 입력하세요");
+	               continue;
+	                  
+	               }
+	               if (i == 1) {
+	                  i = 1;
+	               }
+	               else {
+	                  i = i * 10;
+	               }
+
+	               int p = 10;
+	               int z = i - 1;
+	               System.out.println();
+	               System.out.println(" < 상품목록 >   ");
+	               System.out.println("[상품코드\t 분류코드\t 분류명\t 상품명\t\t\t\t\t\t 가격 ]");
+	               List<Map<String, Object>> list = ProductDAO.getProductAllInfo();
+
+	               for (i = i - 1; i < z + p; ++i) {
+	                  System.out.printf("%s", list.get(i).get("PROD_ID"));
+	                  System.out.printf("\t%10s", list.get(i).get("CL_ID"));
+	                  System.out.printf("\t%s", list.get(i).get("CL_NAME"));
+	                  System.out.printf("\t%s", list.get(i).get("PROD_NAME"));
+	                  System.out.printf("\t%s\n", list.get(i).get("PRICE"));
+
+	               }
+	               System.out.println("보고계시는 페이지는" + (i / 10) + " 페이지 입니다");
+	            }
+
 			case 2:
 				System.out.println("상품 등록 메뉴로 이동합니다");
 				return addProduct();
@@ -213,7 +245,12 @@ public class ProductService {
 			return productManagement();
 		} catch (NumberFormatException e) {
 			System.out.println("메뉴 선택은 숫자로만 입력해 주세요");
-		}
+			
+		}catch (IndexOutOfBoundsException e) {
+	         return productManagement();
+
+	      }
+
 		return productManagement();
 
 	}

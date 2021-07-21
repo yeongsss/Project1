@@ -1,6 +1,6 @@
 package comment;
 
-public class commentTest {
+public class CommentTest {
 	public static void main(String[] args) {
 		CommentService commentService = CommentService.getInstance();
 		

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import controller.Controller;
 import orderList.OrderListService;
+import orderSheet.OrderSheetDAO;
 import product.ProductService;
 import purchase.PurchaseService;
 import qnaBoard.QnABoardService;
@@ -37,6 +38,7 @@ public class MemberService {
 	private static ProductService productService = ProductService.getInstance();
 	private static QnABoardService qnaBoardService = QnABoardService.getInstance();
 //	private static WishListService WishListService = WishListService.getInstance();
+	private static OrderSheetDAO orderSheetDAO = OrderSheetDAO.getInstance();
 	
 
 	public int join() {
@@ -218,14 +220,17 @@ public class MemberService {
 				System.out.println(">> 수정할 정보를 선택하세요.");
 				return editInfo();// 정보 수정 뷰로 이동함
 			case 3:
-				System.out.println();
-				System.out.println(">> 주문내역을 조회합니다.");
-				List<Map<String, Object>> list = MemberDAO.getOrderList(Controller.loginUser.get("MEM_ID"));
-				for (Map<String, Object> map : list) {
-					System.out.printf("주문번호: %s\t주문일자: %s\t주문가격: %s\n", map.get("ORD_NO"),
-							map.get("ORD_DATE").toString().split("")[0], map.get("PAY_PRICE"));
-
-				}
+				
+				List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo((String)Controller.loginUser.get("MEM_ID"));
+				
+//				System.out.println();
+//				System.out.println(">> 주문내역을 조회합니다.");
+//				List<Map<String, Object>> list = MemberDAO.getOrderList(Controller.loginUser.get("MEM_ID"));
+//				for (Map<String, Object> map : list) {
+//					System.out.printf("주문번호: %s\t주문일자: %s\t주문가격: %s\n", map.get("ORD_NO"),
+//							map.get("ORD_DATE").toString().split("")[0], map.get("PAY_PRICE"));
+//
+//				}
 				return myPage(); // 주문내역 결과 반환후, 마이페이지로 다시 이동함.
 			case 0:
 				
