@@ -43,7 +43,7 @@ public class MemberService {
 	
 
 	public int join() {
-		
+			System.out.println();
 			System.out.println("==================================== 회원가입 ===================================");
 			System.out.print("아이디 : ");
 			String memberId = ScanUtil.nextLine();
@@ -57,7 +57,8 @@ public class MemberService {
 				
 			}
 			else {
-				System.out.println("이미 가입된 아이디 입니다 다른 아이디를 입력하세요");
+				System.out.println();
+				System.out.println(">> 이미 가입된 아이디 입니다 다른 아이디를 입력하세요");
 				return join();
 			}
 			System.out.print("비밀번호: ");
@@ -66,12 +67,7 @@ public class MemberService {
 			String memberName = ScanUtil.nextLine();
 			System.out.print("생년월일: ");
 			String memberBirth = ScanUtil.nextLine();
-			if (memberBirth.length() >= 8) {
-				System.out.println("생년월일은 990801-1 과 같은 형식으로 입력해 주세요");
-				System.out.print("생년월일을 재입력: ");
-				memberBirth = ScanUtil.nextLine();
-
-			}
+			
 			System.out.print("전화번호: ");
 			String memberHp = ScanUtil.nextLine();
 			System.out.print("기본주소: ");
@@ -92,10 +88,13 @@ public class MemberService {
 			int result = MemberDAO.insertMember(param);
 
 			if (0 < result) {
-				System.out.println("회원가입에 성공했습니다.");
+				System.out.println();
+				System.out.println(">> 회원가입에 성공했습니다.");
+				System.out.println();
 			} else {
-				System.out.println("회원가입에 실패했습니다.");
-			
+				System.out.println();
+				System.out.println(">> 회원가입에 실패했습니다.");
+				System.out.println();
 			}
 			
 			return View.HOME;
@@ -105,6 +104,7 @@ public class MemberService {
 // 로그인실패시  다시 입력받기 OR 메인화면 이동 선택가능하게 수정
 	public int login() throws IOException {
 		try {
+			System.out.println();
 			System.out.println("==================================== 로그인 =====================================");
 			while (true) {
 				System.out.print("아이디 :  ");
@@ -127,6 +127,7 @@ public class MemberService {
 
 				} else {
 					Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
+					System.out.println();
 					System.out.println(Controller.loginUser.get("MEM_NAME") + "님 어서오세요!");
 					orderSheetDAO.OrderSheetNo();
 					if (Controller.loginUser == null) {
@@ -156,7 +157,7 @@ public class MemberService {
 		
 		System.out.println();
 		System.out.println("=================================== 일반 회원 ===================================");
-		System.out.println("1.마이페이지 \t 2.상품메뉴 \t 3. 장바구니\t 4.위시리스트 \t 0. 로그아웃 ");
+		System.out.println("1.마이페이지 \t 2.상품메뉴 \t 3. 장바구니\t 4.위시리스트\t 5.QnA게시판 \t 0. 로그아웃 ");
 		System.out.println("=================================================================================");
 		System.out.print("번호 입력: ");
 		switch (ScanUtil.nextInt()) {
@@ -178,6 +179,11 @@ public class MemberService {
 			System.out.println();
 			System.out.println(">> 위시리스트로 이동합니다.");
 			return WishListService.getInstance().Wishlist();
+		case 5:
+			System.out.println();
+			System.out.println(">> QnA게시판으로 이동합니다.");
+			return QnABoardService.getInstance().qnaBoardMember();
+		
 		case 0:
 			Controller.loginUser = null;
 			System.out.println();
@@ -210,7 +216,7 @@ public class MemberService {
 				System.out.println(">> 내정보를 조회합니다.");
 				List<Map<String, Object>> memberInfo = MemberDAO.getMemberInfo((String) Controller.loginUser.get("MEM_ID"));
 				for (Map<String, Object> map : memberInfo) {
-					System.out.printf("아이디: %s\n이름: %s\n생년월일: %s\n전화번호: %s\n기본주소: %s\n상세주소: %s\n", map.get("MEM_ID"),
+					System.out.printf("아이디: %s\n이름: %s\n생년월일: %s\n전화번호: %s\n 주소: %s  %s\n", map.get("MEM_ID"),
 							map.get("MEM_NAME"), map.get("MEM_BIRTH"), map.get("MEM_HP"), map.get("MEM_ADD1"),
 							map.get("MEM_ADD2"));
 				}
@@ -222,7 +228,7 @@ public class MemberService {
 				System.out.println(">> 수정할 정보를 선택하세요.");
 				return editInfo();// 정보 수정 뷰로 이동함
 			case 3:
-				
+				System.out.println("---------------------------------------- 주문내역 -------------------------------");
 				List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo();
 				System.out.println("주문번호\t| 아이디\t| 주문일\t| 배송지\t| 결제금액\t| 결제상태\t| 배송상태");
 				for (Map<String, Object> map : list) {
@@ -230,10 +236,7 @@ public class MemberService {
 							map.get("ORD_DATE").toString().split(" ")[0], map.get("ADRESS"), map.get("PRICE"),
 							map.get("PAY_ST"), map.get("DEL_ST"));
 				}
-			
-			
-			
-			
+				System.out.println("---------------------------------------------------------------------------------");
 			
 				return myPage(); // 주문내역 결과 반환후, 마이페이지로 다시 이동함.
 			case 0:
@@ -371,18 +374,18 @@ public class MemberService {
 
 			switch (input) {
 			case 1:// 모든 회원들 정보 보기
-				System.out.println();
-				System.out.println(">> 회원정보를 조회합니다.");
-				System.out.println();
-				System.out.println("[  \t아이디  | \t이름  |   \t생년월일  | \t전화번호  | \t주소 ]  ");
-				System.out.println();
-				List<Map<String, Object>> list = MemberDAO.getMemberAllInfo();
-				int cnt = 1;
-				for (Map<String, Object> map : list) {
-					System.out.printf("%s\t%s\t\t%s\t\t%s\t\t %s  \t %s  %s\t [%s]\n", cnt++, map.get("MEM_ID"),
-							map.get("MEM_NAME"), map.get("MEM_BIRTH"), map.get("MEM_HP"), map.get("MEM_ADD1"),
-							map.get("MEM_ADD2"), map.get("AUTHOR"));
-				}
+	            System.out.println();
+	            System.out.println(">> 회원정보를 조회합니다.");
+	            System.out.println();
+	            System.out.println("[  \t\t\t아이디  | \t이름  |   \t생년월일  |   \t\t전화번호  | \t\t\t\t주소 \t\t\t  권한]  ");
+	            System.out.println();
+	            List<Map<String, Object>> list = MemberDAO.getMemberAllInfo();
+	            int cnt = 1;
+	            for (Map<String, Object> map : list) {
+	               System.out.printf("%12s\t%12s\t\t%s\t\t%8s\t\t %s  \t %15s  %-15s\t [%-2s]\n", cnt++, map.get("MEM_ID"),
+	                     map.get("MEM_NAME"), map.get("MEM_BIRTH"), map.get("MEM_HP"), map.get("MEM_ADD1"),
+	                     map.get("MEM_ADD2"), map.get("AUTHOR"));
+	            }
 
 				return memberManagement();
 			case 2:
@@ -401,11 +404,6 @@ public class MemberService {
 				String author = bufferedReader.readLine();
 				memberDTO.setAuthor(author);
 
-				if (memberDTO.getAuthor() != "0" && memberDTO.getAuthor() != "1") {
-					System.out.println("권한은 0 또는 1만 입력 가능합니다.");
-					System.out.print("일반회원으로 변경은 0, 관리자로 변경은 1을 입력하세요");
-					memberDTO.setAuthor(ScanUtil.nextLine());
-				}
 
 				if (MemberDAO.ChangeMemberAuthor(memberDTO)) {
 					System.out.println("권한변경 성공");

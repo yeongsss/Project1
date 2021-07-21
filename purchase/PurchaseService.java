@@ -32,12 +32,14 @@ public class PurchaseService {
 	// 매입 (재고수량도 조정.)
 
 	public int purchase() throws IOException {
-		System.out.println("========== 매입 신청 ============");
+		System.out.println("--------------------------------------- 매입 신청 ----------------------------------------");
 		System.out.print("상품코드를 입력하세요");
 		String productId = ScanUtil.nextLine();
 		System.out.print("매입수량을 입력하세요>");
 		int puroductQuantity = ScanUtil.nextInt();
-
+		System.out.println("------------------------------------------------------------------------------------------");
+		System.out.println();
+		
 		Map<String, Object> param = new HashMap<>();
 		param.put("PROD_ID", productId);
 		param.put("PU_QTY", puroductQuantity);
@@ -81,23 +83,25 @@ public class PurchaseService {
 
 	public int purchaseManagement() throws IOException {
 		try {
-			System.out.println("--------------매입관리 페이지 입니다---------------");
+			System.out.println();
+			System.out.println("------------------------------------매입관리 페이지 --------------------------------------");
 			System.out.println("1.매입내역 조회\t2.매입 신청\t3.매입 취소\t0.이전페이지");
-			System.out.println("------------------------------------------");
+			System.out.println("------------------------------------------------------------------------------------------");
 			System.out.print("번호 입력>");
 			int input = ScanUtil.nextInt();
 
 			switch (input) {
 			case 1:
+				System.out.println();
 	            System.out.println("매입내역을 조회합니다");
 	            List<Map<String, Object>> list = purchaseDAO.getPurchaseAllInfo();
 	            for (Map<String, Object> map : list) {
 	               System.out.printf("%s\t%s\t%s\t%s\t%s\n", map.get("PU_NO"), map.get("PROD_ID"),map.get("PROD_NAME").toString().substring(0,11) ,map.get("PU_DATE").toString().split(" ")[0],
 	                     map.get("PU_QTY"));
 	            }
-
 				return purchaseManagement();
 			case 2:
+				System.out.println();
 				System.out.println("매입신청 페이지로 이동합니다");
 				return purchase();
 			case 3:

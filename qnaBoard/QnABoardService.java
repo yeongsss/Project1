@@ -62,7 +62,7 @@ public class QnABoardService {
 				System.out.print("삭제할 번호 입력:  ");
 				int input = ScanUtil.nextInt();
 				if (commentDAO.deleteComment(input)) {
-					if (qnABoardDAO.deleteQnA(ScanUtil.nextInt())) {
+					if (qnABoardDAO.deleteQnA(input)) {
 						System.out.println("삭제 완료!");
 					}
 				} else {
@@ -106,8 +106,9 @@ public class QnABoardService {
 		int cnt = 1;
 		qna: while (true) {
 			System.out.println();
-			System.out.println("========================== QnA ==========================");
+			System.out.println("--------------------------------------- QnA -------------------------------------");
 			System.out.println("1.QnA 조회 \t 2.QnA등록 \t 3.QnA글 검색(아이디)\t 4.QnA 수정 \t 0.종료");
+			System.out.println("---------------------------------------------------------------------------------");
 			System.out.print("선택>> ");
 			int input = ScanUtil.nextInt();
 			if (input >= 0 && input < 5) {
@@ -117,8 +118,7 @@ public class QnABoardService {
 				case 1:
 					List<Map<String, Object>> list = qnABoardDAO.allQnaBoard();
 					for (Map<String, Object> map : list) {
-						System.out.println(
-								"-------------------------------------------------------------------------------------------");
+						System.out.println();
 						System.out.printf("%s\nNo( %s)\t작성일: %s\t작성자: %s\t제목: %s\n", (cnt++), map.get("BOARD_NO"),
 								map.get("Q_DATE").toString().split(" ")[0], map.get("MEM_ID"), map.get("Q_TITLE"));
 //						System.out.println();
@@ -128,13 +128,15 @@ public class QnABoardService {
 				// 등록
 				case 2:
 					QnABoardDTO qnABoardDTO = new QnABoardDTO();
-
+					System.out.println();
+					System.out.println("------------------------------------------");
 					System.out.print("아이디>>");
 					qnABoardDTO.setMemberId(ScanUtil.nextLine());
 					System.out.print("제목>>");
 					qnABoardDTO.setQnaTitle(ScanUtil.nextLine());
-					System.out.println("내용>>");
+					System.out.print("내용>>");
 					qnABoardDTO.setQnaContent(ScanUtil.nextLine());
+					System.out.println("------------------------------------------");
 
 					if (qnABoardDAO.insertQnABoard(qnABoardDTO)) {
 						System.out.println("QnA등록 성공");
@@ -150,7 +152,7 @@ public class QnABoardService {
 
 					for (Map<String, Object> map : qnaBoard) {
 						System.out.println(
-								"------------------------------------------------------------------------------------------------");
+								"------------------------------------------");
 						System.out.print("=>  ");
 						System.out.printf("No(%s)\t작성일: %s\t작성자: %s\n\t\t\t제목: %s\n\t\t\t내용: %s\n", map.get("BOARD_NO"),
 								map.get("Q_DATE").toString().split(" ")[0], map.get("MEM_ID"), map.get("Q_TITLE"),

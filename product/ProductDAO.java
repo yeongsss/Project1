@@ -66,7 +66,7 @@ public class ProductDAO {
 
 	public static List<Map<String, Object>> getproductList(String category) {
 		ProductDTO productInfo = new ProductDTO();
-		String sql = "SELECT * FROM PROD" + " WHERE" + " CL_NAME= ?";
+		String sql = "SELECT * FROM PROD" + " WHERE" + " CL_NAME= ? ORDER BY PROD_ID ASC";
 		List<Object> param = new ArrayList<>();
 		param.add(category);
 		return jdbcUtil.selectList(sql, param);
@@ -74,7 +74,7 @@ public class ProductDAO {
 
 	// 전체 상품조회 -관리자
 	public static List<Map<String, Object>> getProductAllInfo() {
-		String sql = "SELECT * FROM PROD";
+		String sql = "SELECT * FROM PROD ORDER BY PROD_ID ASC";
 		List<Map<String, Object>> resMap = jdbcUtil.selectList(sql);
 
 		return resMap;
