@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import orderSheet.OrderSheetDTO;
+import product.ProductDTO;
 import selectMenu.JDBCUtil;
 import selectMenu.SessionUtil;
 
@@ -51,17 +52,40 @@ public class OrderListDAO {
    }
    //주문수량 수정
    public boolean updateOderQuantity(OrderListDTO update) {
-      String sql = "UPDATE ORDERLIST SET ORD_QTY = ? WHERE PROD_ID = ?";
+      String sql = " UPDATE ORDERLIST "
+      	     	 + "    SET ORD_QTY = ?" //변경할 수량
+      	     	 + " WHERE PROD_ID = ? " //변결할 상품코드
+      	     	 + " AND ORD_NO = ? "; // SessionUtil.getInstance().getOrderNO()
       
       List<Object> list = new ArrayList<>();
       list.add(update.getOrderQuantity());
       list.add(update.getProductId());
+      list.add(update.getOrderNumber());
       
-      if(jdbc.update(sql, list) == 1) {
+      if(jdbc.update(sql,list) == 1) {
          return true;
       }
       return false;
    }
+   // 장바구니 수량증가
+   public boolean plusQuantity(OrderListDTO data) {
+	String sql = "    UPDATE ORDERLIST"
+			   + "           SET ORD_QTY= ORD_QTY + 1"
+			   + "     WHERE PROD_ID = ? "
+			   + "         AND ORD_NO = ? ";
+	List<Object> list = new ArrayList<Object>();
+	list.add(data.getProductId());
+	list.add(data.getOrderNumber());
+	
+	if (jdbc.update(sql, list)>0) {
+		return true;
+	}
+	return false;
+}
+   
+   
+   
+   
    
    //주문 삭제
    public boolean deleteOrderList(int orderSheet) {
@@ -86,9 +110,21 @@ public class OrderListDAO {
 	   			  + "          A.ORD_QTY"
 	   			  + " FROM ORDERLIST A , PROD B "
 	   			  + " WHERE A.PROD_ID = B.PROD_ID "
-	   			  + "   AND A.ORD_NO = "+ SessionUtil.getInstance().getOrderNO();
-	   List<Map<String, Object>> list = new ArrayList<>();
+	   			  + "   AND A.ORD_NO = "+ SessionUtil.getInstance().getOrderNO()+ "";
 	   return jdbc.selectList(sql);
+	   
+   }
+   // 주문수량 가져오기
+   public void selectQty(){
+	   String sql = " SELECT ORD_QTY "
+	   		      + " FROM ORDERLIST "
+	   		      + " WHERE ORD_NO = "+ SessionUtil.getInstance().getOrderNO();
+	   List<Map<String, Object>> list = new ArrayList<>();
+	   list=jdbc.selectList(sql);
+	   SessionUtil.getInstance().setOrderQty(Integer.parseInt(list.get(0).get("ORD_QTY")+""));
+	   
+	   // SessionUtil.getInstance().getOrderQty()
+			   
 	   
    }
    

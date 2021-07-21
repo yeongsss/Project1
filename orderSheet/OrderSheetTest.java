@@ -16,7 +16,7 @@ public class OrderSheetTest {
 		switch (ScanUtil.nextInt()) {
 		case 1:
 			System.out.print("확인할 아이디:");
-			List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo(ScanUtil.nextLine());
+			List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo();
 			
 			System.out.println("============================ 주문서 ==============================");
 			System.out.println("주문번호\t | 아이디\t | 주문일자\t | 주소\t | 상세주소\t | 주문가격\t | 주문현황\t | 배송현황\t");

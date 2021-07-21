@@ -16,6 +16,7 @@ import purchase.PurchaseService;
 import qnaBoard.QnABoardService;
 import selectMenu.JDBCUtil;
 import selectMenu.ScanUtil;
+import selectMenu.SessionUtil;
 import selectMenu.View;
 import wishList.WishListService;
 
@@ -127,6 +128,7 @@ public class MemberService {
 				} else {
 					Controller.loginUser = user; // 접속한 유저를 확인하기 위한 변수
 					System.out.println(Controller.loginUser.get("MEM_NAME") + "님 어서오세요!");
+					orderSheetDAO.OrderSheetNo();
 					if (Controller.loginUser == null) {
 						return View.HOME;
 					}
@@ -221,16 +223,18 @@ public class MemberService {
 				return editInfo();// 정보 수정 뷰로 이동함
 			case 3:
 				
-				List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo((String)Controller.loginUser.get("MEM_ID"));
-				
-//				System.out.println();
-//				System.out.println(">> 주문내역을 조회합니다.");
-//				List<Map<String, Object>> list = MemberDAO.getOrderList(Controller.loginUser.get("MEM_ID"));
-//				for (Map<String, Object> map : list) {
-//					System.out.printf("주문번호: %s\t주문일자: %s\t주문가격: %s\n", map.get("ORD_NO"),
-//							map.get("ORD_DATE").toString().split("")[0], map.get("PAY_PRICE"));
-//
-//				}
+				List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo();
+				System.out.println("주문번호\t| 아이디\t| 주문일\t| 배송지\t| 결제금액\t| 결제상태\t| 배송상태");
+				for (Map<String, Object> map : list) {
+					System.out.printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\n", map.get("ORD_NO"), map.get("MEM_ID"),
+							map.get("ORD_DATE").toString().split(" ")[0], map.get("ADRESS"), map.get("PRICE"),
+							map.get("PAY_ST"), map.get("DEL_ST"));
+				}
+			
+			
+			
+			
+			
 				return myPage(); // 주문내역 결과 반환후, 마이페이지로 다시 이동함.
 			case 0:
 				

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import controller.Controller;
+import orderList.OrderListDAO;
 import selectMenu.JDBCUtil;
 import selectMenu.SessionUtil;
 
@@ -31,13 +32,17 @@ public class OrderSheetDAO {
 	
 	
 	// 로그인된 아이디의 주문서 조회
-	public List<Map<String, Object>> getOrderSheetInfo(String member) {
-		OrderSheetDTO orderSheetInfo = new OrderSheetDTO();
-		String sql = "SELECT * FROM ORDSHEET WHERE MEM_ID = ?";
+	public List<Map<String, Object>> getOrderSheetInfo() {
+		String sql = " SELECT ORD_NO, MEM_ID, ORD_DATE, ORD_ADD1 || ' ' || ORD_ADD2 AS ADRESS,"
+				   + "        NVL(PAY_PRICE,'0') AS PRICE,"
+				   + "        NVL(PAY_STATE,'결제대기')AS PAY_ST ,"
+				   + "        NVL(DELIVERY_STATE,'배송준비중') AS DEL_ST"
+				   + " FROM ORDSHEET"
+				   + " WHERE ORD_NO ="+ SessionUtil.getInstance().getOrderNO()+"";
 		
 		List<Object> list = new ArrayList<>();
-		list.add(member);
-		return jdbc.selectList(sql, list);
+	
+		return jdbc.selectList(sql);
 		
 	}
 	
@@ -58,7 +63,7 @@ public class OrderSheetDAO {
 		List<Map<String , Object>> list = jdbc.selectList(no);
 		
 		
-		System.out.println(Integer.parseInt(list.get(0).get("ORD_NO")+""));
+//		System.out.println(Integer.parseInt(list.get(0).get("ORD_NO")+""));
 		SessionUtil.getInstance().setOrderNO(Integer.parseInt(list.get(0).get("ORD_NO")+""));	
 //		System.out.println(Integer.parseInt(list.get(0).get("ORD_NO").toString()));
 //		System.out.println( SessionUtil.getInstance().getOrderNO());
@@ -107,5 +112,27 @@ public class OrderSheetDAO {
 		return jdbc.update(sql, list);
 		
 	}
+
+//	결제금액 
+	public void paymentPrice() {
+		String sql = " SELECT SUM(B.PRICE * A.ORD_QTY) AS PRICE "
+				   + " FROM ORDERLIST A, PROD B"
+				   + " WHERE A.PROD_ID(+) = B.PROD_ID"
+				   + " AND A.ORD_NO= "+ SessionUtil.getInstance().getOrderNO()+"";
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		list = jdbc.selectList(sql);
+		
+		SessionUtil.getInstance().setPrice(Integer.parseInt(list.get(0).get("PRICE").toString()));
+	}
+	// SessionUtil.getInstance().getPrice()	
+	
+	
 	
 }
+
+
+
+
+
+

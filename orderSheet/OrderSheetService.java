@@ -6,6 +6,7 @@ import java.util.Map;
 import controller.Controller;
 import purchase.PurchaseDAO;
 import purchase.PurchaseService;
+import selectMenu.SessionUtil;
 
 public class OrderSheetService {
 	private static OrderSheetService instance;
@@ -23,7 +24,7 @@ public class OrderSheetService {
 	
 	//주문내역 
 	public void orderList() {
-		List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo((String)Controller.loginUser.get("MEM_ID"));
+		List<Map<String,Object>> list = orderSheetDAO.getOrderSheetInfo();
 		for (Map<String, Object> map : list) {
 			System.out.printf("주문번호:%s\t아이디:%s\t주문일:%s\t배송지:%s %s\t결제금액%s\t결제상태%s\t배송상태%s",map.get("ORD_NO"),
 					map.get("MEM_ID"),map.get("ORD_DATE").toString().split(" ")[0],map.get("ORD_ADD1"),map.get("ORD_ADD2"),
@@ -32,18 +33,7 @@ public class OrderSheetService {
 		
 	}
 	
-	//결제금액 
-//	public int paymentPrice() {
-//		String sql = "SELECT A.ORD_NO,"
-//				   + "	SUM(PRICE * ORD_QTY) AS PAY_PRICE"
-//				   + " FROM ORDERLIST A, PROD B, ORDSHEET C"
-//				   + " WHERE A.PROD_ID=B.PROD_ID"
-//				   + " AND A.ORDERLIST_NO= C.ORDSHEET"
-//				   + " GROUP BY A.ORD_NO";
-//		
-//			
-//	}
-	
+
 	
 	
 	

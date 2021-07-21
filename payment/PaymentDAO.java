@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import orderSheet.OrderSheetDTO;
 import paymentMethod.PaymentMethodDTO;
 import selectMenu.JDBCUtil;
+import selectMenu.SessionUtil;
 
 public class PaymentDAO {
 
@@ -50,4 +52,23 @@ public class PaymentDAO {
 		}
 		return false;
 	}
+
+// 결제
+	public boolean payment(OrderSheetDTO ord) {
+		String sql = " UPDATE ORDSHEET "
+				   + "       SET ORD_ADD1 = ? , ORD_ADD2 =  ? , PAY_PRICE = "+ SessionUtil.getInstance().getPrice() +" ,"
+				   + " PAY_STATE = ?, DELIVERY_STATE= '배송 준비중' "
+				   + "  WHERE ORD_NO="+ SessionUtil.getInstance().getOrderNO() +"" ;
+		List<Object>list = new ArrayList<Object>();
+		list.add(ord.getOrderAdd1());
+		list.add(ord.getOrderAdd2());
+//		list.add(ord.getPayPrice());
+		list.add(ord.getPayState());
+		
+		if (jdbc.update(sql, list)>0) {
+			return true;
+		}
+		return false;
+	}
+	
 }

@@ -69,7 +69,7 @@ public class WishListService {
 		}
 		
 		
-		return Wishlist();
+		return ProductService.getInstance().productList();
 		
 	}
 	
